@@ -48,6 +48,10 @@ jobs:
           find public -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \; 2>/dev/null || true
           find public -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \; 2>/dev/null || true
 
+      - name: Export static site with django-distill
+        run: |
+          python manage.py distill-local public
+
       - name: Push to GitHub Pages
         run: |
           mkdir -p gh-pages-build

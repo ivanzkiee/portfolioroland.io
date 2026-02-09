@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'portfolio',
+    'django_distill',
 ]
 
 # Build middleware list and include WhiteNoise only if available.
