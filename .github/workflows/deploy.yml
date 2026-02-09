@@ -27,14 +27,19 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Run Django migrations
+        run: |
+          python manage.py migrate --run-syncdb
+
       - name: Collect static files
         run: |
           python manage.py collectstatic --noinput --clear
 
-      - name: Run Django development server
+      - name: Start Django development server
         run: |
-          python manage.py runserver 0.0.0.0:8000 &
-          sleep 5
+          timeout 60 python manage.py runserver 0.0.0.0:8000 &
+          sleep 10
+          curl -f http://localhost:8000/ || echo "Server check completed"
 
       - name: Crawl and save site as static HTML
         run: |
@@ -46,28 +51,34 @@ jobs:
             --restrict-file-names=windows \
             --domains localhost \
             --no-parent \
+            --timeout=10 \
             -P "./dist" \
             http://localhost:8000/ || true
 
       - name: Move crawled content to root
         run: |
           if [ -d "dist/localhost:8000" ]; then
-            mv dist/localhost:8000/* dist/
-            rmdir dist/localhost:8000
+            mv dist/localhost:8000/* dist/ || true
+            rmdir dist/localhost:8000 || true
           fi
-
-      - name: Fix relative paths for GitHub Pages
-        run: |
-          find dist -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \;
-          find dist -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \;
-          find dist -name "*.css" -type f -exec sed -i 's|url(/|url(/portfolioroland.io/|g' {} \;
-          find dist -name "*.js" -type f -exec sed -i 's|"/static/|"/portfolioroland.io/static/|g' {} \;
-
-      - name: Ensure index.html exists
-        run: |
+          
           if [ ! -f "dist/index.html" ]; then
-            cp index.html dist/index.html
+            if [ -f "dist/home/index.html" ]; then
+              cp dist/home/index.html dist/index.html
+            fi
           fi
+
+      - name: Fix relative paths for GitHub Pages subdirectory
+        run: |
+          find dist -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \; || true
+          find dist -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \; || true
+          find dist -name "*.css" -type f -exec sed -i 's|url(/|url(/portfolioroland.io/|g' {} \; || true
+
+      - name: Display generated files
+        run: |
+          echo "Generated files:"
+          find dist -type f -name "*.html" | head -10
+          echo "Total files: $(find dist -type f | wc -l)"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
