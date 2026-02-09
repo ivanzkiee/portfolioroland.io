@@ -1,0 +1,52 @@
+name: Build and Deploy Portfolio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install and Build
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python manage.py migrate --run-syncdb
+          python manage.py collectstatic --noinput --clear
+          python manage.py runserver 0.0.0.0:8000 &
+          sleep 15
+          mkdir -p public
+          wget --mirror \
+            --page-requisites \
+            --adjust-extension \
+            --convert-links \
+            --restrict-file-names=windows \
+            --domains localhost \
+            -P "./public" \
+            http://localhost:8000/ || true
+          
+          [ -d "public/localhost:8000" ] && mv public/localhost:8000/* public/ && rmdir public/localhost:8000 || true
+          find public -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \; 2>/dev/null || true
+          find public -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \; 2>/dev/null || true
+
+      - name: Push to GitHub Pages
+        run: |
+          mkdir -p gh-pages-build
+          cp -r public/* gh-pages-build/ 2>/dev/null || true
+          cd gh-pages-build
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git init
+          git add .
+          git commit -m "Deploy to GitHub Pages" || exit 0
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:gh-pages
