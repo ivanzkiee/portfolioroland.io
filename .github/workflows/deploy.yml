@@ -5,9 +5,6 @@ on:
     branches:
       - main
   workflow_dispatch:
-  schedule:
-    # Run daily to keep GitHub Pages in sync with Vercel
-    - cron: '0 0 * * *'
 
 permissions:
   contents: read
@@ -20,29 +17,62 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download portfolio from Vercel
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Collect static files
+        run: |
+          python manage.py collectstatic --noinput --clear
+
+      - name: Run Django development server
+        run: |
+          python manage.py runserver 0.0.0.0:8000 &
+          sleep 5
+
+      - name: Crawl and save site as static HTML
+        run: |
+          mkdir -p dist
           wget --mirror \
             --page-requisites \
             --adjust-extension \
-            --span-hosts \
             --convert-links \
             --restrict-file-names=windows \
-            --domains portfolioroland.io \
-            --exclude-directories=/admin \
+            --domains localhost \
             --no-parent \
             -P "./dist" \
-            https://portfolioroland.io/
+            http://localhost:8000/ || true
 
-      - name: Fix relative paths for GitHub Pages subdirectory
+      - name: Move crawled content to root
         run: |
-          find ./dist -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \;
-          find ./dist -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \;
+          if [ -d "dist/localhost:8000" ]; then
+            mv dist/localhost:8000/* dist/
+            rmdir dist/localhost:8000
+          fi
+
+      - name: Fix relative paths for GitHub Pages
+        run: |
+          find dist -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \;
+          find dist -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \;
+          find dist -name "*.css" -type f -exec sed -i 's|url(/|url(/portfolioroland.io/|g' {} \;
+          find dist -name "*.js" -type f -exec sed -i 's|"/static/|"/portfolioroland.io/static/|g' {} \;
+
+      - name: Ensure index.html exists
+        run: |
+          if [ ! -f "dist/index.html" ]; then
+            cp index.html dist/index.html
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: './dist/portfolioroland.io'
+          path: './dist'
 
   deploy:
     runs-on: ubuntu-latest
