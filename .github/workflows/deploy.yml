@@ -9,13 +9,11 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pages: write
-      id-token: write
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -27,15 +25,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Django migrations
-        run: |
-          python manage.py migrate --run-syncdb
+      - name: Run migrations
+        run: python manage.py migrate --run-syncdb
 
       - name: Collect static files
-        run: |
-          python manage.py collectstatic --noinput --clear
+        run: python manage.py collectstatic --noinput --clear
 
-      - name: Start Django server and crawl site
+      - name: Build static site
         run: |
           python manage.py runserver 0.0.0.0:8000 &
           sleep 15
@@ -47,29 +43,27 @@ jobs:
             --restrict-file-names=windows \
             --domains localhost \
             --no-parent \
-            --timeout=10 \
             -P "./dist" \
             http://localhost:8000/ || true
-
-      - name: Prepare build output
-        run: |
+          
           if [ -d "dist/localhost:8000" ]; then
             mv dist/localhost:8000/* dist/ || true
             rmdir dist/localhost:8000 || true
           fi
           
-          if [ ! -f "dist/index.html" ] && [ -f "dist/home/index.html" ]; then
-            cp dist/home/index.html dist/index.html
-          fi
-          
-          find dist -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \; || true
-          find dist -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \; || true
-          find dist -name "*.css" -type f -exec sed -i 's|url(/|url(/portfolioroland.io/|g' {} \; || true
+          find dist -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \; 2>/dev/null || true
+          find dist -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \; 2>/dev/null || true
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: portfolioroland.io
+      - name: Deploy to gh-pages branch
+        run: |
+          mkdir -p deploy
+          cp -r dist/* deploy/ 2>/dev/null || true
+          cd deploy
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git init
+          git add -A
+          git commit -m "Deploy portfolio to GitHub Pages" || true
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:gh-pages
+
 
