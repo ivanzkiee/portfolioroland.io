@@ -35,6 +35,15 @@ jobs:
             -P "./public" \
             http://localhost:8000/ || true
           
+          # Explicitly crawl all important pages
+          wget --mirror --page-requisites --adjust-extension --convert-links --restrict-file-names=windows --domains localhost -P "./public" http://localhost:8000/about/ || true
+          wget --mirror --page-requisites --adjust-extension --convert-links --restrict-file-names=windows --domains localhost -P "./public" http://localhost:8000/skills/ || true
+          wget --mirror --page-requisites --adjust-extension --convert-links --restrict-file-names=windows --domains localhost -P "./public" http://localhost:8000/projects/ || true
+          wget --mirror --page-requisites --adjust-extension --convert-links --restrict-file-names=windows --domains localhost -P "./public" http://localhost:8000/experience/ || true
+          wget --mirror --page-requisites --adjust-extension --convert-links --restrict-file-names=windows --domains localhost -P "./public" http://localhost:8000/resume/ || true
+          wget --mirror --page-requisites --adjust-extension --convert-links --restrict-file-names=windows --domains localhost -P "./public" http://localhost:8000/certificates/ || true
+          wget --mirror --page-requisites --adjust-extension --convert-links --restrict-file-names=windows --domains localhost -P "./public" http://localhost:8000/contact/ || true
+
           [ -d "public/localhost:8000" ] && mv public/localhost:8000/* public/ && rmdir public/localhost:8000 || true
           find public -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \; 2>/dev/null || true
           find public -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \; 2>/dev/null || true
