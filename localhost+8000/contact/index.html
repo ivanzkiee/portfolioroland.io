@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Portfolio</title>
+    
+    <!-- Critical CSS to ensure dark theme loads immediately -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+    </style>
+    <link rel="stylesheet" href="../static/portfolio/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="../index.html">Portfolio</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="">Home</a></li>
+                <li><a href="../about/index.html" class="">About Me</a></li>
+                <li><a href="../skills/index.html" class="">Skills</a></li>
+                <li><a href="../projects/index.html" class="">Projects</a></li>
+                <li><a href="../experience/index.html" class="">Experience</a></li>
+                <li><a href="../resume/index.html" class="">Resume</a></li>
+                <li><a href="../certificates/index.html" class="">Certificates</a></li>
+                <li><a href="index.html" class="active">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        
+<section class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-envelope"></i> Contact</h1>
+        <p>Get in touch with me</p>
+    </div>
+</section>
+
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-content">
+            <div class="contact-info">
+                <h2>Let's Connect</h2>
+                <p>
+                    I'm actively seeking On-the-Job Training opportunities and open to discussing 
+                    projects, collaborations, or any opportunities in the IT field. Feel free to 
+                    reach out to me.
+                </p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h3>Email</h3>
+                            <p>rolandivanmapalasigue0373@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <h3>Phone</h3>
+                            <p>+639217296958</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h3>Location</h3>
+                            <p>30 - Judge Juan Luna SFDM, Brgy. Paltok, Quezon City</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="index.html#" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="index.html#" class="social-link"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <form class="contact-form" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="hvn9Pf4CgZ6n3YDEuYhLEwzzhG6WW02mwRqBb2aseMXQyEgHJn60HzbEYYdKAIen">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Roland Ivan M. Palasigue. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../static/portfolio/js/main.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Portfolio</title>
+    
+    <!-- Critical CSS to ensure dark theme loads immediately -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+    </style>
+    <link rel="stylesheet" href="../static/portfolio/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="../index.html">Portfolio</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="">Home</a></li>
+                <li><a href="../about/index.html" class="">About Me</a></li>
+                <li><a href="../skills/index.html" class="">Skills</a></li>
+                <li><a href="index.html" class="active">Projects</a></li>
+                <li><a href="../experience/index.html" class="">Experience</a></li>
+                <li><a href="../resume/index.html" class="">Resume</a></li>
+                <li><a href="../certificates/index.html" class="">Certificates</a></li>
+                <li><a href="../contact/index.html" class="">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        
+<section class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-project-diagram"></i> Projects</h1>
+        <p>Some of my recent work</p>
+    </div>
+</section>
+
+<section class="projects-section">
+    <div class="container">
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">
+                    <div class="image-placeholder">TenantFlow Project</div>
+                </div>
+                <div class="project-content">
+                    <h3>Web-based Rental System (TenantFlow)</h3>
+                    <p>
+                        <strong>Thesis Project (3rd Year BSCS)</strong> - Developed a comprehensive 
+                        full-stack web application for tenant and payment monitoring. This thesis 
+                        project involved handling frontend design, backend logic implementation, 
+                        testing, and comprehensive system documentation. The system provides an 
+                        efficient solution for managing rental properties and tracking payments, 
+                        demonstrating my ability to deliver a complete, production-ready application 
+                        as part of my academic requirements.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Django</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="index.html#" class="project-link"><i class="fas fa-external-link-alt"></i> View Project</a>
+                        <a href="index.html#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Roland Ivan M. Palasigue. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../static/portfolio/js/main.js"></script>
+</body>
+</html>
+
