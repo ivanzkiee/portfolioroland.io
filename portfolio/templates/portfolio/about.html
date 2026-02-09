@@ -1,0 +1,98 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}About Me - Portfolio{% endblock %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-user"></i> About Me</h1>
+        <p>Get to know me better</p>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-image">
+                <img src="{% static 'portfolio/images/profile-picture.jpg' %}" 
+                     alt="Roland Ivan M. Palasigue" 
+                     class="profile-image"
+                     onerror="this.onerror=null; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div class="image-placeholder" style="display: none;">
+                    <span>Your Photo</span>
+                </div>
+            </div>
+            <div class="about-text">
+                <h2>Hello, I'm Roland Ivan M. Palasigue</h2>
+                <p>
+                    I'm a dedicated Computer Science student at STI College Munoz-EDSA, Quezon City, 
+                    with a strong passion for web development, software engineering, and technology 
+                    innovation. Currently pursuing my Bachelor's degree in Computer Science, I am 
+                    actively seeking On-the-Job Training opportunities where I can apply my 
+                    knowledge, enhance my programming and problem-solving skills, and gain 
+                    hands-on experience in a professional IT environment.
+                </p>
+                <p>
+                    My journey in technology began with my IT studies in Mobile Application and Web 
+                    Development (2020-2022), where I built a solid foundation in programming 
+                    languages and web technologies. This foundation led me to develop TenantFlow, 
+                    my 3rd-year Bachelor of Science in Computer Science thesis project—a comprehensive 
+                    web-based rental system that demonstrates my full-stack development capabilities 
+                    using HTML, CSS, JavaScript, and Django. Through this thesis project, I gained 
+                    extensive experience in frontend design, backend logic implementation, testing, 
+                    and system documentation, showcasing my ability to deliver a complete, 
+                    production-ready application.
+                </p>
+                <p>
+                    My technical expertise spans multiple programming languages including Java, 
+                    Android development, C#, SQL, and web technologies (HTML, CSS, JavaScript, 
+                    Django). I'm also proficient in productivity tools like Microsoft Office 365 
+                    and Google Workspace, and have experience in network troubleshooting and 
+                    hardware/software maintenance.
+                </p>
+                <p>
+                    Beyond technical skills, I've completed over 16 certifications and training 
+                    programs covering diverse areas such as cybersecurity, data science, AI for 
+                    business, leadership, and digital citizenship. These certifications from 
+                    reputable organizations like DICT, HP Foundation, Oracle Academy, and Cisco 
+                    Networking Academy reflect my commitment to continuous learning and professional 
+                    development.
+                </p>
+                <p>
+                    Leadership and collaboration are integral parts of who I am. I've been actively 
+                    involved in the Central Student Government (CSG) at STI College Munoz-EDSA, 
+                    progressing from Computer Science Representative (2022-2023) to Secretary 
+                    (2023-2024), and currently serving as Vice President - External and Technical 
+                    Committee Head (2025-Present). In these roles, I've coordinated technical 
+                    requirements for campus-wide programs, managed documentation, and successfully 
+                    organized events with 300+ student participants, demonstrating my ability to 
+                    lead teams and execute complex projects.
+                </p>
+                <p>
+                    My soft skills include effective leadership, time management, teamwork, and 
+                    adaptability—qualities that I've developed and refined through both academic 
+                    and extracurricular experiences. I believe in the power of collaboration and 
+                    continuous improvement, always seeking opportunities to learn from others and 
+                    contribute to meaningful projects.
+                </p>
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <h3>16+</h3>
+                        <p>Certifications & Trainings</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>3+</h3>
+                        <p>Years in CSG Leadership</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>Active</h3>
+                        <p>Seeking OJT Opportunities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+

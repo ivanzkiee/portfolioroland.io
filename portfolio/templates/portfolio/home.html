@@ -1,0 +1,50 @@
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Home - Portfolio{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <h1 class="hero-title">Roland Ivan M. Palasigue</h1>
+            <p class="hero-subtitle">Computer Science Student | Web Developer | Seeking On-the-Job Training Opportunities</p>
+            <div class="hero-buttons">
+                <a href="{% url 'about' %}" class="btn btn-primary"><i class="fas fa-user"></i> Learn More About Me</a>
+                <a href="{% url 'contact' %}" class="btn btn-secondary"><i class="fas fa-envelope"></i> Get In Touch</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Experience</h3>
+                <p>Check out my professional experience and career journey</p>
+                <a href="{% url 'experience' %}" class="feature-link">View Experience <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>Projects</h3>
+                <p>Explore my portfolio of projects and applications</p>
+                <a href="{% url 'projects' %}" class="feature-link">View Projects <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <h3>Skills</h3>
+                <p>Discover the technologies and tools I work with</p>
+                <a href="{% url 'skills' %}" class="feature-link">View Skills <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
