@@ -6,14 +6,14 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
     steps:
       - uses: actions/checkout@v4
 
@@ -35,14 +35,10 @@ jobs:
         run: |
           python manage.py collectstatic --noinput --clear
 
-      - name: Start Django development server
+      - name: Start Django server and crawl site
         run: |
-          timeout 60 python manage.py runserver 0.0.0.0:8000 &
-          sleep 10
-          curl -f http://localhost:8000/ || echo "Server check completed"
-
-      - name: Crawl and save site as static HTML
-        run: |
+          python manage.py runserver 0.0.0.0:8000 &
+          sleep 15
           mkdir -p dist
           wget --mirror \
             --page-requisites \
@@ -55,44 +51,25 @@ jobs:
             -P "./dist" \
             http://localhost:8000/ || true
 
-      - name: Move crawled content to root
+      - name: Prepare build output
         run: |
           if [ -d "dist/localhost:8000" ]; then
             mv dist/localhost:8000/* dist/ || true
             rmdir dist/localhost:8000 || true
           fi
           
-          if [ ! -f "dist/index.html" ]; then
-            if [ -f "dist/home/index.html" ]; then
-              cp dist/home/index.html dist/index.html
-            fi
+          if [ ! -f "dist/index.html" ] && [ -f "dist/home/index.html" ]; then
+            cp dist/home/index.html dist/index.html
           fi
-
-      - name: Fix relative paths for GitHub Pages subdirectory
-        run: |
+          
           find dist -name "*.html" -type f -exec sed -i 's|href="/|href="/portfolioroland.io/|g' {} \; || true
           find dist -name "*.html" -type f -exec sed -i 's|src="/|src="/portfolioroland.io/|g' {} \; || true
           find dist -name "*.css" -type f -exec sed -i 's|url(/|url(/portfolioroland.io/|g' {} \; || true
 
-      - name: Display generated files
-        run: |
-          echo "Generated files:"
-          find dist -type f -name "*.html" | head -10
-          echo "Total files: $(find dist -type f | wc -l)"
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: './dist'
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          cname: portfolioroland.io
+
