@@ -75,7 +75,7 @@ SECRET_KEY=your-production-secret-key-here
 **Static Files Not Loading:**
 - Ensure static files are in `static/` directory
 - Check that `STATIC_URL` is set correctly in settings.py
-- Verify file paths in templates use `{% raw %}{% load static %}{% endraw %}`
+- Verify file paths in templates load the static tag with the Django template loader
 
 **Import Errors:**
 - Make sure `requirements.txt` includes all dependencies
