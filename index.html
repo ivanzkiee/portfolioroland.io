@@ -69,6 +69,26 @@
         .full-width {
             grid-column: 1 / -1;
         }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            }
+
+            .container {
+                background: #1e293b;
+                color: #f1f5f9;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            }
+
+            h1 {
+                color: #f1f5f9;
+            }
+
+            p {
+                color: #cbd5e1;
+            }
+        }
     </style>
 </head>
 <body>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Portfolio{% endblock %}</title>
     {% load static %}
-    <!-- Critical CSS to ensure dark theme loads immediately -->
+    <!-- Theme bootstrap (prevents flash while CSS loads) -->
     <style>
         * {
             margin: 0;
@@ -14,12 +14,81 @@
         }
         body {
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #f1f5f9;
+            background: #f8fafc;
+            color: #0f172a;
             min-height: 100vh;
             line-height: 1.6;
         }
     </style>
+    <script>
+        (function () {
+            try {
+                var key = 'theme';
+                var stored = window.localStorage && window.localStorage.getItem(key);
+                var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                var theme = stored ? stored : (prefersDark ? 'dark' : 'light');
+                document.documentElement.dataset.theme = theme;
+            } catch (e) {
+                // If storage is blocked, just rely on prefers-color-scheme in CSS.
+            }
+        })();
+    </script>
+    <script>
+        (function () {
+            // Bind toggle early (independent of other JS files) to ensure it always works.
+            document.addEventListener('DOMContentLoaded', function () {
+                try {
+                    if (window.__themeToggleBound) return;
+                    window.__themeToggleBound = true;
+
+                    var toggle = document.getElementById('themeToggle');
+                    if (!toggle) return;
+                    var icon = toggle.querySelector('i');
+                    var THEME_KEY = 'theme';
+
+                    function readStoredTheme() {
+                        try {
+                            return window.localStorage ? window.localStorage.getItem(THEME_KEY) : null;
+                        } catch (e) {
+                            return null;
+                        }
+                    }
+
+                    function persistTheme(theme) {
+                        try {
+                            window.localStorage && window.localStorage.setItem(THEME_KEY, theme);
+                        } catch (e) { }
+                    }
+
+                    function applyTheme(theme, persist) {
+                        document.documentElement.dataset.theme = theme;
+                        document.documentElement.classList.toggle('theme-dark', theme === 'dark');
+                        document.documentElement.classList.toggle('theme-light', theme === 'light');
+
+                        if (icon) {
+                            icon.classList.remove('fa-sun', 'fa-moon');
+                            icon.classList.add(theme === 'dark' ? 'fa-moon' : 'fa-sun');
+                        }
+
+                        if (persist) persistTheme(theme);
+                    }
+
+                    var storedTheme = readStoredTheme();
+                    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    var initialTheme = document.documentElement.dataset.theme || storedTheme || (prefersDark ? 'dark' : 'light');
+                    applyTheme(initialTheme, false);
+
+                    toggle.addEventListener('click', function () {
+                        var current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+                        var next = current === 'dark' ? 'light' : 'dark';
+                        applyTheme(next, true);
+                    });
+                } catch (e) {
+                    // Ignore errors; theme will still follow CSS prefers-color-scheme.
+                }
+            });
+        })();
+    </script>
     <link rel="stylesheet" href="{% static 'portfolio/css/style.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,16 +101,21 @@
             <div class="nav-brand">
                 <a href="{% url 'home' %}">Portfolio</a>
             </div>
-            <ul class="nav-menu">
-                <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
-                <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About Me</a></li>
-                <li><a href="{% url 'skills' %}" class="{% if request.resolver_match.url_name == 'skills' %}active{% endif %}">Skills</a></li>
-                <li><a href="{% url 'projects' %}" class="{% if request.resolver_match.url_name == 'projects' %}active{% endif %}">Projects</a></li>
-                <li><a href="{% url 'experience' %}" class="{% if request.resolver_match.url_name == 'experience' %}active{% endif %}">Experience</a></li>
-                <li><a href="{% url 'resume' %}" class="{% if request.resolver_match.url_name == 'resume' %}active{% endif %}">Resume</a></li>
-                <li><a href="{% url 'certificates' %}" class="{% if request.resolver_match.url_name == 'certificates' %}active{% endif %}">Certificates</a></li>
-                <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
-            </ul>
+            <div class="nav-right">
+                <ul class="nav-menu">
+                    <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+                    <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About Me</a></li>
+                    <li><a href="{% url 'skills' %}" class="{% if request.resolver_match.url_name == 'skills' %}active{% endif %}">Skills</a></li>
+                    <li><a href="{% url 'projects' %}" class="{% if request.resolver_match.url_name == 'projects' %}active{% endif %}">Projects</a></li>
+                    <li><a href="{% url 'experience' %}" class="{% if request.resolver_match.url_name == 'experience' %}active{% endif %}">Experience</a></li>
+                    <li><a href="{% url 'resume' %}" class="{% if request.resolver_match.url_name == 'resume' %}active{% endif %}">Resume</a></li>
+                    <li><a href="{% url 'certificates' %}" class="{% if request.resolver_match.url_name == 'certificates' %}active{% endif %}">Certificates</a></li>
+                    <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
+                </ul>
+                <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <i class="fa-solid fa-moon theme-toggle-icon" aria-hidden="true"></i>
+                </button>
+            </div>
             <div class="hamburger">
                 <span></span>
                 <span></span>

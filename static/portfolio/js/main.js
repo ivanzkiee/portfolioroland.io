@@ -111,3 +111,68 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Theme Toggle (Light/Dark)
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.__themeToggleBound) return;
+    const toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+
+    const icon = toggle.querySelector('i');
+    const THEME_KEY = 'theme';
+
+    function readStoredTheme() {
+        try {
+            return window.localStorage ? window.localStorage.getItem(THEME_KEY) : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function persistTheme(theme) {
+        try {
+            window.localStorage && window.localStorage.setItem(THEME_KEY, theme);
+        } catch (e) {
+            // Ignore if storage is blocked
+        }
+    }
+
+    function applyTheme(theme, persist) {
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.toggle('theme-dark', theme === 'dark');
+        document.documentElement.classList.toggle('theme-light', theme === 'light');
+        if (persist) persistTheme(theme);
+
+        if (icon) {
+            // Swap sun/moon icon
+            icon.classList.remove('fa-sun', 'fa-moon');
+            if (theme === 'dark') {
+                icon.classList.add('fa-moon');
+            } else {
+                icon.classList.add('fa-sun');
+            }
+        }
+    }
+
+    const storedTheme = readStoredTheme();
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = document.documentElement.dataset.theme || storedTheme || (prefersDark ? 'dark' : 'light');
+
+    applyTheme(initialTheme, false);
+
+    toggle.addEventListener('click', function () {
+        const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        applyTheme(next, true);
+    });
+
+    // If user hasn't set a preference yet, follow device changes.
+    const mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+    if (mql && !storedTheme) {
+        const handler = function (e) {
+            applyTheme(e.matches ? 'dark' : 'light', false);
+        };
+        if (mql.addEventListener) mql.addEventListener('change', handler);
+        else mql.addListener(handler);
+    }
+});
+
