@@ -65,6 +65,12 @@
                         document.documentElement.classList.toggle('theme-dark', theme === 'dark');
                         document.documentElement.classList.toggle('theme-light', theme === 'light');
 
+                        // Force a visible change immediately (helps if some CSS sections are hard-coded).
+                        document.body.style.background = theme === 'dark'
+                            ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'
+                            : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
+                        document.body.style.color = theme === 'dark' ? '#f1f5f9' : '#0f172a';
+
                         if (icon) {
                             icon.classList.remove('fa-sun', 'fa-moon');
                             icon.classList.add(theme === 'dark' ? 'fa-moon' : 'fa-sun');
@@ -93,7 +99,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" referrerpolicy="no-referrer" />
 </head>
 <body>
     <nav class="navbar">
@@ -113,7 +119,7 @@
                     <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
                 </ul>
                 <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle theme">
-                    <i class="fa-solid fa-moon theme-toggle-icon" aria-hidden="true"></i>
+                    <i class="fas fa-moon theme-toggle-icon" aria-hidden="true"></i>
                 </button>
             </div>
             <div class="hamburger">

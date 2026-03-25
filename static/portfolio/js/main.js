@@ -140,6 +140,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.documentElement.dataset.theme = theme;
         document.documentElement.classList.toggle('theme-dark', theme === 'dark');
         document.documentElement.classList.toggle('theme-light', theme === 'light');
+
+        // Mirror the base.html behavior in case main.js is the only script running.
+        document.body.style.background = theme === 'dark'
+            ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'
+            : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
+        document.body.style.color = theme === 'dark' ? '#f1f5f9' : '#0f172a';
         if (persist) persistTheme(theme);
 
         if (icon) {
