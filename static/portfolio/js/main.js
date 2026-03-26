@@ -72,22 +72,26 @@ function openModal(img) {
     const modal = document.getElementById('certificateModal');
     const modalImg = document.getElementById('modalImage');
     const captionText = document.getElementById('modalCaption');
-    
+
+    if (!modal || !modalImg || !captionText || !img) return;
+
     modal.classList.add('active');
     modal.style.display = 'flex';
-    modalImg.src = img.src;
-    modalImg.alt = img.alt;
-    captionText.innerHTML = img.alt;
-    
+    modalImg.src = img.src || '';
+    modalImg.alt = img.alt || '';
+    captionText.innerHTML = img.alt || '';
+
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
     const modal = document.getElementById('certificateModal');
+    if (!modal) return;
+
     modal.classList.remove('active');
     modal.style.display = 'none';
-    
+
     // Restore body scroll
     document.body.style.overflow = 'auto';
 }
@@ -114,6 +118,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Theme Toggle (Light/Dark)
 document.addEventListener('DOMContentLoaded', function () {
     if (window.__themeToggleBound) return;
+    window.__themeToggleBound = true;
+
     const toggle = document.getElementById('themeToggle');
     if (!toggle) return;
 
@@ -137,26 +143,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function applyTheme(theme, persist) {
+        if (!theme) return;
+
         document.documentElement.dataset.theme = theme;
         document.documentElement.classList.toggle('theme-dark', theme === 'dark');
         document.documentElement.classList.toggle('theme-light', theme === 'light');
 
-        // Mirror the base.html behavior in case main.js is the only script running.
         document.body.style.background = theme === 'dark'
             ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'
             : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
         document.body.style.color = theme === 'dark' ? '#f1f5f9' : '#0f172a';
-        if (persist) persistTheme(theme);
 
         if (icon) {
-            // Swap sun/moon icon
             icon.classList.remove('fa-sun', 'fa-moon');
-            if (theme === 'dark') {
-                icon.classList.add('fa-moon');
-            } else {
-                icon.classList.add('fa-sun');
-            }
+            icon.classList.add(theme === 'dark' ? 'fa-moon' : 'fa-sun');
         }
+
+        if (persist) persistTheme(theme);
     }
 
     const storedTheme = readStoredTheme();
@@ -171,14 +174,13 @@ document.addEventListener('DOMContentLoaded', function () {
         applyTheme(next, true);
     });
 
-    // If user hasn't set a preference yet, follow device changes.
     const mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
     if (mql && !storedTheme) {
         const handler = function (e) {
             applyTheme(e.matches ? 'dark' : 'light', false);
         };
         if (mql.addEventListener) mql.addEventListener('change', handler);
-        else mql.addListener(handler);
+        else if (mql.addListener) mql.addListener(handler);
     }
 });
 
