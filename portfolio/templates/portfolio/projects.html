@@ -1,5 +1,7 @@
 {% extends 'portfolio/base.html' %}
 
+{% load static %}
+
 {% block title %}Projects - Portfolio{% endblock %}
 
 {% block content %}
@@ -15,7 +17,7 @@
         <div class="projects-grid">
             <div class="project-card">
                 <div class="project-image">
-                    <div class="image-placeholder">TenantFlow Project</div>
+                    <img src="{% static 'portfolio/images/tenantflow.jpg' %}" alt="TenantFlow Project Screenshot" class="img-fluid">
                 </div>
                 <div class="project-content">
                     <h3>Web-based Rental System (TenantFlow)</h3>
