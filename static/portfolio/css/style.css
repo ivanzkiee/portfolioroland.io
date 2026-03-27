@@ -138,7 +138,7 @@ body {
 .nav-menu {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 .nav-menu a {
@@ -147,6 +147,7 @@ body {
     font-weight: 500;
     transition: color 0.3s;
     position: relative;
+    font-size: 0.95rem;
 }
 
 .nav-menu a:hover,
@@ -157,7 +158,7 @@ body {
 .nav-menu a.active::after {
     content: '';
     position: absolute;
-    bottom: -5px;
+    bottom: -8px;
     left: 0;
     width: 100%;
     height: 2px;
@@ -167,7 +168,7 @@ body {
 .nav-right {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
 }
 
 .theme-toggle {
@@ -1333,6 +1334,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+    .nav-menu {
+        gap: 2rem;
+    }
+}
+
 @media (max-width: 768px) {
     .hamburger {
         display: flex;
@@ -1346,12 +1353,35 @@ h1, h2, h3, h4, h5, h6 {
         right: 0;
         background: var(--dark-card);
         flex-direction: column;
-        padding: 1rem;
+        padding: 1.5rem;
         border-top: 1px solid var(--border-color);
+        gap: 0.5rem;
+    }
+
+    .nav-menu li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-menu li:last-child {
+        border-bottom: none;
+    }
+
+    .nav-menu a.active::after {
+        display: none;
     }
 
     .nav-menu.active {
         display: flex;
+    }
+
+    .nav-right {
+        gap: 1rem;
+    }
+
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
     }
 
     .hero-title {
