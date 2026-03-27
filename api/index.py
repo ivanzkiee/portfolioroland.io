@@ -1,21 +1,21 @@
 
-from flask import Flask, request, jsonify
+import os
+import sys
+import django
+from django.core.wsgi import get_wsgi_application
 
-app = Flask(__name__)
+# Add project directory to path
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-@app.route("/health")
-def health():
-    return "OK", 200
+# Set Django settings module
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'portfolio_project.settings')
 
-@app.route("/", defaults={"path": ""}, methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-@app.route("/<path:path>", methods=["GET", "POST", "PUT", "DELETE", "PATCH"])
-def catch_all(path):
-    # You can add your logic here to handle all routes
-    return jsonify({
-        "message": "Flask app is running!",
-        "path": path,
-        "method": request.method
-    })
+# Setup Django
+django.setup()
+
+# Get WSGI application
+app = get_wsgi_application()
 
 # Vercel handler
 handler = app
+

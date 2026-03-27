@@ -12,19 +12,19 @@
     --dark-bg: #0f172a; /* used for heading text in some sections */
     --dark-card: #ffffff;
     --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #64748b;
-    --border-color: #e2e8f0;
+    --text-secondary: #334155;
+    --text-muted: #475569;
+    --border-color: #d1d5db;
     --body-bg-start: #f8fafc;
-    --body-bg-end: #e2e8f0;
-    --navbar-bg: rgba(255, 255, 255, 0.85);
-    --skill-track-bg: #e2e8f0;
-    --input-bg: #f1f5f9;
+    --body-bg-end: #eef2ff;
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --skill-track-bg: #e5e7eb;
+    --input-bg: #f3f4f6;
     --timeline-ring-bg: #f8fafc;
     --resume-paper-bg: #ffffff;
     --resume-paper-text: #0f172a;
-    --skill-badge-bg: #f1f5f9;
-    --experience-column-bg: rgba(15, 23, 42, 0.03);
+    --skill-badge-bg: #f0f4ff;
+    --experience-column-bg: rgba(99, 102, 241, 0.06);
     --success-color: #10b981;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.4);
@@ -76,19 +76,19 @@ html.theme-light {
     --dark-bg: #0f172a;
     --dark-card: #ffffff;
     --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #64748b;
-    --border-color: #e2e8f0;
+    --text-secondary: #334155;
+    --text-muted: #475569;
+    --border-color: #d1d5db;
     --body-bg-start: #f8fafc;
-    --body-bg-end: #e2e8f0;
-    --navbar-bg: rgba(255, 255, 255, 0.85);
-    --skill-track-bg: #e2e8f0;
-    --input-bg: #f1f5f9;
+    --body-bg-end: #eef2ff;
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --skill-track-bg: #e5e7eb;
+    --input-bg: #f3f4f6;
     --timeline-ring-bg: #f8fafc;
     --resume-paper-bg: #ffffff;
     --resume-paper-text: #0f172a;
-    --skill-badge-bg: #f1f5f9;
-    --experience-column-bg: rgba(15, 23, 42, 0.03);
+    --skill-badge-bg: #f0f4ff;
+    --experience-column-bg: rgba(99, 102, 241, 0.06);
 }
 
 body {
