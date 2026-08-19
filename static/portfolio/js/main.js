@@ -121,7 +121,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetUrl = new URL(link.href, window.location.href);
             const isInternalPageLink = targetUrl.origin === window.location.origin
                 && targetUrl.pathname !== window.location.pathname
-                && !link.hasAttribute('download');
+                && !link.hasAttribute('download')
+                && !link.classList.contains('media-link');
 
             if (!isInternalPageLink) return;
 
