@@ -4,6 +4,10 @@ from django.core.mail import EmailMessage
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 def home(request):
@@ -54,7 +58,7 @@ def contact(request):
                 f'Email: {email}\n\n'
                 f'Message:\n{message}'
             ),
-            from_email=settings.DEFAULT_FROM_EMAIL,
+            from_email=settings.EMAIL_HOST_USER or settings.DEFAULT_FROM_EMAIL,
             to=[settings.CONTACT_EMAIL],
             reply_to=[email],
         )
@@ -62,6 +66,7 @@ def contact(request):
         try:
             email_message.send(fail_silently=False)
         except Exception:
+            logger.exception('Contact form email delivery failed')
             messages.error(request, 'Your message could not be sent right now. Please try again later.')
         else:
             messages.success(request, 'Thank you. Your message has been sent successfully.')
