@@ -268,9 +268,15 @@ function openMediaModal(event, link) {
     captionText.textContent = link.getAttribute('aria-label') || (mediaType === 'video' ? 'Project video' : 'Project image');
 
     if (mediaType === 'video') {
-        modalVideo.src = mediaSource;
+        modalVideo.src = encodeURI(mediaSource);
         modalVideo.classList.add('active');
-        modalVideo.play().catch(function () {});
+        modalVideo.load();
+        modalVideo.play().catch(function () {
+            modalVideo.muted = true;
+            modalVideo.play().catch(function () {
+                captionText.textContent = 'The project video could not be played. Use the video controls to retry.';
+            });
+        });
     } else {
         modalImg.src = mediaSource;
         modalImg.alt = link.getAttribute('aria-label') || 'Project image';
