@@ -238,9 +238,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.documentElement.classList.toggle('theme-light', theme === 'light');
 
         document.body.style.background = theme === 'dark'
-            ? 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)'
-            : 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
-        document.body.style.color = theme === 'dark' ? '#f1f5f9' : '#0f172a';
+            ? 'linear-gradient(135deg, #07111f 0%, #0b1f33 100%)'
+            : 'linear-gradient(135deg, #f0fdfa 0%, #ecfeff 100%)';
+        document.body.style.color = theme === 'dark' ? '#e6fbff' : '#0b1f33';
 
         if (icon) {
             icon.classList.remove('fa-sun', 'fa-moon');

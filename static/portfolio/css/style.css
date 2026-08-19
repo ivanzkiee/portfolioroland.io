@@ -6,89 +6,89 @@
 }
 
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1d4ed8;
-    --accent-color: #0ea5e9;
-    --dark-bg: #0f172a; /* used for heading text in some sections */
+    --primary-color: #06b6d4;
+    --secondary-color: #0e7490;
+    --accent-color: #22d3ee;
+    --dark-bg: #07111f; /* used for heading text in some sections */
     --dark-card: #ffffff;
-    --text-primary: #0f172a;
-    --text-secondary: #334155;
-    --text-muted: #475569;
-    --border-color: #d1d5db;
-    --body-bg-start: #f8fafc;
-    --body-bg-end: #eff6ff;
+    --text-primary: #0b1f33;
+    --text-secondary: #29445c;
+    --text-muted: #526b80;
+    --border-color: #cbd5e1;
+    --body-bg-start: #f0fdfa;
+    --body-bg-end: #ecfeff;
     --navbar-bg: rgba(255, 255, 255, 0.9);
     --skill-track-bg: #e5e7eb;
-    --input-bg: #f3f4f6;
-    --timeline-ring-bg: #f8fafc;
+    --input-bg: #f1f5f9;
+    --timeline-ring-bg: #f0fdfa;
     --resume-paper-bg: #ffffff;
-    --resume-paper-text: #0f172a;
-    --skill-badge-bg: #eff6ff;
-    --experience-column-bg: rgba(37, 99, 235, 0.06);
-    --success-color: #10b981;
+    --resume-paper-text: #0b1f33;
+    --skill-badge-bg: #ecfeff;
+    --experience-column-bg: rgba(6, 182, 212, 0.08);
+    --success-color: #84cc16;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --dark-bg: #f1f5f9;
-        --dark-card: #1e293b;
-        --text-primary: #f1f5f9;
-        --text-secondary: #cbd5e1;
-        --text-muted: #94a3b8;
-        --border-color: #334155;
-        --body-bg-start: #0f172a;
-        --body-bg-end: #1e293b;
-        --navbar-bg: rgba(15, 23, 42, 0.9);
-        --skill-track-bg: #0f172a;
-        --input-bg: #0f172a;
-        --timeline-ring-bg: #0f172a;
-        --resume-paper-bg: #1e293b;
+        --dark-bg: #dffbff;
+        --dark-card: #0b1f33;
+        --text-primary: #e6fbff;
+        --text-secondary: #b7d4df;
+        --text-muted: #8caab8;
+        --border-color: #25445a;
+        --body-bg-start: #07111f;
+        --body-bg-end: #0b1f33;
+        --navbar-bg: rgba(7, 17, 31, 0.92);
+        --skill-track-bg: #07111f;
+        --input-bg: #07111f;
+        --timeline-ring-bg: #07111f;
+        --resume-paper-bg: #0b1f33;
         --resume-paper-text: #f1f5f9;
-        --skill-badge-bg: #0f172a;
-        --experience-column-bg: rgba(30, 41, 59, 0.35);
+        --skill-badge-bg: #07111f;
+        --experience-column-bg: rgba(6, 182, 212, 0.12);
     }
 }
 
 html[data-theme="dark"],
 html.theme-dark {
-    --dark-bg: #f1f5f9;
-    --dark-card: #1e293b;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-muted: #94a3b8;
-    --border-color: #334155;
-    --body-bg-start: #0f172a;
-    --body-bg-end: #1e293b;
-    --navbar-bg: rgba(15, 23, 42, 0.9);
-    --skill-track-bg: #0f172a;
-    --input-bg: #0f172a;
-    --timeline-ring-bg: #0f172a;
-    --resume-paper-bg: #1e293b;
+    --dark-bg: #dffbff;
+    --dark-card: #0b1f33;
+    --text-primary: #e6fbff;
+    --text-secondary: #b7d4df;
+    --text-muted: #8caab8;
+    --border-color: #25445a;
+    --body-bg-start: #07111f;
+    --body-bg-end: #0b1f33;
+    --navbar-bg: rgba(7, 17, 31, 0.92);
+    --skill-track-bg: #07111f;
+    --input-bg: #07111f;
+    --timeline-ring-bg: #07111f;
+    --resume-paper-bg: #0b1f33;
     --resume-paper-text: #f1f5f9;
-    --skill-badge-bg: #0f172a;
-    --experience-column-bg: rgba(30, 41, 59, 0.35);
+    --skill-badge-bg: #07111f;
+    --experience-column-bg: rgba(6, 182, 212, 0.12);
 }
 
 html[data-theme="light"],
 html.theme-light {
-    --dark-bg: #0f172a;
+    --dark-bg: #07111f;
     --dark-card: #ffffff;
-    --text-primary: #0f172a;
-    --text-secondary: #334155;
-    --text-muted: #475569;
-    --border-color: #d1d5db;
-    --body-bg-start: #f8fafc;
-    --body-bg-end: #eff6ff;
+    --text-primary: #0b1f33;
+    --text-secondary: #29445c;
+    --text-muted: #526b80;
+    --border-color: #cbd5e1;
+    --body-bg-start: #f0fdfa;
+    --body-bg-end: #ecfeff;
     --navbar-bg: rgba(255, 255, 255, 0.9);
     --skill-track-bg: #e5e7eb;
-    --input-bg: #f3f4f6;
-    --timeline-ring-bg: #f8fafc;
+    --input-bg: #f1f5f9;
+    --timeline-ring-bg: #f0fdfa;
     --resume-paper-bg: #ffffff;
-    --resume-paper-text: #0f172a;
-    --skill-badge-bg: #eff6ff;
-    --experience-column-bg: rgba(37, 99, 235, 0.06);
+    --resume-paper-text: #0b1f33;
+    --skill-badge-bg: #ecfeff;
+    --experience-column-bg: rgba(6, 182, 212, 0.08);
 }
 
 body {
@@ -226,14 +226,14 @@ body {
 }
 
 .theme-toggle:hover {
-    background: rgba(37, 99, 235, 0.12);
+    background: rgba(6, 182, 212, 0.14);
     border-color: var(--primary-color);
     transform: translateY(-1px);
 }
 
 .theme-toggle:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.28);
 }
 
 .theme-toggle-icon {
@@ -289,7 +289,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero {
     padding: 120px 0;
     text-align: center;
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(29, 78, 216, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(14, 116, 144, 0.12) 100%);
 }
 
 .hero-title {
@@ -434,7 +434,7 @@ h1, h2, h3, h4, h5, h6 {
 .page-header {
     padding: 80px 0 40px;
     text-align: center;
-    background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(29, 78, 216, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.12) 0%, rgba(14, 116, 144, 0.12) 100%);
 }
 
 .page-header h1 {
@@ -685,7 +685,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .tag {
     padding: 0.25rem 0.75rem;
-    background: rgba(37, 99, 235, 0.2);
+    background: rgba(6, 182, 212, 0.16);
     border: 1px solid var(--primary-color);
     border-radius: 20px;
     font-size: 0.85rem;
