@@ -13,7 +13,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-production-12345')
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-production-12345'),
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Default to True for local development when DEBUG environment variable is not set.
@@ -23,10 +26,11 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = [
     '.vercel.app',
     '.now.sh',
+    'portfolioroland.io',
+    'www.portfolioroland.io',
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
-    '*',
 ]
 
 
@@ -90,12 +94,20 @@ WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if os.environ.get('VERCEL'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
