@@ -95,14 +95,20 @@ document.addEventListener('DOMContentLoaded', function() {
 function openModal(img) {
     const modal = document.getElementById('certificateModal');
     const modalImg = document.getElementById('modalImage');
+    const modalVideo = document.getElementById('modalVideo');
     const captionText = document.getElementById('modalCaption');
 
-    if (!modal || !modalImg || !captionText || !img) return;
+    if (!modal || !modalImg || !modalVideo || !captionText || !img) return;
 
     modal.classList.add('active');
-    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    modalVideo.pause();
+    modalVideo.removeAttribute('src');
+    modalVideo.load();
+    modalVideo.classList.remove('active');
     modalImg.src = img.src || '';
     modalImg.alt = img.alt || '';
+    modalImg.classList.add('active');
     captionText.innerHTML = img.alt || '';
 
     // Prevent body scroll when modal is open
@@ -111,13 +117,54 @@ function openModal(img) {
 
 function closeModal() {
     const modal = document.getElementById('certificateModal');
-    if (!modal) return;
+    const modalImg = document.getElementById('modalImage');
+    const modalVideo = document.getElementById('modalVideo');
+    if (!modal || !modalImg || !modalVideo) return;
 
     modal.classList.remove('active');
-    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    modalImg.classList.remove('active');
+    modalImg.removeAttribute('src');
+    modalVideo.pause();
+    modalVideo.removeAttribute('src');
+    modalVideo.load();
+    modalVideo.classList.remove('active');
 
     // Restore body scroll
-    document.body.style.overflow = 'auto';
+    document.body.style.overflow = '';
+}
+
+function openMediaModal(event, link, mediaType) {
+    event.preventDefault();
+
+    const modal = document.getElementById('certificateModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalVideo = document.getElementById('modalVideo');
+    const captionText = document.getElementById('modalCaption');
+
+    if (!modal || !modalImg || !modalVideo || !captionText || !link) return;
+
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    modalImg.classList.remove('active');
+    modalVideo.classList.remove('active');
+    modalImg.removeAttribute('src');
+    modalVideo.pause();
+    modalVideo.removeAttribute('src');
+    modalVideo.load();
+    captionText.textContent = mediaType === 'video' ? 'TenantFlow project video' : 'TenantFlow project image';
+
+    if (mediaType === 'video') {
+        modalVideo.src = link.href;
+        modalVideo.classList.add('active');
+        modalVideo.play().catch(function () {});
+    } else {
+        modalImg.src = link.href;
+        modalImg.alt = link.getAttribute('aria-label') || 'Project image';
+        modalImg.classList.add('active');
+    }
+
+    document.body.style.overflow = 'hidden';
 }
 
 // Close modal when clicking outside the image
