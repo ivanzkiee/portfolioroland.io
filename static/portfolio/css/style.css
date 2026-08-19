@@ -135,6 +135,38 @@ body {
     background-clip: text;
 }
 
+.brand-text {
+    display: inline-grid;
+    min-width: 8.25ch;
+    overflow: hidden;
+    vertical-align: top;
+}
+
+.brand-default,
+.brand-name {
+    grid-area: 1 / 1;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.brand-name {
+    opacity: 0;
+    transform: translateY(0.7em);
+}
+
+.nav-brand a:hover .brand-default,
+.nav-brand a:focus-visible .brand-default,
+.nav-brand a.is-clicked .brand-default {
+    opacity: 0;
+    transform: translateY(-0.7em);
+}
+
+.nav-brand a:hover .brand-name,
+.nav-brand a:focus-visible .brand-name,
+.nav-brand a.is-clicked .brand-name {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .nav-menu {
     display: flex;
     list-style: none;

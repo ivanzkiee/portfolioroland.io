@@ -2,6 +2,30 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
+    const brandLink = document.querySelector('.nav-brand a');
+
+    if (brandLink) {
+        const BRAND_STATE_KEY = 'brand-name-visible';
+        let brandNameVisible = false;
+
+        try {
+            brandNameVisible = window.sessionStorage.getItem(BRAND_STATE_KEY) === 'true';
+        } catch (e) {
+            // Keep the interaction working when browser storage is unavailable.
+        }
+
+        brandLink.classList.toggle('is-clicked', brandNameVisible);
+        brandLink.addEventListener('click', function () {
+            brandNameVisible = !brandNameVisible;
+            brandLink.classList.toggle('is-clicked', brandNameVisible);
+
+            try {
+                window.sessionStorage.setItem(BRAND_STATE_KEY, String(brandNameVisible));
+            } catch (e) {
+                // The visual state still works without browser storage.
+            }
+        });
+    }
 
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function() {
