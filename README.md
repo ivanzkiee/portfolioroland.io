@@ -104,10 +104,16 @@ portfolio/
    - The certificates page includes a modal viewer - click any certificate image to view it in full size
    - If an image is missing, a placeholder will be shown automatically
 
-5. **Contact Form**: The contact form currently shows an alert. To make it functional, you'll need to:
-   - Create a model to store contact messages
-   - Update the contact view to handle form submissions
-   - Configure email settings in `settings.py` if you want to send emails
+5. **Contact Form**: The contact form sends submissions to `CONTACT_EMAIL`. Configure these environment variables in production:
+   - `EMAIL_HOST`: SMTP server, such as `smtp.gmail.com`
+   - `EMAIL_PORT`: SMTP port, normally `587`
+   - `EMAIL_USE_TLS`: `True` for TLS SMTP
+   - `EMAIL_HOST_USER`: SMTP account email
+   - `EMAIL_HOST_PASSWORD`: SMTP password or provider app password
+   - `DEFAULT_FROM_EMAIL`: verified sender address
+   - `CONTACT_EMAIL`: inbox that receives portfolio messages
+
+   For local development, Django uses its console email backend by default, so messages are printed in the development server terminal instead of being delivered.
 
 ## Technologies Used
 

@@ -54,6 +54,13 @@
             </div>
 
             <div class="contact-form-container">
+                {% if messages %}
+                    <div class="contact-messages" aria-live="polite">
+                        {% for message in messages %}
+                            <p class="contact-message contact-message-{{ message.tags }}">{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <form class="contact-form" method="post">
                     {% csrf_token %}
                     <div class="form-group">

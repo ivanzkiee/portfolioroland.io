@@ -40,6 +40,66 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    const motionSections = document.querySelectorAll('main > section');
+    const motionItems = document.querySelectorAll(
+        '.timeline-item, .project-card, .certificate-item, .skill-item, .soft-skill-item, .contact-item, .about-stat, .feature-card'
+    );
+
+    document.documentElement.classList.add('motion-ready');
+
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver(function(entries, currentObserver) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    currentObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -48px' });
+
+        motionSections.forEach((section, index) => {
+            section.classList.add('motion-section');
+            section.style.setProperty('--motion-section-delay', `${Math.min(index, 3) * 80}ms`);
+            revealObserver.observe(section);
+        });
+
+        motionItems.forEach((item, index) => {
+            item.classList.add('motion-item');
+            item.style.setProperty('--motion-delay', `${Math.min(index % 6, 5) * 70}ms`);
+            revealObserver.observe(item);
+        });
+    } else {
+        motionSections.forEach(section => section.classList.add('is-visible'));
+        motionItems.forEach(item => item.classList.add('is-visible'));
+    }
+
+    const homeHero = document.querySelector('.hero');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (homeHero && !prefersReducedMotion) {
+        document.body.classList.add('home-interactive');
+
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('pointermove', function(event) {
+                if (event.pointerType === 'touch') return;
+
+                const bounds = card.getBoundingClientRect();
+                const horizontalOffset = (event.clientX - bounds.left) / bounds.width - 0.5;
+                const verticalOffset = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+                card.style.setProperty('--card-rotate-x', `${(verticalOffset * -4).toFixed(2)}deg`);
+                card.style.setProperty('--card-rotate-y', `${(horizontalOffset * 4).toFixed(2)}deg`);
+                card.classList.add('is-pointer-active');
+            });
+
+            card.addEventListener('pointerleave', function() {
+                card.classList.remove('is-pointer-active');
+                card.style.removeProperty('--card-rotate-x');
+                card.style.removeProperty('--card-rotate-y');
+            });
+        });
+    }
+
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -51,6 +111,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     block: 'start'
                 });
             }
+        });
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+        link.addEventListener('click', function(event) {
+            if (event.defaultPrevented || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+            const targetUrl = new URL(link.href, window.location.href);
+            const isInternalPageLink = targetUrl.origin === window.location.origin
+                && targetUrl.pathname !== window.location.pathname
+                && !link.hasAttribute('download');
+
+            if (!isInternalPageLink) return;
+
+            event.preventDefault();
+            document.body.classList.add('page-exit');
+            window.setTimeout(() => {
+                window.location.href = targetUrl.href;
+            }, 180);
         });
     });
 
@@ -83,10 +162,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Here you would typically send the form data to your backend
-            alert('Thank you for your message! I will get back to you soon.');
-            contactForm.reset();
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.classList.add('is-submitting');
+                submitButton.setAttribute('aria-busy', 'true');
+            }
         });
     }
 });

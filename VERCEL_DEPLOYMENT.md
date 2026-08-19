@@ -14,6 +14,14 @@ In your Vercel project settings, add these environment variables:
 
 - `DEBUG`: Set to `False` for production
 - `SECRET_KEY`: Generate a new secret key for production (use Django's `get_random_secret_key()`)
+- `EMAIL_BACKEND`: `django.core.mail.backends.smtp.EmailBackend`
+- `EMAIL_HOST`: Your SMTP server, such as `smtp.gmail.com`
+- `EMAIL_PORT`: `587`
+- `EMAIL_USE_TLS`: `True`
+- `EMAIL_HOST_USER`: Your verified sender email address
+- `EMAIL_HOST_PASSWORD`: Your SMTP password or email provider app password
+- `DEFAULT_FROM_EMAIL`: The verified sender address
+- `CONTACT_EMAIL`: `rolandivanmapalasigue0373@gmail.com`
 
 ### 2. Deploy via Vercel CLI
 
@@ -63,6 +71,14 @@ Set these in Vercel Dashboard → Settings → Environment Variables:
 ```
 DEBUG=False
 SECRET_KEY=your-production-secret-key-here
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-sender@gmail.com
+EMAIL_HOST_PASSWORD=your-email-app-password
+DEFAULT_FROM_EMAIL=your-sender@gmail.com
+CONTACT_EMAIL=rolandivanmapalasigue0373@gmail.com
 ```
 
 ### Troubleshooting
