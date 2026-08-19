@@ -1261,6 +1261,27 @@ h1, h2, h3, h4, h5, h6 {
     pointer-events: auto;
 }
 
+.modal-heading {
+    width: min(92vw, 1100px);
+    color: #ffffff;
+    text-align: left;
+}
+
+.modal-kind {
+    display: block;
+    color: var(--accent-color);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.modal-heading h2 {
+    margin: 0.15rem 0 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
 .modal-content {
     display: none;
     width: auto;

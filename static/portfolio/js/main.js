@@ -99,6 +99,8 @@ function getMediaSource(element) {
         || element.currentSrc
         || element.getAttribute('src')
         || element.src
+        || element.getAttribute('href')
+        || element.href
         || '';
 }
 
@@ -106,9 +108,11 @@ function openModal(img) {
     const modal = document.getElementById('certificateModal');
     const modalImg = document.getElementById('modalImage');
     const modalVideo = document.getElementById('modalVideo');
+    const modalKind = document.getElementById('modalKind');
+    const modalTitle = document.getElementById('modalTitle');
     const captionText = document.getElementById('modalCaption');
 
-    if (!modal || !modalImg || !modalVideo || !captionText || !img) return;
+    if (!modal || !modalImg || !modalVideo || !modalKind || !modalTitle || !captionText || !img) return;
     const mediaSource = getMediaSource(img);
     if (!mediaSource) return;
 
@@ -122,6 +126,8 @@ function openModal(img) {
     modalImg.src = mediaSource;
     modalImg.alt = img.alt || '';
     modalImg.classList.add('active');
+    modalKind.textContent = 'Certificate Image';
+    modalTitle.textContent = img.alt || 'Certificate Preview';
     captionText.textContent = img.alt || '';
 
     // Prevent body scroll when modal is open
@@ -132,7 +138,9 @@ function closeModal() {
     const modal = document.getElementById('certificateModal');
     const modalImg = document.getElementById('modalImage');
     const modalVideo = document.getElementById('modalVideo');
-    if (!modal || !modalImg || !modalVideo) return;
+    const modalKind = document.getElementById('modalKind');
+    const modalTitle = document.getElementById('modalTitle');
+    if (!modal || !modalImg || !modalVideo || !modalKind || !modalTitle) return;
 
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
@@ -142,6 +150,8 @@ function closeModal() {
     modalVideo.removeAttribute('src');
     modalVideo.load();
     modalVideo.classList.remove('active');
+    modalKind.textContent = 'Media Preview';
+    modalTitle.textContent = 'Project Media';
 
     // Restore body scroll
     document.body.style.overflow = '';
@@ -153,9 +163,11 @@ function openMediaModal(event, link) {
     const modal = document.getElementById('certificateModal');
     const modalImg = document.getElementById('modalImage');
     const modalVideo = document.getElementById('modalVideo');
+    const modalKind = document.getElementById('modalKind');
+    const modalTitle = document.getElementById('modalTitle');
     const captionText = document.getElementById('modalCaption');
 
-    if (!modal || !modalImg || !modalVideo || !captionText || !link) return;
+    if (!modal || !modalImg || !modalVideo || !modalKind || !modalTitle || !captionText || !link) return;
 
     const mediaSource = getMediaSource(link);
     const mediaType = link.dataset.mediaType || (mediaSource.split('?')[0].toLowerCase().endsWith('.mp4') ? 'video' : 'image');
@@ -169,6 +181,8 @@ function openMediaModal(event, link) {
     modalVideo.pause();
     modalVideo.removeAttribute('src');
     modalVideo.load();
+    modalKind.textContent = mediaType === 'video' ? 'Project Video' : 'Project Image';
+    modalTitle.textContent = link.getAttribute('aria-label') || (mediaType === 'video' ? 'Video Preview' : 'Image Preview');
     captionText.textContent = link.getAttribute('aria-label') || (mediaType === 'video' ? 'Project video' : 'Project image');
 
     if (mediaType === 'video') {
@@ -186,6 +200,12 @@ function openMediaModal(event, link) {
 
 // Close modal when clicking outside the image
 document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.media-link').forEach(function (link) {
+        link.addEventListener('click', function (event) {
+            openMediaModal(event, link);
+        });
+    });
+
     const modal = document.getElementById('certificateModal');
     if (modal) {
         modal.addEventListener('click', function(e) {
