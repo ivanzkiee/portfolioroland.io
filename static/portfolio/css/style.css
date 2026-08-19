@@ -200,50 +200,6 @@ body {
     font-size: 1.1rem;
 }
 
-/* About profile image styles */
-.about-section .about-content {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2rem;
-    align-items: center;
-}
-
-.about-section .about-image {
-    display: flex;
-    justify-content: center;
-}
-
-.profile-image {
-    width: 220px;
-    height: 220px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 4px solid var(--primary-color);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.16);
-}
-
-.image-placeholder {
-    width: 220px;
-    height: 220px;
-    border: 2px dashed var(--primary-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-    text-align: center;
-}
-
-@media (max-width: 900px) {
-    .about-section .about-content {
-        grid-template-columns: 1fr;
-    }
-    .about-section .about-image {
-        margin-bottom: 1.5rem;
-    }
-}
-
 
 .hamburger {
     display: none;
@@ -475,34 +431,41 @@ h1, h2, h3, h4, h5, h6 {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 3rem;
-    align-items: start;
+    align-items: center;
 }
 
 .about-image {
     position: sticky;
     top: 100px;
+    display: flex;
+    justify-content: center;
 }
 
 .profile-image {
-    width: 100%;
-    aspect-ratio: 1;
+    width: 260px;
+    height: 260px;
+    max-width: 100%;
+    display: block;
     object-fit: cover;
-    border-radius: 16px;
-    border: 2px solid var(--border-color);
+    object-position: center 18%;
+    border-radius: 50%;
+    border: 4px solid var(--primary-color);
     box-shadow: var(--shadow);
 }
 
 .image-placeholder {
-    width: 100%;
-    aspect-ratio: 1;
+    width: 260px;
+    height: 260px;
+    max-width: 100%;
     background: var(--dark-card);
-    border: 2px solid var(--border-color);
-    border-radius: 16px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
-    font-size: 1.25rem;
+    font-size: 0.95rem;
+    text-align: center;
 }
 
 .about-text h2 {
