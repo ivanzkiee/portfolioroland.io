@@ -694,10 +694,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .project-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
 .project-link {
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 0.55rem 0.85rem;
+    background: transparent;
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
@@ -713,7 +718,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project-link:hover {
-    color: var(--secondary-color);
+    background: var(--primary-color);
+    color: #ffffff;
 }
 
 .project-link:hover i {
