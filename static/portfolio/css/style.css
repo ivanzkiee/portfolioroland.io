@@ -1212,6 +1212,16 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1.5rem;
 }
 
+
+.certificates-note {
+    margin-top: 2rem;
+    padding: 1rem 1.25rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    text-align: justify;
+}
 .certificate-info h3 {
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
