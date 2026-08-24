@@ -91,6 +91,33 @@
         <div class="modal-caption" id="modalCaption"></div>
     </div>
 
+    <aside class="assistant-widget" aria-label="Ask Roland AI assistant">
+        <button type="button" class="assistant-toggle" id="assistantToggle" aria-controls="assistantPanel" aria-expanded="false">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span>Ask Roland AI</span>
+        </button>
+        <section class="assistant-panel" id="assistantPanel" role="dialog" aria-modal="false" aria-labelledby="assistantTitle" aria-hidden="true">
+            <header class="assistant-header">
+                <div>
+                    <span class="assistant-status"><span></span> Portfolio assistant</span>
+                    <h2 id="assistantTitle">Ask Roland AI</h2>
+                </div>
+                <button type="button" class="assistant-close" id="assistantClose" aria-label="Close Ask Roland AI">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="assistant-messages" id="assistantMessages" aria-live="polite" aria-label="Chat messages"></div>
+            <div class="assistant-suggestions" id="assistantSuggestions" aria-label="Suggested questions"></div>
+            <form class="assistant-form" id="assistantForm">
+                <label class="sr-only" for="assistantInput">Ask Roland AI a question</label>
+                <input id="assistantInput" name="question" type="text" autocomplete="off" placeholder="Ask about Roland..." maxlength="240" required>
+                <button type="submit" aria-label="Send question">
+                    <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                </button>
+            </form>
+        </section>
+    </aside>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-social-links" aria-label="Social media links">

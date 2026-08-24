@@ -1,0 +1,56 @@
+{
+  "assistantName": "Ask Roland AI",
+  "fallback": "I don't have that information in Roland's portfolio yet.",
+  "suggestions": [
+    "Tell me about Roland.",
+    "What are Roland's technical skills?",
+    "What projects has Roland developed?",
+    "Explain the TenantFlow project.",
+    "What was Roland's internship experience?",
+    "Tell me about Roland's leadership experience.",
+    "What achievements does Roland have?",
+    "How can I contact Roland?"
+  ],
+  "answers": [
+    {
+      "id": "about",
+      "keywords": ["tell me about", "who is roland", "about roland", "background", "education", "career goal"],
+      "answer": "Roland Ivan M. Palasigue is a fresh Bachelor of Science in Computer Science graduate from STI College Muñoz-EDSA, Quezon City. He has a background in Mobile Application and Web Development and is seeking entry-level opportunities where he can contribute to web development, software engineering, IT support, or administrative work while continuing to grow professionally."
+    },
+    {
+      "id": "skills",
+      "keywords": ["technical skills", "skills", "programming", "technology", "technologies", "tools", "database", "web development"],
+      "answer": "Roland's technical skills include Java, C#, SQL, Android development, HTML, CSS, JavaScript, and Django. He also works with Microsoft Office 365 and Google Workspace, and has experience with network troubleshooting, hardware and software maintenance, audio-visual operations, and technical documentation."
+    },
+    {
+      "id": "projects",
+      "keywords": ["projects", "project has", "developed", "portfolio projects", "academic project", "personal project"],
+      "answer": "The documented portfolio project is TenantFlow, a web-based rental apartment management system. It was developed as a BSCS thesis project. Roland contributed to frontend design, backend logic, system testing, and documentation using HTML, CSS, JavaScript, and Django."
+    },
+    {
+      "id": "tenantflow",
+      "keywords": ["tenantflow", "rental system", "rental apartment", "payment monitoring"],
+      "answer": "TenantFlow is a full-stack web-based rental apartment management system created for tenant and payment monitoring. Its purpose is to help manage rental properties and track payments more efficiently. The project uses HTML, CSS, JavaScript, and Django, with Roland contributing to the frontend, backend implementation, testing, and system documentation."
+    },
+    {
+      "id": "internship",
+      "keywords": ["internship", "intern", "ojt", "national printing office", "npo", "it unit", "technical support", "troubleshooting"],
+      "answer": "Roland completed his On-the-Job Training at the National Printing Office's IT Unit from March 2026 to May 2026. His experience included IT support, troubleshooting computer and printer hardware, managing digital records and documentation, scanning and organizing documents, and collaborating with the IT team."
+    },
+    {
+      "id": "leadership",
+      "keywords": ["leadership", "csg", "central student government", "vice president", "class president", "organization", "event coordination"],
+      "answer": "Roland served in the Central Student Government at STI College Muñoz-EDSA as Computer Science Representative, Secretary and Logistics Coordinator, and Vice President - External / Technical Committee Head from 2025 to 2026. He coordinated technical and logistical requirements, managed documentation, supported campus-wide events with 300+ participants, and collaborated across committees. He also served as Class President from 2022 to 2026."
+    },
+    {
+      "id": "achievements",
+      "keywords": ["achievements", "awards", "recognition", "leadership awardee", "gawad", "honors", "high honors"],
+      "answer": "Roland's recognitions include Leadership Awardee from STI College Muñoz-EDSA, Gawad Kabataang Pylon Recognition from the QC Youth Development Office, Senior High School With Honors, and Senior High School With High Honors."
+    },
+    {
+      "id": "contact",
+      "keywords": ["contact", "email", "phone", "reach", "message", "linkedin", "github"],
+      "answer": "Roland can be contacted at rolandivanmapalasigue0373@gmail.com or +639217296958. He is based in Quezon City. Professional links are available through the portfolio's footer, including LinkedIn and GitHub."
+    }
+  ]
+}

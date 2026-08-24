@@ -174,6 +174,119 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+function initAssistant() {
+    const toggle = document.getElementById('assistantToggle');
+    const panel = document.getElementById('assistantPanel');
+    const closeButton = document.getElementById('assistantClose');
+    const messages = document.getElementById('assistantMessages');
+    const suggestions = document.getElementById('assistantSuggestions');
+    const form = document.getElementById('assistantForm');
+    const input = document.getElementById('assistantInput');
+
+    if (!toggle || !panel || !closeButton || !messages || !suggestions || !form || !input) return;
+
+    let knowledge = null;
+
+    function setOpen(isOpen) {
+        toggle.setAttribute('aria-expanded', String(isOpen));
+        panel.setAttribute('aria-hidden', String(!isOpen));
+        panel.classList.toggle('is-open', isOpen);
+        if (isOpen) input.focus();
+    }
+
+    function addMessage(text, sender) {
+        const message = document.createElement('div');
+        message.className = `assistant-message assistant-message-${sender}`;
+        message.textContent = text;
+        messages.appendChild(message);
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    function showTyping() {
+        const typing = document.createElement('div');
+        typing.className = 'assistant-typing';
+        typing.setAttribute('aria-label', 'Roland AI is typing');
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        messages.appendChild(typing);
+        messages.scrollTop = messages.scrollHeight;
+        return typing;
+    }
+
+    function findAnswer(question) {
+        if (!knowledge) return 'The assistant is still loading. Please try again in a moment.';
+
+        const normalizedQuestion = question.toLowerCase().replace(/[^a-z0-9+ ]/g, ' ');
+        let bestAnswer = null;
+        let bestScore = 0;
+
+        knowledge.answers.forEach(answer => {
+            const score = answer.keywords.reduce((total, keyword) => {
+                const normalizedKeyword = keyword.toLowerCase();
+                return total + (normalizedQuestion.includes(normalizedKeyword) ? normalizedKeyword.split(' ').length : 0);
+            }, 0);
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestAnswer = answer.answer;
+            }
+        });
+
+        return bestAnswer || knowledge.fallback;
+    }
+
+    function ask(question) {
+        const trimmedQuestion = question.trim();
+        if (!trimmedQuestion) return;
+
+        addMessage(trimmedQuestion, 'user');
+        input.value = '';
+        const typing = showTyping();
+
+        window.setTimeout(() => {
+            typing.remove();
+            addMessage(findAnswer(trimmedQuestion), 'assistant');
+        }, 450);
+    }
+
+    function renderSuggestions() {
+        knowledge.suggestions.forEach(question => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'assistant-suggestion';
+            button.textContent = question;
+            button.addEventListener('click', () => ask(question));
+            suggestions.appendChild(button);
+        });
+    }
+
+    toggle.addEventListener('click', () => setOpen(!panel.classList.contains('is-open')));
+    closeButton.addEventListener('click', () => setOpen(false));
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        ask(input.value);
+    });
+
+    fetch('/static/portfolio/data/assistant-knowledge.json')
+        .then(response => {
+            if (!response.ok) throw new Error('Knowledge base unavailable');
+            return response.json();
+        })
+        .then(data => {
+            knowledge = data;
+            addMessage(`Hi, I'm ${data.assistantName}. Ask me about Roland's portfolio.`, 'assistant');
+            renderSuggestions();
+        })
+        .catch(() => {
+            addMessage("I don't have that information in Roland's portfolio yet.", 'assistant');
+        });
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && panel.classList.contains('is-open')) setOpen(false);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initAssistant);
+
 // Certificate Modal Functions
 function getMediaSource(element) {
     if (!element) return '';
@@ -305,27 +418,6 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         event.stopPropagation();
         openModal(image);
-    });
-
-    document.querySelectorAll('.experience-photo-item').forEach(function (photoItem) {
-        const image = photoItem.querySelector('.experience-photo');
-        if (!image || photoItem.querySelector('.experience-photo-preview')) return;
-
-        const previewButton = document.createElement('button');
-        previewButton.type = 'button';
-        previewButton.className = 'experience-photo-preview';
-        previewButton.setAttribute('aria-label', `View full image: ${image.alt || 'Experience photo'}`);
-        previewButton.innerHTML = '<i class="fas fa-eye" aria-hidden="true"></i>';
-        previewButton.addEventListener('click', function (event) {
-            event.preventDefault();
-            event.stopPropagation();
-            openModal(image);
-        });
-        photoItem.appendChild(previewButton);
-
-        image.addEventListener('click', function () {
-            openModal(image);
-        });
     });
 
     const modal = document.getElementById('certificateModal');
