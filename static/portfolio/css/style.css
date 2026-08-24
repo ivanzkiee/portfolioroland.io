@@ -1208,6 +1208,14 @@ h1, h2, h3, h4, h5, h6 {
 .contact-item p {
     color: var(--text-secondary);
     margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.contact-item a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: rgba(96, 165, 250, 0.55);
+    text-underline-offset: 3px;
 }
 
 .social-links {
@@ -2763,6 +2771,7 @@ h1, h2, h3, h4, h5, h6 {
 
     .footer {
         padding: 1.5rem 0;
+        padding-bottom: 5.5rem;
     }
 
     .footer p {
