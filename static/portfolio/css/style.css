@@ -1451,6 +1451,34 @@ h1, h2, h3, h4, h5, h6 {
     pointer-events: auto;
 }
 
+.experience-image-modal {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 2200;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 2rem 1.25rem;
+    background: rgba(2, 6, 23, 0.9);
+    backdrop-filter: blur(8px);
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.experience-image-modal.active {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.experience-image-modal .modal-content {
+    display: block;
+}
+
 .modal-heading {
     width: min(92vw, 1100px);
     color: #ffffff;

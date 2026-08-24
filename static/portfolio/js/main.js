@@ -350,7 +350,42 @@ function closeModal() {
     modalTitle.textContent = 'Project Media';
 
     // Restore body scroll
-    document.body.style.overflow = '';
+    restoreBodyScroll();
+}
+
+function restoreBodyScroll() {
+    const hasOpenModal = document.querySelector('.certificate-modal.active, .experience-image-modal.active, .experience-gallery-modal.active, .achievement-modal-panel.active');
+    document.body.style.overflow = hasOpenModal ? 'hidden' : '';
+}
+
+function openExperienceImageModal(img) {
+    const modal = document.getElementById('experienceImageModal');
+    const modalImg = document.getElementById('experienceModalImage');
+    const caption = document.getElementById('experienceModalCaption');
+
+    if (!modal || !modalImg || !caption || !img) return;
+    const mediaSource = getMediaSource(img);
+    if (!mediaSource) return;
+
+    modalImg.src = mediaSource;
+    modalImg.alt = img.alt || '';
+    caption.textContent = img.alt || '';
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeExperienceImageModal() {
+    const modal = document.getElementById('experienceImageModal');
+    const modalImg = document.getElementById('experienceModalImage');
+    const caption = document.getElementById('experienceModalCaption');
+    if (!modal || !modalImg || !caption) return;
+
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    modalImg.removeAttribute('src');
+    caption.textContent = '';
+    restoreBodyScroll();
 }
 
 function openMediaModal(event, link) {
@@ -433,6 +468,13 @@ document.addEventListener('DOMContentLoaded', function() {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
             }
+        });
+    }
+
+    const experienceImageModal = document.getElementById('experienceImageModal');
+    if (experienceImageModal) {
+        experienceImageModal.addEventListener('click', function(event) {
+            if (event.target === experienceImageModal) closeExperienceImageModal();
         });
     }
 });
@@ -539,10 +581,7 @@ function closeGalleryModal(event, galleryId) {
         gallery.classList.remove('active');
         gallery.setAttribute('aria-hidden', 'true');
 
-        const hasOpenGallery = document.querySelector('.experience-gallery-modal.active');
-        if (!hasOpenGallery) {
-            document.body.style.overflow = '';
-        }
+        restoreBodyScroll();
     }
 }
 
@@ -578,7 +617,7 @@ function closeAchievementModal(achievementId) {
     const modal = document.getElementById(achievementId);
     if (modal) {
         modal.classList.remove('active');
-        document.body.style.overflow = '';
+        restoreBodyScroll();
     }
 }
 
@@ -607,6 +646,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close modals with Escape key
     document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
+            if (document.getElementById('experienceImageModal')?.classList.contains('active')) {
+                closeExperienceImageModal();
+                return;
+            }
             // Close gallery modals
             document.querySelectorAll('.experience-gallery-modal.active').forEach(function(modal) {
                 const galleryId = modal.id;
