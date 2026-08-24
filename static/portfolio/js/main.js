@@ -187,11 +187,139 @@ function initAssistant() {
 
     let knowledge = null;
 
+    function scrollMessagesToBottom() {
+        messages.scrollTop = messages.scrollHeight;
+    }
+
+    function normalizeText(value) {
+        return String(value || '')
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9\s]/g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    function tokenize(value) {
+        return normalizeText(value).split(' ').filter(Boolean);
+    }
+
+    function levenshteinDistance(a, b) {
+        if (a === b) return 0;
+        if (a.length === 0) return b.length;
+        if (b.length === 0) return a.length;
+
+        const prev = Array.from({ length: b.length + 1 }, (_, index) => index);
+        const current = new Array(b.length + 1);
+
+        for (let i = 1; i <= a.length; i += 1) {
+            current[0] = i;
+            for (let j = 1; j <= b.length; j += 1) {
+                const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                current[j] = Math.min(
+                    prev[j] + 1,
+                    current[j - 1] + 1,
+                    prev[j - 1] + cost
+                );
+            }
+            for (let j = 0; j <= b.length; j += 1) {
+                prev[j] = current[j];
+            }
+        }
+
+        return current[b.length];
+    }
+
+    function fuzzyWordMatch(word, pattern) {
+        const normalizedWord = normalizeText(word);
+        const normalizedPattern = normalizeText(pattern);
+
+        if (!normalizedWord || !normalizedPattern) return false;
+        if (normalizedWord === normalizedPattern) return true;
+        if (normalizedWord.includes(normalizedPattern) || normalizedPattern.includes(normalizedWord)) return true;
+        if (normalizedWord.length <= 3 && normalizedPattern.length <= 3) return normalizedWord === normalizedPattern;
+
+        return levenshteinDistance(normalizedWord, normalizedPattern) <= 1;
+    }
+
+    function keywordScore(questionText, keywordText) {
+        const definedQuestion = normalizeText(questionText);
+        const definedKeyword = normalizeText(keywordText);
+
+        if (!definedQuestion || !definedKeyword) return 0;
+
+        const questionWords = tokenize(questionText);
+        const keywordWords = tokenize(keywordText);
+
+        if (definedQuestion.includes(definedKeyword)) return 30;
+        if (definedKeyword.includes(definedQuestion)) return 24;
+
+        let score = 0;
+
+        keywordWords.forEach(word => {
+            if (!word) return;
+            if (definedQuestion.includes(word)) {
+                score += 8;
+                return;
+            }
+
+            const fuzzyMatch = questionWords.some(questionWord => fuzzyWordMatch(questionWord, word));
+            if (fuzzyMatch) {
+                score += 6;
+            }
+        });
+
+        if (keywordWords.length > 1) {
+            const exactWordCoverage = keywordWords.filter(word => definedQuestion.includes(word)).length;
+            const fuzzyWordCoverage = keywordWords.filter(word => questionWords.some(questionWord => fuzzyWordMatch(questionWord, word))).length;
+            score += (exactWordCoverage + fuzzyWordCoverage) * 2;
+        }
+
+        if (questionWords.some(questionWord => fuzzyWordMatch(questionWord, definedKeyword))) {
+            score += 5;
+        }
+
+        return score;
+    }
+
+    function findAnswer(question) {
+        if (!knowledge) return 'The assistant is still loading. Please try again in a moment.';
+
+        const value = question.trim();
+        if (!value) return knowledge.fallback;
+
+        let bestAnswer = null;
+        let bestScore = 0;
+
+        knowledge.answers.forEach(answer => {
+            if (!answer || !Array.isArray(answer.keywords)) return;
+
+            const score = answer.keywords.reduce((total, keyword) => {
+                return total + keywordScore(value, keyword);
+            }, 0);
+
+            if (score > bestScore) {
+                bestScore = score;
+                bestAnswer = answer;
+            }
+        });
+
+        if (!bestAnswer || bestScore <= 0) {
+            return knowledge.fallback;
+        }
+
+        return bestAnswer.answer;
+    }
+
     function setOpen(isOpen) {
         toggle.setAttribute('aria-expanded', String(isOpen));
         panel.setAttribute('aria-hidden', String(!isOpen));
         panel.classList.toggle('is-open', isOpen);
-        if (isOpen) input.focus();
+        if (isOpen) {
+            input.focus();
+            suggestions.classList.add('is-visible');
+        }
     }
 
     function addMessage(text, sender) {
@@ -199,39 +327,22 @@ function initAssistant() {
         message.className = `assistant-message assistant-message-${sender}`;
         message.textContent = text;
         messages.appendChild(message);
-        messages.scrollTop = messages.scrollHeight;
+        scrollMessagesToBottom();
     }
 
     function showTyping() {
         const typing = document.createElement('div');
         typing.className = 'assistant-typing';
         typing.setAttribute('aria-label', 'Roland AI is typing');
-        typing.innerHTML = '<span></span><span></span><span></span>';
+        typing.innerHTML = `
+            <span class="assistant-typing-label">Roland AI is typing...</span>
+            <span class="assistant-typing-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+            </span>
+        `;
         messages.appendChild(typing);
-        messages.scrollTop = messages.scrollHeight;
+        scrollMessagesToBottom();
         return typing;
-    }
-
-    function findAnswer(question) {
-        if (!knowledge) return 'The assistant is still loading. Please try again in a moment.';
-
-        const normalizedQuestion = question.toLowerCase().replace(/[^a-z0-9+ ]/g, ' ');
-        let bestAnswer = null;
-        let bestScore = 0;
-
-        knowledge.answers.forEach(answer => {
-            const score = answer.keywords.reduce((total, keyword) => {
-                const normalizedKeyword = keyword.toLowerCase();
-                return total + (normalizedQuestion.includes(normalizedKeyword) ? normalizedKeyword.split(' ').length : 0);
-            }, 0);
-
-            if (score > bestScore) {
-                bestScore = score;
-                bestAnswer = answer.answer;
-            }
-        });
-
-        return bestAnswer || knowledge.fallback;
     }
 
     function ask(question) {
@@ -241,14 +352,16 @@ function initAssistant() {
         addMessage(trimmedQuestion, 'user');
         input.value = '';
         const typing = showTyping();
+        const delay = 500 + Math.random() * 500;
 
         window.setTimeout(() => {
             typing.remove();
             addMessage(findAnswer(trimmedQuestion), 'assistant');
-        }, 450);
+        }, delay);
     }
 
     function renderSuggestions() {
+        suggestions.innerHTML = '';
         knowledge.suggestions.forEach(question => {
             const button = document.createElement('button');
             button.type = 'button';
@@ -273,10 +386,17 @@ function initAssistant() {
         })
         .then(data => {
             knowledge = data;
-            addMessage(`Hi, I'm ${data.assistantName}. Ask me about Roland's portfolio.`, 'assistant');
             renderSuggestions();
+            addMessage(`Hi, I'm ${data.assistantName}. Ask me about Roland's portfolio.`, 'assistant');
+            setOpen(false);
         })
         .catch(() => {
+            knowledge = {
+                assistantName: 'Ask Roland AI',
+                fallback: "I'm sorry, I couldn't find an answer to that question. Try asking about my projects, skills, internship, leadership experience, achievements, or contact information.",
+                suggestions: [],
+                answers: []
+            };
             addMessage("I don't have that information in Roland's portfolio yet.", 'assistant');
         });
 

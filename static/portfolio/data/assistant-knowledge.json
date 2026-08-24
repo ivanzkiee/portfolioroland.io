@@ -1,56 +1,279 @@
 {
   "assistantName": "Ask Roland AI",
-  "fallback": "I don't have that information in Roland's portfolio yet.",
+  "fallback": "I'm sorry, I couldn't find an answer to that question. Try asking about my projects, skills, internship, leadership experience, achievements, or contact information.",
   "suggestions": [
-    "Tell me about Roland.",
-    "What are Roland's technical skills?",
-    "What projects has Roland developed?",
-    "Explain the TenantFlow project.",
-    "What was Roland's internship experience?",
-    "Tell me about Roland's leadership experience.",
-    "What achievements does Roland have?",
-    "How can I contact Roland?"
+    "Tell me about yourself",
+    "What projects have you built?",
+    "Tell me about TenantFlow",
+    "What technical skills do you have?",
+    "Tell me about your internship.",
+    "Tell me about your leadership experience.",
+    "What awards have you received?",
+    "How can I contact you?"
   ],
   "answers": [
     {
-      "id": "about",
-      "keywords": ["tell me about", "who is roland", "about roland", "background", "education", "career goal"],
-      "answer": "Roland Ivan M. Palasigue is a fresh Bachelor of Science in Computer Science graduate from STI College Muñoz-EDSA, Quezon City. He has a background in Mobile Application and Web Development and is seeking entry-level opportunities where he can contribute to web development, software engineering, IT support, or administrative work while continuing to grow professionally."
+      "id": "about-me",
+      "keywords": [
+        "about me",
+        "about roland",
+        "tell me about yourself",
+        "who is roland",
+        "bio",
+        "background",
+        "introduction",
+        "about you",
+        "career goal",
+        "career goals"
+      ],
+      "answer": "I'm Roland Ivan M. Palasigue, a Computer Science graduate from STI College Muñoz-EDSA in Quezon City. I built my foundation in mobile and web development, and I'm now looking for entry-level opportunities in web development, software engineering, IT support, and administrative work where I can keep learning and contribute meaningfully."
     },
     {
-      "id": "skills",
-      "keywords": ["technical skills", "skills", "programming", "technology", "technologies", "tools", "database", "web development"],
-      "answer": "Roland's technical skills include Java, C#, SQL, Android development, HTML, CSS, JavaScript, and Django. He also works with Microsoft Office 365 and Google Workspace, and has experience with network troubleshooting, hardware and software maintenance, audio-visual operations, and technical documentation."
+      "id": "education",
+      "keywords": [
+        "education",
+        "college",
+        "school",
+        "degree",
+        "bachelor",
+        "computer science",
+        "sti college",
+        "senior high",
+        "graduated",
+        "study"
+      ],
+      "answer": "I graduated with a Bachelor of Science in Computer Science from STI College Muñoz-EDSA. My academic path also includes a strong foundation in mobile application and web development, which led to my capstone project and hands-on experience in software design, testing, and technical documentation."
+    },
+    {
+      "id": "technical-skills",
+      "keywords": [
+        "technical skills",
+        "skills",
+        "tech stack",
+        "programming languages",
+        "programming language",
+        "database",
+        "web development",
+        "development skills",
+        "technology",
+        "technologies",
+        "tools and technologies"
+      ],
+      "answer": "My technical skills include Java, C#, SQL, Android development, HTML, CSS, JavaScript, and Django. I also work with productivity tools like Microsoft Office 365 and Google Workspace, and I have experience in troubleshooting, software and hardware maintenance, documentation, and general IT support."
+    },
+    {
+      "id": "programming-languages",
+      "keywords": [
+        "programming languages",
+        "languages",
+        "java",
+        "c sharp",
+        "c#",
+        "javascript",
+        "sql",
+        "html",
+        "css",
+        "android",
+        "python",
+        "django"
+      ],
+      "answer": "I am comfortable working with Java, C#, SQL, JavaScript, HTML, CSS, and Django. I also have experience in Android development, and I regularly apply these tools in building practical and user-centered digital solutions."
+    },
+    {
+      "id": "tools-technologies",
+      "keywords": [
+        "tools",
+        "technologies",
+        "tools and technologies",
+        "microsoft office",
+        "google workspace",
+        "network troubleshooting",
+        "hardware",
+        "software maintenance",
+        "documentation",
+        "audio visual",
+        "it support"
+      ],
+      "answer": "I am comfortable using Microsoft Office 365 and Google Workspace for documentation, spreadsheets, and communication tasks. I also have foundational experience in network troubleshooting, hardware and software maintenance, audio-visual support, and technical documentation in office and academic settings."
     },
     {
       "id": "projects",
-      "keywords": ["projects", "project has", "developed", "portfolio projects", "academic project", "personal project"],
-      "answer": "The documented portfolio project is TenantFlow, a web-based rental apartment management system. It was developed as a BSCS thesis project. Roland contributed to frontend design, backend logic, system testing, and documentation using HTML, CSS, JavaScript, and Django."
+      "keywords": [
+        "projects",
+        "project",
+        "what projects have you built",
+        "what have you built",
+        "portfolio projects",
+        "project showcase",
+        "academic projects",
+        "capstone"
+      ],
+      "answer": "I have built and contributed to projects such as TenantFlow, a web-based rental apartment management system for tenant and payment monitoring. My work includes frontend design, backend logic, testing, documentation, and system planning. I also have a foundation in mobile and web development through my academic projects and coursework."
     },
     {
       "id": "tenantflow",
-      "keywords": ["tenantflow", "rental system", "rental apartment", "payment monitoring"],
-      "answer": "TenantFlow is a full-stack web-based rental apartment management system created for tenant and payment monitoring. Its purpose is to help manage rental properties and track payments more efficiently. The project uses HTML, CSS, JavaScript, and Django, with Roland contributing to the frontend, backend implementation, testing, and system documentation."
+      "keywords": [
+        "tenantflow",
+        "tenant flow",
+        "capstone",
+        "rental system",
+        "rental apartment",
+        "tenant management",
+        "payment monitoring",
+        "property management"
+      ],
+      "answer": "TenantFlow is my capstone project: a web-based rental apartment management system designed to monitor tenants, manage rental property records, and track payments more efficiently. The system was developed using HTML, CSS, JavaScript, and Django, and it reflects my work in frontend design, backend implementation, testing, and system documentation."
     },
     {
       "id": "internship",
-      "keywords": ["internship", "intern", "ojt", "national printing office", "npo", "it unit", "technical support", "troubleshooting"],
-      "answer": "Roland completed his On-the-Job Training at the National Printing Office's IT Unit from March 2026 to May 2026. His experience included IT support, troubleshooting computer and printer hardware, managing digital records and documentation, scanning and organizing documents, and collaborating with the IT team."
+      "keywords": [
+        "internship",
+        "intern",
+        "ojt",
+        "on the job training",
+        "national printing office",
+        "npo",
+        "printing office",
+        "it unit",
+        "technical support",
+        "troubleshooting",
+        "internship experience"
+      ],
+      "answer": "I completed my On-the-Job Training at the National Printing Office's IT Unit from March 2026 to May 2026. There, I supported IT operations by troubleshooting computer and printer issues, managing digital records and documentation, scanning and organizing files, and helping maintain a smooth office workflow alongside the IT team."
     },
     {
-      "id": "leadership",
-      "keywords": ["leadership", "csg", "central student government", "vice president", "class president", "organization", "event coordination"],
-      "answer": "Roland served in the Central Student Government at STI College Muñoz-EDSA as Computer Science Representative, Secretary and Logistics Coordinator, and Vice President - External / Technical Committee Head from 2025 to 2026. He coordinated technical and logistical requirements, managed documentation, supported campus-wide events with 300+ participants, and collaborated across committees. He also served as Class President from 2022 to 2026."
+      "id": "national-printing-office",
+      "keywords": [
+        "national printing office",
+        "npo",
+        "printing office",
+        "national printing office internship",
+        "it unit at the national printing office"
+      ],
+      "answer": "The National Printing Office is where I completed my internship in the IT Unit. My responsibilities included supporting IT support and troubleshooting, handling document scanning and organization, updating digital records, and assisting the team with administrative and technical tasks."
+    },
+    {
+      "id": "csg-leadership",
+      "keywords": [
+        "leadership",
+        "leadership experience",
+        "csg",
+        "central student government",
+        "csg leadership",
+        "vice president",
+        "secretary",
+        "logistics coordinator",
+        "technical committee head",
+        "event coordination",
+        "organization"
+      ],
+      "answer": "I served in the Central Student Government at STI College Muñoz-EDSA in roles including Computer Science Representative, Secretary and Logistics Coordinator, and Vice President - External / Technical Committee Head from 2025 to 2026. I helped coordinate technical requirements, manage documentation, support campus events with 300+ participants, and work across committees to ensure smooth operations."
+    },
+    {
+      "id": "class-president",
+      "keywords": [
+        "class president",
+        "class leadership",
+        "president",
+        "student leader",
+        "class officer"
+      ],
+      "answer": "I served as Class President from 2022 to 2026, where I helped guide my classmates, coordinate with school staff and event organizers, and support student communication and activities. This role strengthened my leadership, organization, and responsibility in a student community setting."
     },
     {
       "id": "achievements",
-      "keywords": ["achievements", "awards", "recognition", "leadership awardee", "gawad", "honors", "high honors"],
-      "answer": "Roland's recognitions include Leadership Awardee from STI College Muñoz-EDSA, Gawad Kabataang Pylon Recognition from the QC Youth Development Office, Senior High School With Honors, and Senior High School With High Honors."
+      "keywords": [
+        "achievements",
+        "awards",
+        "recognition",
+        "recognitions",
+        "leadership awardee",
+        "gawad",
+        "honors",
+        "with honors",
+        "high honors",
+        "what awards have you received"
+      ],
+      "answer": "My recognitions include Leadership Awardee from STI College Muñoz-EDSA, Gawad Kabataang Pylon Recognition from the QC Youth Development Office, Senior High School With Honors, and Senior High School With High Honors. These achievements reflect my leadership, service, and academic performance."
+    },
+    {
+      "id": "leadership-awardee",
+      "keywords": [
+        "leadership awardee",
+        "leadership award",
+        "service award",
+        "awardee"
+      ],
+      "answer": "I was recognized as a Leadership Awardee for my service and contributions in student leadership, particularly through my involvement in the Central Student Government and campus initiatives. The recognition reflects my commitment to organizing, supporting communities, and leading responsibly."
+    },
+    {
+      "id": "gawad-kabataang-pylon",
+      "keywords": [
+        "gawad kabataang pylon",
+        "gawad",
+        "kabataang pylon",
+        "youth development office",
+        "pylon recognition"
+      ],
+      "answer": "The Gawad Kabataang Pylon recognition is a distinguished youth leadership award I received from the QC Youth Development Office. It recognized my active participation and service in student leadership and community-focused initiatives."
+    },
+    {
+      "id": "certificates",
+      "keywords": [
+        "certificates",
+        "certificate",
+        "certification",
+        "training certificate",
+        "java fundamentals",
+        "web development training",
+        "php and mysql",
+        "tech training"
+      ],
+      "answer": "I have completed certificates and trainings relevant to software and web development, including Java Fundamentals and a Web Development Training Program using PHP and MySQL. These learning experiences helped strengthen my technical foundation and practical skills."
+    },
+    {
+      "id": "resume",
+      "keywords": [
+        "resume",
+        "cv",
+        "curriculum vitae",
+        "download resume",
+        "experience summary",
+        "resume pdf",
+        "work experience"
+      ],
+      "answer": "You can view or download my resume from the Resume section of this portfolio. It includes my education, internships, technical skills, leadership roles, and key achievements in a concise professional format."
     },
     {
       "id": "contact",
-      "keywords": ["contact", "email", "phone", "reach", "message", "linkedin", "github"],
-      "answer": "Roland can be contacted at rolandivanmapalasigue0373@gmail.com or +639217296958. He is based in Quezon City. Professional links are available through the portfolio's footer, including LinkedIn and GitHub."
+      "keywords": [
+        "contact",
+        "contact information",
+        "email",
+        "phone",
+        "reach me",
+        "how can i contact you",
+        "call me",
+        "linkedin",
+        "github",
+        "facebook",
+        "instagram",
+        "message me"
+      ],
+      "answer": "You can contact me at rolandivanmapalasigue0373@gmail.com or +639217296958. I am based in Quezon City, and my professional and social links are available in the portfolio footer and contact section."
+    },
+    {
+      "id": "career-goals",
+      "keywords": [
+        "career goals",
+        "career objective",
+        "future goals",
+        "what are your goals",
+        "goal",
+        "aspirations",
+        "what do you want to do"
+      ],
+      "answer": "My career goals are to grow as a software developer and IT professional by contributing to meaningful projects, improving my technical skills, and eventually taking on larger responsibilities in web development, software engineering, and technical support roles."
     }
   ]
 }
