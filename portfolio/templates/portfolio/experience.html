@@ -1,4 +1,5 @@
 {% extends 'portfolio/base.html' %}
+{% load static %}
 
 {% block title %}Experience - Portfolio{% endblock %}
 
@@ -32,6 +33,9 @@
                                 <li>Assist in organizing and supporting campus-wide activities with 300+ student participants</li>
                                 <li>Ensure smooth execution of operations for major events</li>
                             </ul>
+                            <button class="view-gallery-btn" onclick="openGalleryModal('csg-gallery')">
+                                <i class="fas fa-images"></i> View Leadership Photos
+                            </button>
                         </div>
                     </div>
                     
@@ -59,6 +63,46 @@
                         </div>
                     </div>
 
+                    <!-- CSG Leadership Photo Gallery Modal -->
+                    <div id="csg-gallery" class="experience-gallery-modal" onclick="closeGalleryModal(event, 'csg-gallery')">
+                        <div class="gallery-modal-content" onclick="event.stopPropagation()">
+                            <button class="gallery-close-btn" onclick="closeGalleryModal(event, 'csg-gallery')" aria-label="Close gallery">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <h3>CSG Leadership Experience</h3>
+                            <div class="experience-photos-grid">
+                                <div class="experience-photo-item">
+                                    <img src="{% static 'portfolio/images/experience/CSG 1.jpg' %}" 
+                                         alt="CSG Officers Team" 
+                                         class="experience-photo"
+                                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'%23374151\' font-family=\'Arial\' font-size=\'16\'%3ECSG Photo 1%3C/text%3E%3C/svg%3E';">
+                                    <p class="photo-caption">BSCS Representative</p>
+                                </div>
+                                <div class="experience-photo-item">
+                                    <img src="{% static 'portfolio/images/experience/CSG 2.jpg' %}" 
+                                         alt="CSG Event Coordination" 
+                                         class="experience-photo"
+                                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'%23374151\' font-family=\'Arial\' font-size=\'16\'%3ECSG Photo 2%3C/text%3E%3C/svg%3E';">
+                                    <p class="photo-caption">Secretary</p>
+                                </div>
+                                <div class="experience-photo-item">
+                                    <img src="{% static 'portfolio/images/experience/CSG 3.jpg' %}" 
+                                         alt="CSG Student Activities" 
+                                         class="experience-photo"
+                                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'%23374151\' font-family=\'Arial\' font-size=\'16\'%3ECSG Photo 3%3C/text%3E%3C/svg%3E';">
+                                    <p class="photo-caption">Secretary and Logistics Director (Head)</p>
+                                </div>
+                                <div class="experience-photo-item">
+                                    <img src="{% static 'portfolio/images/experience/CSG 4.jpg' %}" 
+                                         alt="CSG Committee Work" 
+                                         class="experience-photo"
+                                         onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'%23374151\' font-family=\'Arial\' font-size=\'16\'%3ECSG Photo 4%3C/text%3E%3C/svg%3E';">
+                                    <p class="photo-caption">Vice President - External and Technical Committee Leadership</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="timeline-item">
                         <div class="timeline-marker"></div>
                         <div class="timeline-content">
@@ -77,6 +121,26 @@
                             </ul>
                         </div>
                     </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2022 - 2026</div>
+                            <h3>Class President</h3>
+                            <h4>STI College Muñoz-EDSA</h4>
+                            <p>
+                                Served as class representative throughout my academic journey, facilitating 
+                                communication between students and faculty, coordinating class activities, 
+                                and supporting student concerns and welfare.
+                            </p>
+                            <ul class="experience-list">
+                                <li>Facilitated communication between class and faculty members</li>
+                                <li>Coordinated class activities, events, and programs</li>
+                                <li>Addressed student concerns and supported class welfare initiatives</li>
+                                <li>Promoted teamwork and class unity among diverse student groups</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -89,6 +153,60 @@
                             <div class="timeline-date">March 2026 - May 2026</div>
                             <h3>On the Job Training</h3>
                             <h4>National Printing Office - ITU Department</h4>
+                            <p>
+                                Completed an intensive on-the-job training program at the National Printing Office's 
+                                Information Technology Unit, gaining hands-on experience in IT support, system maintenance, 
+                                and technical documentation.
+                            </p>
+                            <ul class="experience-list">
+                                <li>Provided IT support and troubleshooting for office equipment and systems</li>
+                                <li>Managed documentation and records in computer systems</li>
+                                <li>Troubleshot computer and printer hardware issues</li>
+                                <li>Collaborated with IT team members in diagnosing and resolving technical problems</li>
+                            </ul>
+                            <button class="view-gallery-btn" onclick="openGalleryModal('npo-gallery')">
+                                <i class="fas fa-images"></i> View Internship Photos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NPO Internship Photo Gallery Modal -->
+                <div id="npo-gallery" class="experience-gallery-modal" onclick="closeGalleryModal(event, 'npo-gallery')">
+                    <div class="gallery-modal-content" onclick="event.stopPropagation()">
+                        <button class="gallery-close-btn" onclick="closeGalleryModal(event, 'npo-gallery')" aria-label="Close gallery">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <h3>Internship Experience at NPO - ITU Department</h3>
+                        <div class="experience-photos-grid">
+                            <div class="experience-photo-item">
+                                <img src="{% static 'portfolio/images/experience/npo-internship-1.jpg' %}" 
+                                     alt="Internship Team at NPO" 
+                                     class="experience-photo"
+                                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'%23374151\' font-family=\'Arial\' font-size=\'16\'%3EInternship Photo 1%3C/text%3E%3C/svg%3E';">
+                                <p class="photo-caption">OJT Team - National Printing Office</p>
+                            </div>
+                            <div class="experience-photo-item">
+                                <img src="{% static 'portfolio/images/experience/npo-internship-2.jpg' %}" 
+                                     alt="Team Collaboration at NPO" 
+                                     class="experience-photo"
+                                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'%23374151\' font-family=\'Arial\' font-size=\'16\'%3EInternship Photo 2%3C/text%3E%3C/svg%3E';">
+                                <p class="photo-caption">Teamwork and Learning</p>
+                            </div>
+                            <div class="experience-photo-item">
+                                <img src="{% static 'portfolio/images/experience/npo-internship-3.jpg' %}" 
+                                     alt="Technical Work at NPO" 
+                                     class="experience-photo"
+                                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'%23374151\' font-family=\'Arial\' font-size=\'16\'%3EInternship Photo 3%3C/text%3E%3C/svg%3E';">
+                                <p class="photo-caption">Hands-on Technical Experience</p>
+                            </div>
+                            <div class="experience-photo-item">
+                                <img src="{% static 'portfolio/images/experience/npo-internship-4.jpg' %}" 
+                                     alt="Office Environment at NPO" 
+                                     class="experience-photo"
+                                     onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%23e5e7eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'%23374151\' font-family=\'Arial\' font-size=\'16\'%3EInternship Photo 4%3C/text%3E%3C/svg%3E';">
+                                <p class="photo-caption">Workplace Learning Environment</p>
+                            </div>
                         </div>
                     </div>
                 </div>

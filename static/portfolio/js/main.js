@@ -380,3 +380,101 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+/* Experience & Achievement Gallery Functions */
+
+/**
+ * Open experience/achievement photo gallery modal
+ * @param {string} galleryId - The ID of the gallery modal to open
+ */
+function openGalleryModal(galleryId) {
+    const gallery = document.getElementById(galleryId);
+    if (gallery) {
+        gallery.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Trap focus in the modal
+        gallery.focus();
+    }
+}
+
+/**
+ * Close experience/achievement photo gallery modal
+ * @param {Event} event - The click event
+ * @param {string} galleryId - The ID of the gallery modal to close
+ */
+function closeGalleryModal(event, galleryId) {
+    if (event) {
+        event.preventDefault();
+    }
+    const gallery = document.getElementById(galleryId);
+    if (gallery) {
+        gallery.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+/**
+ * Open achievement modal with image and details
+ * @param {string} achievementId - The ID of the achievement modal to open
+ */
+function openAchievementModal(achievementId) {
+    const modal = document.getElementById(achievementId);
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        modal.focus();
+    }
+}
+
+/**
+ * Close achievement modal
+ * @param {string} achievementId - The ID of the achievement modal to close
+ */
+function closeAchievementModal(achievementId) {
+    const modal = document.getElementById(achievementId);
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close gallery modals when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+    // Gallery modals
+    document.querySelectorAll('.experience-gallery-modal').forEach(function(modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target === this) {
+                const galleryId = this.id;
+                closeGalleryModal(null, galleryId);
+            }
+        });
+    });
+
+    // Achievement modals
+    document.querySelectorAll('.achievement-modal-panel').forEach(function(modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target === this) {
+                const achievementId = this.id;
+                closeAchievementModal(achievementId);
+            }
+        });
+    });
+
+    // Close modals with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            // Close gallery modals
+            document.querySelectorAll('.experience-gallery-modal.active').forEach(function(modal) {
+                const galleryId = modal.id;
+                closeGalleryModal(null, galleryId);
+            });
+
+            // Close achievement modals
+            document.querySelectorAll('.achievement-modal-panel.active').forEach(function(modal) {
+                const achievementId = modal.id;
+                closeAchievementModal(achievementId);
+            });
+        }
+    });
+});
+
+

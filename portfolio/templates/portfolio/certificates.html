@@ -339,7 +339,148 @@
         <p class="certificates-note">
             <strong>Note:</strong> All school-issued certificates are duly signed by the appropriate school officials. Original hard copies are available upon request.
         </p>
+
+        <!-- Leadership & Recognition Section -->
+        <div style="margin-top: 4rem;">
+            <h2 style="color: var(--primary-color); font-size: 2rem; margin-bottom: 2rem; text-align: center;">
+                <i class="fas fa-medal"></i> Leadership & Recognition
+            </h2>
+            
+            <div class="achievement-grid">
+                <!-- Leadership Awardee Card -->
+                <div class="achievement-card" onclick="openAchievementModal('leadership-modal')">
+                    <div class="achievement-image-container">
+                        <img src="{% static 'portfolio/images/achievements/leadership-awardee.jpg' %}" 
+                             alt="Leadership Awardee" 
+                             class="achievement-image"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%232563eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-family=\'Arial\' font-size=\'18\' font-weight=\'bold\'%3ELeadership Awardee%3C/text%3E%3C/svg%3E';">
+                        <div class="achievement-overlay">
+                            <span class="achievement-view-icon"><i class="fas fa-eye"></i></span>
+                        </div>
+                    </div>
+                    <div class="achievement-content">
+                        <span class="achievement-category">Recognition</span>
+                        <h3>Leadership Awardee</h3>
+                        <p class="achievement-institution">STI College Muñoz-EDSA</p>
+                        <p>Recognized for outstanding leadership contributions and commitment to student development and organizational excellence.</p>
+                        <span class="achievement-badge">
+                            <i class="fas fa-star"></i> Award of Recognition
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Gawad Kabataang Pylon Card -->
+                <div class="achievement-card" onclick="openAchievementModal('gawad-modal')">
+                    <div class="achievement-image-container">
+                        <img src="{% static 'portfolio/images/achievements/gawad-kabataang-pylon.jpg' %}" 
+                             alt="Gawad Kabataang Pylon" 
+                             class="achievement-image"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\'%3E%3Crect fill=\'%232563eb\' width=\'400\' height=\'300\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-family=\'Arial\' font-size=\'16\' font-weight=\'bold\'%3EGawad Kabataang Pylon%3C/text%3E%3C/svg%3E';">
+                        <div class="achievement-overlay">
+                            <span class="achievement-view-icon"><i class="fas fa-eye"></i></span>
+                        </div>
+                    </div>
+                    <div class="achievement-content">
+                        <span class="achievement-category">Student Recognition</span>
+                        <h3>Gawad Kabataang Pylon</h3>
+                        <p class="achievement-institution">STI College Student Community</p>
+                        <p>Honored as a youth leader actively contributing to student organization development and community engagement initiatives.</p>
+                        <span class="achievement-badge">
+                            <i class="fas fa-users"></i> Organization Award
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Academic Honors Section -->
+        <div style="margin-top: 4rem;">
+            <h2 style="color: var(--primary-color); font-size: 2rem; margin-bottom: 2rem; text-align: center;">
+                <i class="fas fa-graduation-cap"></i> Academic Honors
+            </h2>
+
+            <div class="honors-grid">
+                <div class="honor-item">
+                    <div class="honor-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="honor-title">With Honors</h3>
+                    <p class="honor-level">Senior High School</p>
+                    <p class="honor-year">Graduated 2023</p>
+                </div>
+
+                <div class="honor-item">
+                    <div class="honor-icon">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <h3 class="honor-title">With High Honors</h3>
+                    <p class="honor-level">Senior High School</p>
+                    <p class="honor-year">Achieved 2022</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+<!-- Achievement Modals -->
+<!-- Leadership Awardee Modal -->
+<div id="leadership-modal" class="achievement-modal-panel" onclick="closeAchievementModal('leadership-modal')">
+    <div class="achievement-modal-content" onclick="event.stopPropagation()">
+        <button class="achievement-modal-close" onclick="closeAchievementModal('leadership-modal')" aria-label="Close modal">
+            <i class="fas fa-times"></i>
+        </button>
+        <img src="{% static 'portfolio/images/achievements/leadership-awardee.jpg' %}" 
+             alt="Leadership Awardee" 
+             class="achievement-modal-image"
+             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'%3E%3Crect fill=\'%232563eb\' width=\'800\' height=\'600\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-family=\'Arial\' font-size=\'28\' font-weight=\'bold\'%3ELeadership Awardee Recognition%3C/text%3E%3C/svg%3E';">
+        <div class="achievement-modal-details">
+            <h2 class="achievement-modal-title">Leadership Awardee</h2>
+            <p class="achievement-modal-subtitle">STI College Muñoz-EDSA</p>
+            <p class="achievement-modal-description">
+                This recognition acknowledges outstanding leadership qualities and significant contributions to the development and success of student organizations and campus activities. Throughout my tenure in the Central Student Government and various student organizations, I have demonstrated commitment to:
+            </p>
+            <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 1.5rem; line-height: 1.8;">
+                <li>Inspiring and motivating fellow students toward excellence</li>
+                <li>Fostering collaboration and unity within diverse student groups</li>
+                <li>Implementing successful initiatives for student welfare and development</li>
+                <li>Serving as an effective liaison between students and school administration</li>
+                <li>Demonstrating integrity, responsibility, and ethical leadership practices</li>
+            </ul>
+            <p class="achievement-modal-description">
+                This award represents recognition of my commitment to student leadership and the positive impact made within the school community.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Gawad Kabataang Pylon Modal -->
+<div id="gawad-modal" class="achievement-modal-panel" onclick="closeAchievementModal('gawad-modal')">
+    <div class="achievement-modal-content" onclick="event.stopPropagation()">
+        <button class="achievement-modal-close" onclick="closeAchievementModal('gawad-modal')" aria-label="Close modal">
+            <i class="fas fa-times"></i>
+        </button>
+        <img src="{% static 'portfolio/images/achievements/gawad-kabataang-pylon.jpg' %}" 
+             alt="Gawad Kabataang Pylon" 
+             class="achievement-modal-image"
+             onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'800\' height=\'600\'%3E%3Crect fill=\'%232563eb\' width=\'800\' height=\'600\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\' fill=\'white\' font-family=\'Arial\' font-size=\'24\' font-weight=\'bold\'%3EGawad Kabataang Pylon Recognition%3C/text%3E%3C/svg%3E';">
+        <div class="achievement-modal-details">
+            <h2 class="achievement-modal-title">Gawad Kabataang Pylon</h2>
+            <p class="achievement-modal-subtitle">Student Organization Recognition</p>
+            <p class="achievement-modal-description">
+                The "Gawad Kabataang Pylon" (Youth Pylon Award) is a prestigious recognition given to outstanding student leaders who exemplify the values of the student organization and community. This award recognizes my contributions to:
+            </p>
+            <ul style="color: var(--text-secondary); margin: 1rem 0 1rem 1.5rem; line-height: 1.8;">
+                <li>Active participation in student organization activities and programs</li>
+                <li>Promoting student welfare and academic excellence</li>
+                <li>Demonstrating consistent dedication to school and community development</li>
+                <li>Embodying the values of Filipino youth leadership and social responsibility</li>
+                <li>Contributing to a vibrant and engaged student community</li>
+            </ul>
+            <p class="achievement-modal-description">
+                This recognition highlights my commitment to youth leadership and positive contribution to the student organization and the broader school community.
+            </p>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
