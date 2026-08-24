@@ -1356,6 +1356,7 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
     opacity: 0;
+    cursor: pointer;
     transition: opacity 0.25s ease;
 }
 
@@ -1770,6 +1771,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .experience-photo-item {
+    position: relative;
     background: var(--input-bg);
     border-radius: 12px;
     overflow: hidden;
@@ -1796,6 +1798,36 @@ h1, h2, h3, h4, h5, h6 {
 
 .experience-photo-item:hover .experience-photo {
     transform: scale(1.05);
+}
+
+.experience-photo-preview {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    background: rgba(15, 23, 42, 0.78);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    box-shadow: 0 8px 18px rgba(2, 6, 23, 0.35);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.experience-photo-preview:hover,
+.experience-photo-preview:focus-visible {
+    background: var(--primary-color);
+    transform: scale(1.08);
+}
+
+.experience-photo-preview:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
 }
 
 .photo-caption {

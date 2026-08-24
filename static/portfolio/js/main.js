@@ -294,6 +294,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    document.addEventListener('click', function (event) {
+        const overlay = event.target.closest('.certificate-overlay, .achievement-overlay');
+        if (!overlay) return;
+
+        const image = overlay.parentElement.querySelector('img');
+        if (!image) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+        openModal(image);
+    });
+
+    document.querySelectorAll('.experience-photo-item').forEach(function (photoItem) {
+        const image = photoItem.querySelector('.experience-photo');
+        if (!image || photoItem.querySelector('.experience-photo-preview')) return;
+
+        const previewButton = document.createElement('button');
+        previewButton.type = 'button';
+        previewButton.className = 'experience-photo-preview';
+        previewButton.setAttribute('aria-label', `View full image: ${image.alt || 'Experience photo'}`);
+        previewButton.innerHTML = '<i class="fas fa-eye" aria-hidden="true"></i>';
+        previewButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            openModal(image);
+        });
+        photoItem.appendChild(previewButton);
+
+        image.addEventListener('click', function () {
+            openModal(image);
+        });
+    });
+
     const modal = document.getElementById('certificateModal');
     if (modal) {
         modal.addEventListener('click', function(e) {
@@ -390,9 +423,12 @@ function openGalleryModal(galleryId) {
     const gallery = document.getElementById(galleryId);
     if (gallery) {
         gallery.classList.add('active');
+        gallery.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
-        // Trap focus in the modal
-        gallery.focus();
+        const closeButton = gallery.querySelector('.gallery-close-btn');
+        if (closeButton) {
+            setTimeout(() => closeButton.focus(), 0);
+        }
     }
 }
 
@@ -408,9 +444,25 @@ function closeGalleryModal(event, galleryId) {
     const gallery = document.getElementById(galleryId);
     if (gallery) {
         gallery.classList.remove('active');
-        document.body.style.overflow = '';
+        gallery.setAttribute('aria-hidden', 'true');
+
+        const hasOpenGallery = document.querySelector('.experience-gallery-modal.active');
+        if (!hasOpenGallery) {
+            document.body.style.overflow = '';
+        }
     }
 }
+
+document.addEventListener('click', function(event) {
+    const trigger = event.target.closest('[data-gallery-target]');
+    if (!trigger) return;
+
+    const galleryId = trigger.dataset.galleryTarget;
+    if (!galleryId) return;
+
+    event.preventDefault();
+    openGalleryModal(galleryId);
+});
 
 /**
  * Open achievement modal with image and details
