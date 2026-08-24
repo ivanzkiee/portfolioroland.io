@@ -291,8 +291,22 @@ html.motion-ready .motion-item.is-visible:hover {
 .hamburger {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-primary);
     cursor: pointer;
     gap: 4px;
+}
+
+.hamburger:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
 }
 
 .hamburger span {
@@ -2135,6 +2149,8 @@ h1, h2, h3, h4, h5, h6 {
         padding: 1.5rem;
         border-top: 1px solid var(--border-color);
         gap: 0.5rem;
+        max-height: calc(100vh - 5rem);
+        overflow-y: auto;
     }
 
     .nav-menu li {
@@ -2221,6 +2237,31 @@ h1, h2, h3, h4, h5, h6 {
         max-width: 95%;
         max-height: 85vh;
     }
+
+    .experience-gallery-modal {
+        padding: 1rem;
+        align-items: flex-start;
+    }
+
+    .gallery-modal-content {
+        width: 100%;
+        max-height: calc(100vh - 2rem);
+        padding: 3.5rem 1rem 1rem;
+    }
+
+    .gallery-modal-content h3 {
+        font-size: 1.25rem;
+    }
+
+    .experience-photos-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .experience-photo {
+        height: auto;
+        aspect-ratio: 4 / 3;
+    }
 }
 
 /* Tablet and compact laptop layouts */
@@ -2299,6 +2340,45 @@ h1, h2, h3, h4, h5, h6 {
         flex-direction: column;
     }
 
+    .timeline::before {
+        left: 11px;
+    }
+
+    .timeline-marker {
+        left: 1px;
+    }
+
+    .view-gallery-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .certificate-modal {
+        padding: 4.5rem 0.75rem 1rem;
+    }
+
+    .modal-heading {
+        width: 100%;
+    }
+
+    .modal-heading h2 {
+        font-size: 1rem;
+        overflow-wrap: anywhere;
+    }
+
+    .modal-content,
+    .modal-video {
+        width: 100%;
+        max-width: 100%;
+        max-height: 72vh;
+        border-radius: 10px;
+    }
+
+    .modal-caption {
+        max-width: 100%;
+        border-radius: 10px;
+    }
+
     .hero-buttons .btn {
         justify-content: center;
         width: 100%;
@@ -2353,6 +2433,49 @@ h1, h2, h3, h4, h5, h6 {
 
     .timeline-content h4 {
         font-size: 0.9rem;
+    }
+
+    .page-header h1 {
+        overflow-wrap: anywhere;
+    }
+
+    .timeline::before {
+        left: 11px;
+    }
+
+    .timeline-marker {
+        left: 1px;
+    }
+
+    .view-gallery-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .certificate-modal {
+        padding: 4.5rem 0.75rem 1rem;
+    }
+
+    .modal-heading {
+        width: 100%;
+    }
+
+    .modal-heading h2 {
+        font-size: 1rem;
+        overflow-wrap: anywhere;
+    }
+
+    .modal-content,
+    .modal-video {
+        width: 100%;
+        max-width: 100%;
+        max-height: 72vh;
+        border-radius: 10px;
+    }
+
+    .modal-caption {
+        max-width: 100%;
+        border-radius: 10px;
     }
 
     .resume-paper,

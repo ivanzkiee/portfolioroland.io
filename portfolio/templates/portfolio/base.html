@@ -57,7 +57,7 @@
                 </a>
             </div>
             <div class="nav-right">
-                <ul class="nav-menu">
+                <ul id="primary-navigation" class="nav-menu">
                     <li><a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
                     <li><a href="{% url 'about' %}" class="{% if request.resolver_match.url_name == 'about' %}active{% endif %}">About Me</a></li>
                     <li><a href="{% url 'skills' %}" class="{% if request.resolver_match.url_name == 'skills' %}active{% endif %}">Skills</a></li>
@@ -68,14 +68,13 @@
                     <li><a href="{% url 'contact' %}" class="{% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a></li>
                 </ul>
             </div>
-            <div class="hamburger">
+            <button type="button" class="hamburger" aria-label="Toggle navigation menu" aria-controls="primary-navigation" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </div>
     </nav>
-
     <main>
         {% block content %}
         {% endblock %}

@@ -29,14 +29,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (hamburger && navMenu) {
         hamburger.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
+            const isOpen = navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', String(isOpen));
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', function(event) {
             if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
                 navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
             }
+        });
+
+        navMenu.querySelectorAll('a').forEach(function (link) {
+            link.addEventListener('click', function () {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
         });
     }
 
