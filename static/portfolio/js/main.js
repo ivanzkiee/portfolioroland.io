@@ -49,9 +49,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    const motionSections = document.querySelectorAll('main > section');
     const motionItems = document.querySelectorAll(
-        '.timeline-item, .project-card, .certificate-item, .skill-item, .soft-skill-item, .contact-item, .about-stat, .feature-card'
+        '.timeline-item, .project-card, .certificate-item, .skill-item, .soft-skill-item, .contact-item, .about-stat, .feature-card, .achievement-card, .honor-item'
     );
 
     document.documentElement.classList.add('motion-ready');
@@ -66,19 +65,12 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }, { threshold: 0.12, rootMargin: '0px 0px -48px' });
 
-        motionSections.forEach((section, index) => {
-            section.classList.add('motion-section');
-            section.style.setProperty('--motion-section-delay', `${Math.min(index, 3) * 80}ms`);
-            revealObserver.observe(section);
-        });
-
         motionItems.forEach((item, index) => {
             item.classList.add('motion-item');
             item.style.setProperty('--motion-delay', `${Math.min(index % 6, 5) * 70}ms`);
             revealObserver.observe(item);
         });
     } else {
-        motionSections.forEach(section => section.classList.add('is-visible'));
         motionItems.forEach(item => item.classList.add('is-visible'));
     }
 
