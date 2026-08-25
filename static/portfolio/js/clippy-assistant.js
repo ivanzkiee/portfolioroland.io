@@ -252,9 +252,27 @@ class ClippyAssistant {
     }
 
     openRolandAI() {
-        const assistantToggle = document.getElementById('assistantToggle');
-        if (assistantToggle) {
-            assistantToggle.click();
+        const toggle = document.getElementById('assistantToggle');
+        const panel = document.getElementById('assistantPanel');
+        const input = document.getElementById('assistantInput');
+        const suggestions = document.getElementById('assistantSuggestions');
+        
+        if (!panel) return;
+        
+        // Open the panel
+        const isOpen = true;
+        if (toggle) {
+            toggle.setAttribute('aria-expanded', String(isOpen));
+        }
+        panel.setAttribute('aria-hidden', String(!isOpen));
+        panel.classList.add('is-open');
+        
+        // Focus input and show suggestions
+        if (input) {
+            input.focus();
+        }
+        if (suggestions) {
+            suggestions.classList.add('is-visible');
         }
     }
 

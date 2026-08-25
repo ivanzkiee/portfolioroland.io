@@ -1589,13 +1589,13 @@ h1, h2, h3, h4, h5, h6 {
     bottom: 1.25rem;
     z-index: 1800;
     font-size: 0.9rem;
-    display: none; /* Hidden - Clippy is now the main entry point */
+    /* Clippy is now the main entry point, but the panel needs the widget for positioning */
 }
 
 .assistant-toggle {
     min-height: 52px;
     padding: 0.8rem 1.1rem;
-    display: inline-flex;
+    display: none; /* Hidden - Clippy is now the main entry point */
     align-items: center;
     gap: 0.55rem;
     border: 1px solid rgba(147, 197, 253, 0.5);
