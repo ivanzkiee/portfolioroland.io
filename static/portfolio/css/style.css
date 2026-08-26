@@ -744,7 +744,9 @@ h1, h2, h3, h4, h5, h6 {
 .skill-item::after {
     content: '';
     position: absolute;
-    inset: auto -20% -65% 25%;
+    right: 0;
+    bottom: -65%;
+    left: 25%;
     height: 120px;
     background: rgba(59, 130, 246, 0.16);
     filter: blur(28px);
@@ -1166,7 +1168,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .experience-list li::before {
-    content: 'Γû╕';
+    content: '-';
     position: absolute;
     left: 0;
     color: #7dd3fc;
@@ -2799,7 +2801,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Tablet and compact laptop layouts */
-@media (min-width: 769px) and (max-width: 1100px) {
+@media (min-width: 769px) and (max-width: 1200px) {
     .container {
         padding-left: 24px;
         padding-right: 24px;
