@@ -216,8 +216,17 @@ function initAssistant() {
         return word;
     }
 
+    const questionStopWords = new Set([
+        'a', 'about', 'an', 'and', 'are', 'can', 'did', 'do', 'for',
+        'have', 'how', 'i', 'is', 'me', 'my', 'of', 'please', 'show',
+        'tell', 'the', 'to', 'what', 'where', 'who', 'with', 'you', 'your'
+    ]);
+
     function tokenize(value) {
-        return normalizeText(value).split(' ').filter(Boolean).map(singularize);
+        return normalizeText(value)
+            .split(' ')
+            .filter(word => word && !questionStopWords.has(word))
+            .map(singularize);
     }
 
     function levenshteinDistance(a, b) {
@@ -267,7 +276,7 @@ function initAssistant() {
         const questionWords = tokenize(questionText);
         const phraseWords = tokenize(phraseText);
 
-        if (definedQuestion.includes(definedPhrase)) return 30 + (phraseWords.length * 3);
+        if (definedQuestion.includes(definedPhrase) && phraseWords.length > 1) return 30 + (phraseWords.length * 3);
 
         let score = 0;
 
