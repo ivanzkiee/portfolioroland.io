@@ -145,7 +145,8 @@ document.addEventListener('DOMContentLoaded', function() {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const progressBar = entry.target.querySelector('.skill-progress');
-                if (progressBar) {
+                if (progressBar && !entry.target.classList.contains('skill-progress-started')) {
+                    entry.target.classList.add('skill-progress-started');
                     const width = progressBar.style.width;
                     progressBar.style.width = '0%';
                     setTimeout(() => {
@@ -158,6 +159,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('.skill-item').forEach(item => {
         observer.observe(item);
+        item.addEventListener('click', function () {
+            item.classList.toggle('is-expanded');
+        });
+        item.addEventListener('keydown', function (event) {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
+            item.classList.toggle('is-expanded');
+        });
     });
 
     // Form submission handling
@@ -201,8 +210,14 @@ function initAssistant() {
             .trim();
     }
 
+    function singularize(word) {
+        if (word.length > 4 && word.endsWith('ies')) return `${word.slice(0, -3)}y`;
+        if (word.length > 3 && word.endsWith('s') && !word.endsWith('ss')) return word.slice(0, -1);
+        return word;
+    }
+
     function tokenize(value) {
-        return normalizeText(value).split(' ').filter(Boolean);
+        return normalizeText(value).split(' ').filter(Boolean).map(singularize);
     }
 
     function levenshteinDistance(a, b) {
@@ -232,8 +247,8 @@ function initAssistant() {
     }
 
     function fuzzyWordMatch(word, pattern) {
-        const normalizedWord = normalizeText(word);
-        const normalizedPattern = normalizeText(pattern);
+        const normalizedWord = singularize(normalizeText(word));
+        const normalizedPattern = singularize(normalizeText(pattern));
 
         if (!normalizedWord || !normalizedPattern) return false;
         if (normalizedWord === normalizedPattern) return true;
@@ -243,41 +258,34 @@ function initAssistant() {
         return levenshteinDistance(normalizedWord, normalizedPattern) <= 1;
     }
 
-    function keywordScore(questionText, keywordText) {
+    function phraseScore(questionText, phraseText) {
         const definedQuestion = normalizeText(questionText);
-        const definedKeyword = normalizeText(keywordText);
+        const definedPhrase = normalizeText(phraseText);
 
-        if (!definedQuestion || !definedKeyword) return 0;
+        if (!definedQuestion || !definedPhrase) return 0;
 
         const questionWords = tokenize(questionText);
-        const keywordWords = tokenize(keywordText);
+        const phraseWords = tokenize(phraseText);
 
-        if (definedQuestion.includes(definedKeyword)) return 30;
-        if (definedKeyword.includes(definedQuestion)) return 24;
+        if (definedQuestion.includes(definedPhrase)) return 30 + (phraseWords.length * 3);
 
         let score = 0;
 
-        keywordWords.forEach(word => {
+        phraseWords.forEach(word => {
             if (!word) return;
-            if (definedQuestion.includes(word)) {
+            if (questionWords.includes(word)) {
                 score += 8;
                 return;
             }
 
             const fuzzyMatch = questionWords.some(questionWord => fuzzyWordMatch(questionWord, word));
             if (fuzzyMatch) {
-                score += 6;
+                score += 5;
             }
         });
 
-        if (keywordWords.length > 1) {
-            const exactWordCoverage = keywordWords.filter(word => definedQuestion.includes(word)).length;
-            const fuzzyWordCoverage = keywordWords.filter(word => questionWords.some(questionWord => fuzzyWordMatch(questionWord, word))).length;
-            score += (exactWordCoverage + fuzzyWordCoverage) * 2;
-        }
-
-        if (questionWords.some(questionWord => fuzzyWordMatch(questionWord, definedKeyword))) {
-            score += 5;
+        if (phraseWords.length > 1 && score > 0) {
+            score += phraseWords.filter(word => questionWords.includes(word)).length * 3;
         }
 
         return score;
@@ -286,17 +294,28 @@ function initAssistant() {
     function findAnswer(question) {
         if (!knowledge) return 'The assistant is still loading. Please try again in a moment.';
 
-        const value = question.trim();
+        const value = normalizeText(question);
         if (!value) return knowledge.fallback;
 
         let bestAnswer = null;
         let bestScore = 0;
 
         knowledge.answers.forEach(answer => {
-            if (!answer || !Array.isArray(answer.keywords)) return;
+            if (!answer) return;
 
-            const score = answer.keywords.reduce((total, keyword) => {
-                return total + keywordScore(value, keyword);
+            const fields = [
+                { values: [answer.question], weight: 4 },
+                { values: [answer.title], weight: 3 },
+                { values: [answer.category], weight: 2 },
+                { values: answer.keywords, weight: 2 },
+                { values: answer.aliases, weight: 2 },
+                { values: [answer.answer], weight: 1 }
+            ];
+            const score = fields.reduce((total, field) => {
+                if (!Array.isArray(field.values)) return total;
+                return total + field.values.reduce((fieldTotal, valueToScore) => {
+                    return fieldTotal + (phraseScore(value, valueToScore) * field.weight);
+                }, 0);
             }, 0);
 
             if (score > bestScore) {
@@ -305,7 +324,7 @@ function initAssistant() {
             }
         });
 
-        if (!bestAnswer || bestScore <= 0) {
+        if (!bestAnswer || bestScore < 6) {
             return knowledge.fallback;
         }
 
@@ -393,7 +412,7 @@ function initAssistant() {
         .catch(() => {
             knowledge = {
                 assistantName: 'Ask Roland AI',
-                fallback: "I'm sorry, I couldn't find an answer to that question. Try asking about my projects, skills, internship, leadership experience, achievements, or contact information.",
+                fallback: "I'm sorry, I couldn't find an answer to that question.\n\nYou can ask me about:\n\n• Projects\n• TenantFlow\n• Internship\n• Leadership Experience\n• Technical Skills\n• Achievements\n• Certificates\n• Resume\n• Contact Information",
                 suggestions: [],
                 answers: []
             };

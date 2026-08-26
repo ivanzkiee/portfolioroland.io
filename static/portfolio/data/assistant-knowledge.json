@@ -1,6 +1,6 @@
 {
   "assistantName": "Ask Roland AI",
-  "fallback": "I'm sorry, I couldn't find an answer to that question. Try asking about my projects, skills, internship, leadership experience, achievements, or contact information.",
+  "fallback": "I'm sorry, I couldn't find an answer to that question.\n\nYou can ask me about:\n\n• Projects\n• TenantFlow\n• Internship\n• Leadership Experience\n• Technical Skills\n• Achievements\n• Certificates\n• Resume\n• Contact Information",
   "suggestions": [
     "Tell me about yourself",
     "What projects have you built?",
@@ -14,6 +14,10 @@
   "answers": [
     {
       "id": "about-me",
+      "title": "About Me",
+      "category": "About Me",
+      "question": "Tell me about yourself",
+      "aliases": ["who are you", "roland's background", "personal profile", "professional summary"],
       "keywords": [
         "about me",
         "about roland",
@@ -30,6 +34,10 @@
     },
     {
       "id": "education",
+      "title": "Education",
+      "category": "Education",
+      "question": "What is your educational background?",
+      "aliases": ["where did you study", "academic background", "school background", "college degree"],
       "keywords": [
         "education",
         "college",
@@ -46,6 +54,10 @@
     },
     {
       "id": "technical-skills",
+      "title": "Technical Skills",
+      "category": "Skills",
+      "question": "What technical skills do you have?",
+      "aliases": ["what can you do", "technical abilities", "skill set", "software skills"],
       "keywords": [
         "technical skills",
         "skills",
@@ -59,10 +71,14 @@
         "technologies",
         "tools and technologies"
       ],
-      "answer": "My technical skills include Java, C#, SQL, Android development, HTML, CSS, JavaScript, and Django. I also work with productivity tools like Microsoft Office 365 and Google Workspace, and I have experience in troubleshooting, software and hardware maintenance, documentation, and general IT support."
+      "answer": "My technical skills include Java, C#, SQL, Android development, HTML, CSS, JavaScript, and Django. I also work with productivity tools like Microsoft Office 365 and Google Workspace, and I have experience in troubleshooting, software and hardware maintenance, audio-visual operations, documentation, and general IT support."
     },
     {
       "id": "programming-languages",
+      "title": "Programming Languages",
+      "category": "Programming Languages",
+      "question": "What programming languages do you use?",
+      "aliases": ["coding languages", "what do you code in", "developer languages", "languages you know"],
       "keywords": [
         "programming languages",
         "languages",
@@ -81,6 +97,10 @@
     },
     {
       "id": "tools-technologies",
+      "title": "Development Tools",
+      "category": "Development Tools",
+      "question": "What development tools and technologies do you use?",
+      "aliases": ["software tools", "productivity tools", "technical tools", "IT tools"],
       "keywords": [
         "tools",
         "technologies",
@@ -98,6 +118,10 @@
     },
     {
       "id": "projects",
+      "title": "Portfolio Projects",
+      "category": "Projects",
+      "question": "What projects have you built?",
+      "aliases": ["what are your projects", "show your projects", "portfolio work", "applications you built"],
       "keywords": [
         "projects",
         "project",
@@ -106,12 +130,38 @@
         "portfolio projects",
         "project showcase",
         "academic projects",
-        "capstone"
+        "capstone",
+        "web applications",
+        "software projects",
+        "systems built"
       ],
       "answer": "I have built and contributed to projects such as TenantFlow, a web-based rental apartment management system for tenant and payment monitoring. My work includes frontend design, backend logic, testing, documentation, and system planning. I also have a foundation in mobile and web development through my academic projects and coursework."
     },
     {
+      "id": "ai-assisted-development",
+      "title": "AI-Assisted Development",
+      "category": "AI-Assisted Development",
+      "question": "How do you use AI-assisted development?",
+      "aliases": ["AI tools", "AI coding", "development with AI", "responsible AI use", "AI programming"],
+      "keywords": [
+        "ai assisted development",
+        "ai-assisted development",
+        "artificial intelligence",
+        "AI tools",
+        "AI coding",
+        "coding assistant",
+        "developer productivity",
+        "prompt engineering",
+        "responsible AI"
+      ],
+      "answer": "I use AI-assisted development tools to explore solutions, clarify documentation, draft routine code, and review ideas more efficiently. I verify generated output, test changes, and keep ownership of the design, implementation, and final technical decisions."
+    },
+    {
       "id": "tenantflow",
+      "title": "TenantFlow",
+      "category": "TenantFlow",
+      "question": "What is TenantFlow?",
+      "aliases": ["what is your capstone", "tell me about your thesis", "tenant flow system", "apartment management system"],
       "keywords": [
         "tenantflow",
         "tenant flow",
@@ -120,12 +170,21 @@
         "rental apartment",
         "tenant management",
         "payment monitoring",
-        "property management"
+        "property management",
+        "capstone project",
+        "thesis project",
+        "django project",
+        "web system",
+        "rental software"
       ],
       "answer": "TenantFlow is my capstone project: a web-based rental apartment management system designed to monitor tenants, manage rental property records, and track payments more efficiently. The system was developed using HTML, CSS, JavaScript, and Django, and it reflects my work in frontend design, backend implementation, testing, and system documentation."
     },
     {
       "id": "internship",
+      "title": "Internship Experience",
+      "category": "Internship",
+      "question": "Where did you complete your internship?",
+      "aliases": ["where did you intern", "tell me about your OJT", "practicum", "training experience", "IT intern experience"],
       "keywords": [
         "internship",
         "intern",
@@ -137,12 +196,20 @@
         "it unit",
         "technical support",
         "troubleshooting",
-        "internship experience"
+        "internship experience",
+        "work experience",
+        "practicum",
+        "IT intern",
+        "office training"
       ],
       "answer": "I completed my On-the-Job Training at the National Printing Office's IT Unit from March 2026 to May 2026. There, I supported IT operations by troubleshooting computer and printer issues, managing digital records and documentation, scanning and organizing files, and helping maintain a smooth office workflow alongside the IT team."
     },
     {
       "id": "national-printing-office",
+      "title": "National Printing Office",
+      "category": "Internship",
+      "question": "What did you do at the National Printing Office?",
+      "aliases": ["NPO experience", "printing office internship", "IT unit experience", "National Printing Office OJT"],
       "keywords": [
         "national printing office",
         "npo",
@@ -150,10 +217,14 @@
         "national printing office internship",
         "it unit at the national printing office"
       ],
-      "answer": "The National Printing Office is where I completed my internship in the IT Unit. My responsibilities included supporting IT support and troubleshooting, handling document scanning and organization, updating digital records, and assisting the team with administrative and technical tasks."
+      "answer": "The National Printing Office is where I completed my internship in the IT Unit. My responsibilities included troubleshooting, document scanning and organization, updating digital records, and assisting the team with administrative and technical tasks."
     },
     {
       "id": "csg-leadership",
+      "title": "Leadership Experience",
+      "category": "Leadership",
+      "question": "Tell me about your leadership experience.",
+      "aliases": ["student government", "CSG experience", "vice president experience", "organization leadership"],
       "keywords": [
         "leadership",
         "leadership experience",
@@ -165,12 +236,20 @@
         "logistics coordinator",
         "technical committee head",
         "event coordination",
-        "organization"
+        "organization",
+        "external vice president",
+        "technical head",
+        "student leader",
+        "campus leadership"
       ],
-      "answer": "I served in the Central Student Government at STI College Muñoz-EDSA in roles including Computer Science Representative, Secretary and Logistics Coordinator, and Vice President - External / Technical Committee Head from 2025 to 2026. I helped coordinate technical requirements, manage documentation, support campus events with 300+ participants, and work across committees to ensure smooth operations."
+      "answer": "I served in the Central Student Government at STI College Muñoz-EDSA in roles including Computer Science Representative, Secretary and Logistics Coordinator, and Vice President - External / Technical Committee Head from 2025 to 2026. As Technical Head, I operated and supported the school's sound and visual systems and assisted with three STI College Muñoz-EDSA graduations. I also coordinated technical requirements, managed documentation, supported campus events with 300+ participants, and worked across committees to ensure smooth operations."
     },
     {
       "id": "class-president",
+      "title": "Class Leadership",
+      "category": "Leadership",
+      "question": "What was your experience as a class president?",
+      "aliases": ["class officer", "class representative", "student leadership role"],
       "keywords": [
         "class president",
         "class leadership",
@@ -182,6 +261,10 @@
     },
     {
       "id": "achievements",
+      "title": "Achievements and Awards",
+      "category": "Achievements",
+      "question": "What achievements and awards have you received?",
+      "aliases": ["honors", "recognitions", "awards received", "accomplishments"],
       "keywords": [
         "achievements",
         "awards",
@@ -198,6 +281,10 @@
     },
     {
       "id": "leadership-awardee",
+      "title": "Leadership Award",
+      "category": "Achievements",
+      "question": "Tell me about your leadership award.",
+      "aliases": ["leadership recognition", "student leadership award", "service recognition"],
       "keywords": [
         "leadership awardee",
         "leadership award",
@@ -208,6 +295,10 @@
     },
     {
       "id": "gawad-kabataang-pylon",
+      "title": "Gawad Kabataang Pylon Recognition",
+      "category": "Achievements",
+      "question": "What is the Gawad Kabataang Pylon recognition?",
+      "aliases": ["Gawad Kabataang", "youth award", "QC Youth Development Office award"],
       "keywords": [
         "gawad kabataang pylon",
         "gawad",
@@ -219,6 +310,10 @@
     },
     {
       "id": "certificates",
+      "title": "Certificates and Training",
+      "category": "Certificates",
+      "question": "What certificates and training have you completed?",
+      "aliases": ["training certificates", "professional certificates", "courses completed", "technical training"],
       "keywords": [
         "certificates",
         "certificate",
@@ -233,6 +328,10 @@
     },
     {
       "id": "resume",
+      "title": "Resume",
+      "category": "Resume",
+      "question": "Where can I view your resume?",
+      "aliases": ["show me your CV", "download your CV", "professional resume", "employment history"],
       "keywords": [
         "resume",
         "cv",
@@ -246,6 +345,10 @@
     },
     {
       "id": "contact",
+      "title": "Contact Information",
+      "category": "Contact",
+      "question": "How can I contact you?",
+      "aliases": ["how do I reach you", "contact details", "email Roland", "social profiles"],
       "keywords": [
         "contact",
         "contact information",
@@ -260,10 +363,14 @@
         "instagram",
         "message me"
       ],
-      "answer": "You can contact me at rolandivanmapalasigue0373@gmail.com or +639217296958. I am based in Quezon City, and my you can use FORMS in Contact section to get in touch. Professional and social links are available in the portfolio footer and contact section."
+      "answer": "You can contact me at rolandivanmapalasigue0373@gmail.com or +639217296958. I am based in Quezon City, and you can also use the form in the Contact section. My professional and social links are available in the portfolio footer and Contact section."
     },
     {
       "id": "career-goals",
+      "title": "Career Goals",
+      "category": "About Me",
+      "question": "What are your career goals?",
+      "aliases": ["career objective", "professional goals", "future plans", "career aspirations"],
       "keywords": [
         "career goals",
         "career objective",
