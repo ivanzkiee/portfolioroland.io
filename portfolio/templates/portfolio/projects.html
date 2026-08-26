@@ -47,7 +47,55 @@
                     </div>
                 </div>
             </div>
+
+            <article class="project-card featured-project-card">
+                <div class="project-image featured-project-image">
+                    <img src="{% static 'portfolio/images/HOMEPAGE (2).png' %}" alt="Personal Portfolio Website homepage screenshot">
+                </div>
+                <div class="project-content">
+                    <p class="project-status">Completed (Continuously Updated) | 2026 - Present</p>
+                    <h3>Personal Portfolio Website</h3>
+                    <p>A modern, responsive portfolio built to showcase my software projects, technical skills, leadership experience, internship, certifications, and achievements through an engaging, interactive experience.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
+                        <span class="tag">Django</span><span class="tag">Bootstrap</span><span class="tag">Vercel</span><span class="tag">GitHub</span>
+                    </div>
+                    <div class="project-links">
+                        <button type="button" class="project-link project-action-btn" onclick="openProjectDetails('portfolioProjectModal')"><i class="fas fa-info-circle" aria-hidden="true"></i> View Details</button>
+                        <a href="https://github.com/ivanzkiee/portfolioroland.io" class="project-link" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
+                        <button type="button" class="project-link project-action-btn" onclick="visitLivePortfolio()"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Visit Live Website</button>
+                    </div>
+                </div>
+            </article>
         </div>
     </div>
 </section>
+
+<div id="portfolioProjectModal" class="project-details-modal" role="dialog" aria-modal="true" aria-labelledby="portfolioProjectTitle" aria-hidden="true">
+    <div class="project-details-content">
+        <button type="button" class="project-details-close" onclick="closeProjectDetails('portfolioProjectModal')" aria-label="Close project details">&times;</button>
+        <div class="project-details-header">
+            <span class="project-status">Featured Project | 2026 - Present</span>
+            <h2 id="portfolioProjectTitle">Personal Portfolio Website</h2>
+            <p>Designed and developed with Django, modern front-end technologies, and a focus on accessible responsive design.</p>
+        </div>
+        <a href="{% static 'portfolio/images/HOMEPAGE (2).png' %}" class="project-details-screenshot media-link" data-media-type="image" onclick="closeProjectDetails('portfolioProjectModal')" aria-label="View Personal Portfolio Website homepage screenshot">
+            <img src="{% static 'portfolio/images/HOMEPAGE (2).png' %}" alt="Personal Portfolio Website homepage screenshot">
+            <span><i class="fas fa-search-plus" aria-hidden="true"></i> View screenshot</span>
+        </a>
+        <div class="project-details-body">
+            <section><h3>Project Overview</h3><p>This portfolio presents my work, skills, experience, leadership, certifications, achievements, and resume in one responsive website designed for recruiters and visitors.</p></section>
+            <section><h3>Technologies Used</h3><div class="project-detail-tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Django</span><span class="tag">Bootstrap</span><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Vercel</span><span class="tag">ChatGPT</span><span class="tag">Cursor AI</span></div></section>
+            <section><h3>Key Features</h3><ul><li>Responsive UI for mobile, tablet, laptop, and desktop</li><li>Interactive skills, experience timeline, galleries, and downloadable resume</li><li>Roland AI portfolio assistant with a JSON-based knowledge base</li><li>Smooth animations, contact section, and accessible modal interactions</li></ul></section>
+            <section><h3>Responsibilities</h3><ul><li>Designed the complete UI/UX and developed the frontend and backend</li><li>Implemented responsive layouts, animations, galleries, and assistant functionality</li><li>Optimized performance and accessibility</li><li>Managed Git/GitHub version control and deployed the site on Vercel</li></ul></section>
+            <section><h3>Development Process</h3><p>I organized the portfolio into reusable Django templates, built the responsive CSS around flexible grids and mobile-first breakpoints, and iterated on interactions through browser testing across device sizes.</p></section>
+            <section><h3>Challenges &amp; Solutions</h3><p>Maintaining consistent layouts across phones and large screens was the main challenge. Fluid spacing, safe-area support, overflow protection, progressive motion, and responsive modal sizing keep the experience reliable across browsers.</p></section>
+            <section><h3>Future Improvements</h3><p>Planned improvements include richer project case studies, expanded assistant knowledge, further performance tuning, and continued accessibility refinement.</p></section>
+        </div>
+        <div class="project-details-actions">
+            <button type="button" class="btn btn-primary" onclick="visitLivePortfolio()"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Visit Live Website</button>
+            <a href="https://github.com/ivanzkiee/portfolioroland.io" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

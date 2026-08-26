@@ -435,6 +435,51 @@ function initAssistant() {
 
 document.addEventListener('DOMContentLoaded', initAssistant);
 
+function openProjectDetails(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    modal.querySelector('.project-details-close')?.focus();
+}
+
+function closeProjectDetails(modalId) {
+    const modal = document.getElementById(modalId);
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    restoreBodyScroll();
+}
+
+function visitLivePortfolio() {
+    const liveUrl = 'https://portfolioroland-io.vercel.app/';
+    if (window.location.hostname === 'portfolioroland-io.vercel.app') {
+        const notification = document.createElement('div');
+        notification.className = 'live-site-notification';
+        notification.textContent = 'You are currently viewing the live portfolio.';
+        document.body.appendChild(notification);
+        window.setTimeout(() => notification.remove(), 3200);
+        return;
+    }
+    window.open(liveUrl, '_blank', 'noopener,noreferrer');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const projectModal = document.getElementById('portfolioProjectModal');
+    if (!projectModal) return;
+
+    projectModal.addEventListener('click', function (event) {
+        if (event.target === projectModal) closeProjectDetails(projectModal.id);
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && projectModal.classList.contains('active')) {
+            closeProjectDetails(projectModal.id);
+        }
+    });
+});
+
 // Certificate Modal Functions
 function getMediaSource(element) {
     if (!element) return '';
