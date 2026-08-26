@@ -1692,7 +1692,7 @@ p, li, input, textarea, button {
     display: flex;
     position: fixed;
     inset: 0;
-    z-index: 2000;
+    z-index: 2500;
     align-items: center;
     justify-content: center;
     flex-direction: column;
