@@ -87,17 +87,6 @@ class ClippyAssistant {
                 <div class="clippy-bubble-arrow"></div>
                 <div class="clippy-bubble-text" id="clippyText"></div>
             </div>
-            
-            <div class="clippy-controls">
-                <button 
-                    type="button" 
-                    class="clippy-close-btn" 
-                    id="clippyCloseBtn"
-                    aria-label="Dismiss portfolio assistant"
-                    title="Dismiss">
-                    ×
-                </button>
-            </div>
         `;
         
         document.body.appendChild(container);
@@ -105,7 +94,6 @@ class ClippyAssistant {
         this.button = document.getElementById('clippyButton');
         this.bubble = document.getElementById('clippyBubble');
         this.bubbleText = document.getElementById('clippyText');
-        this.closeBtn = document.getElementById('clippyCloseBtn');
         
         this.attachEventListeners();
     }
@@ -119,10 +107,6 @@ class ClippyAssistant {
         
         if (this.bubble) {
             this.bubble.addEventListener('click', () => this.openRolandAI());
-        }
-        
-        if (this.closeBtn) {
-            this.closeBtn.addEventListener('click', () => this.dismiss());
         }
         
         // Keyboard accessibility
