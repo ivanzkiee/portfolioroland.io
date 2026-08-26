@@ -169,7 +169,7 @@ html.motion-ready .motion-item.is-visible:hover {
 .navbar {
     background: var(--navbar-bg);
     backdrop-filter: blur(10px);
-    padding: 1rem 0;
+    padding: calc(1rem + env(safe-area-inset-top)) 0 1rem;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -1805,8 +1805,8 @@ p, li, input, textarea, button {
 /* Floating portfolio assistant */
 .assistant-widget {
     position: fixed;
-    right: 1.25rem;
-    bottom: 1.25rem;
+    right: calc(1.25rem + env(safe-area-inset-right));
+    bottom: calc(1.25rem + env(safe-area-inset-bottom));
     z-index: 1800;
     font-size: 0.9rem;
     /* Clippy is now the main entry point, but the panel needs the widget for positioning */
@@ -2190,7 +2190,7 @@ p, li, input, textarea, button {
 /* Footer */
 .footer {
     background: var(--dark-card);
-    padding: 2rem 0;
+    padding: calc(2rem + env(safe-area-inset-bottom)) 0 2rem;
     text-align: center;
     border-top: 1px solid var(--border-color);
     margin-top: auto;
