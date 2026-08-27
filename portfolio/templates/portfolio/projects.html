@@ -37,6 +37,7 @@
                         <span class="tag">JavaScript</span>
                     </div>
                     <div class="project-links">
+                        <button type="button" class="project-link project-action-btn" onclick="openProjectDetails('tenantFlowProjectModal')"><i class="fas fa-info-circle" aria-hidden="true"></i> View Details</button>
                         <a href="{% static 'portfolio/images/homepage.png'%}" class="project-link media-link" data-media-type="image" aria-label="View TenantFlow project image">
                             <i class="fas fa-image" aria-hidden="true"></i> Image
                         </a>
@@ -95,6 +96,34 @@
         <div class="project-details-actions">
             <button type="button" class="btn btn-primary" onclick="visitLivePortfolio()"><i class="fas fa-external-link-alt" aria-hidden="true"></i> Visit Live Website</button>
             <a href="https://github.com/ivanzkiee/portfolioroland.io" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> Source Code</a>
+        </div>
+    </div>
+</div>
+
+<div id="tenantFlowProjectModal" class="project-details-modal" role="dialog" aria-modal="true" aria-labelledby="tenantFlowProjectTitle" aria-hidden="true">
+    <div class="project-details-content">
+        <button type="button" class="project-details-close" onclick="closeProjectDetails('tenantFlowProjectModal')" aria-label="Close TenantFlow project details">&times;</button>
+        <div class="project-details-header">
+            <span class="project-status">Thesis Project | 3rd Year BSCS</span>
+            <h2 id="tenantFlowProjectTitle">TenantFlow</h2>
+            <p>A comprehensive web-based rental apartment management system built to streamline property management operations.</p>
+        </div>
+        <a href="{% static 'portfolio/images/homepage.png' %}" class="project-details-screenshot media-link" data-media-type="image" onclick="closeProjectDetails('tenantFlowProjectModal')" aria-label="View TenantFlow homepage screenshot">
+            <img src="{% static 'portfolio/images/homepage.png' %}" alt="TenantFlow rental management system homepage screenshot">
+            <span><i class="fas fa-search-plus" aria-hidden="true"></i> View screenshot</span>
+        </a>
+        <div class="project-details-body">
+            <section><h3>Project Overview</h3><p>TenantFlow is a comprehensive web-based rental apartment management system designed to streamline property management operations. It centralizes the management of buildings, units, tenants, leases, payments, maintenance requests, and turnover processes into a single integrated platform.</p></section>
+            <section><h3>Technologies Used</h3><div class="project-detail-tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">Python</span><span class="tag">Django</span><span class="tag">Bootstrap</span><span class="tag">SQLite</span><span class="tag">MySQL</span><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Vercel</span></div></section>
+            <section><h3>Key Features</h3><ul><li>Centralized management of properties, tenants, leases, and payments</li><li>Role-based dashboards for Admin, Staff, and Tenant users</li><li>Maintenance request system with automated priority assignment</li><li>Turnover workflow with inspection checklist and automated status updates</li><li>Real-time notification system for communication and updates</li><li>Report generation with Excel export and analytics dashboards</li></ul></section>
+            <section><h3>Responsibilities</h3><ul><li>Designed and developed the full-stack system using the Django framework</li><li>Implemented role-based authentication and dynamic dashboard systems</li><li>Built core modules for lease management, payments, maintenance, and turnover</li><li>Developed validation logic, notification system, and reporting features</li><li>Managed version control using Git/GitHub and handled deployment setup</li></ul></section>
+            <section><h3>Development Process</h3><p>The system was developed using a modular Django architecture, organizing features into reusable applications such as tenant management, payments, and maintenance. The frontend was structured for responsiveness, while backend logic handled validations, workflows, and role-based access control.</p></section>
+            <section><h3>Challenges &amp; Solutions</h3><p>A key challenge was managing the complex turnover workflow while ensuring data consistency across leases, tenant accounts, and unit statuses. This was addressed by implementing automated triggers, strict validation rules, and structured status transitions to maintain system integrity.</p></section>
+            <section><h3>Future Improvements</h3><p>Planned improvements include enhancing the UI/UX design, expanding analytics and reporting capabilities, integrating online payment gateways, and improving scalability and overall system performance.</p></section>
+        </div>
+        <div class="project-details-actions">
+            <a href="{% static 'portfolio/images/video/tenantflow-demo-system.mp4' %}" class="btn btn-primary media-link" data-media-type="video"><i class="fas fa-video" aria-hidden="true"></i> Watch Demo</a>
+            <a href="https://github.com/calvin2git/SYSTEM-3.0" class="btn btn-secondary" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub Repository</a>
         </div>
     </div>
 </div>
