@@ -1539,6 +1539,10 @@ button,
     margin-bottom: 1.5rem;
 }
 
+.contact-item > div:last-child {
+    min-width: 0;
+}
+
 .contact-icon {
     font-size: 1.5rem;
     width: 40px;
@@ -3040,6 +3044,21 @@ button,
         font-size: clamp(2rem, 10vw, 3rem);
         overflow-wrap: normal;
         word-break: normal;
+    }
+
+    .contact-info h2 {
+        font-size: clamp(2rem, 10vw, 2.5rem);
+        line-height: 1.15;
+    }
+
+    .contact-info > p {
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+
+    .contact-item p {
+        font-size: 0.95rem;
+        line-height: 1.5;
     }
 
     .skills-grid,
