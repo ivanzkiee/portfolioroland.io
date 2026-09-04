@@ -56,6 +56,7 @@ def _request_metadata(request):
 
 def _send_resume_download_email(download):
     subject = 'Anonymous Resume Download' if download.is_anonymous else 'New Resume Download'
+    logger.info('Preparing resume download email: subject=%s recipient=%s', subject, settings.CONTACT_EMAIL)
     if download.is_anonymous:
         body = (
             'Resume Download Notification\n\n'
@@ -99,11 +100,22 @@ def _send_resume_download_email(download):
     )
     if not download.is_anonymous and download.work_email:
         email.reply_to = [download.work_email]
-    email.send(fail_silently=False)
+    logger.info(
+        'Sending resume download email: backend=%s host=%s port=%s tls=%s ssl=%s',
+        settings.EMAIL_BACKEND,
+        settings.EMAIL_HOST or '<not configured>',
+        settings.EMAIL_PORT,
+        settings.EMAIL_USE_TLS,
+        settings.EMAIL_USE_SSL,
+    )
+    sent_count = email.send(fail_silently=False)
+    logger.info('Resume download email sent successfully: count=%s', sent_count)
+    return sent_count
 
 
 @require_POST
 def download_resume(request):
+    logger.info('Resume download form submitted')
     forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
     ip_address = forwarded_for.split(',')[0].strip() or request.META.get('REMOTE_ADDR')
 
@@ -140,6 +152,7 @@ def download_resume(request):
             referrer=request.META.get('HTTP_REFERER', '')[:500],
             is_anonymous=is_anonymous,
         )
+        logger.info('Resume download database record created: id=%s anonymous=%s', download.pk, is_anonymous)
     except DatabaseError:
         logger.exception('Resume download analytics could not be recorded')
         download = None
@@ -148,7 +161,7 @@ def download_resume(request):
         try:
             _send_resume_download_email(download)
         except Exception:
-            logger.exception('Resume download notification failed')
+            logger.exception('Email sending failed: resume download notification')
 
     response = FileResponse(resume_file, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="PALASIGUE, ROLAND IVAN M._RESUME.pdf"'
