@@ -104,10 +104,8 @@ def _send_resume_download_email(download):
 
 @require_POST
 def download_resume(request):
-    ip_address = request.META.get('REMOTE_ADDR')
-    rate_key = f'resume-download:{ip_address or "unknown"}'
-    if not cache.add(rate_key, True, timeout=30):
-        return JsonResponse({'error': 'Please wait a moment before trying again.'}, status=429)
+    forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR', '')
+    ip_address = forwarded_for.split(',')[0].strip() or request.META.get('REMOTE_ADDR')
 
     fields = {name: request.POST.get(name, '').strip() for name in ('full_name', 'company', 'work_email', 'position', 'message')}
     try:
@@ -125,6 +123,11 @@ def download_resume(request):
     except OSError:
         logger.exception('Resume file could not be opened')
         return JsonResponse({'error': 'The resume is temporarily unavailable.'}, status=503)
+
+    rate_key = f'resume-download:{ip_address or "unknown"}'
+    if not cache.add(rate_key, True, timeout=30):
+        resume_file.close()
+        return JsonResponse({'error': 'Please wait a moment before trying again.'}, status=429)
 
     try:
         download = ResumeDownload.objects.create(
