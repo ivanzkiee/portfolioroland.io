@@ -1302,6 +1302,67 @@ p, li, input, textarea, button {
     margin-bottom: 1.5rem;
 }
 
+.resume-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    background: rgba(2, 13, 31, 0.72);
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.resume-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.resume-modal-panel {
+    position: relative;
+    width: min(100%, 680px);
+    max-height: min(92vh, 760px);
+    overflow-y: auto;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--text-primary);
+    background: linear-gradient(145deg, rgba(17, 28, 51, 0.94), rgba(11, 18, 32, 0.9));
+    border: 1px solid rgba(147, 197, 253, 0.35);
+    border-radius: 18px;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+    transform: translateY(16px) scale(0.98);
+    transition: transform 0.3s var(--motion-ease);
+}
+
+.resume-modal.is-open .resume-modal-panel { transform: translateY(0) scale(1); }
+.resume-modal-close { position: absolute; top: 1rem; right: 1rem; border: 0; background: transparent; color: var(--text-secondary); font-size: 1.2rem; cursor: pointer; padding: 0.5rem; }
+.resume-modal-close:hover { color: var(--accent-color); }
+.resume-modal-heading { display: flex; align-items: flex-start; gap: 1rem; padding-right: 2rem; }
+.resume-modal-heading > i { color: var(--accent-color); font-size: 1.8rem; margin-top: 0.25rem; }
+.resume-modal-heading h2 { color: var(--accent-color); font-size: clamp(1.35rem, 3vw, 1.8rem); }
+.resume-modal-heading p, .resume-modal-intro { color: var(--text-secondary); }
+.resume-modal-intro { margin: 1rem 0 1.5rem; }
+.resume-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.resume-modal label { display: grid; gap: 0.35rem; color: var(--text-primary); font-weight: 600; font-size: 0.88rem; margin-bottom: 1rem; }
+.resume-modal label span { color: var(--text-muted); font-weight: 400; }
+.resume-modal input:not([type="checkbox"]), .resume-modal textarea { width: 100%; border: 1px solid var(--border-color); border-radius: 8px; background: rgba(11, 18, 32, 0.7); color: var(--text-primary); padding: 0.7rem 0.8rem; font: inherit; }
+.resume-modal textarea { resize: vertical; }
+.resume-modal input:focus-visible, .resume-modal textarea:focus-visible, .resume-modal-close:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 2px; }
+.resume-consent { display: flex !important; grid-template-columns: auto 1fr; align-items: flex-start; gap: 0.6rem; color: var(--text-secondary) !important; font-weight: 400 !important; }
+.resume-consent input { margin-top: 0.25rem; accent-color: var(--primary-color); }
+.resume-modal-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.25rem; }
+.resume-modal-actions .btn { justify-content: center; flex: 1 1 190px; }
+.resume-form-status { min-height: 1.4rem; margin-top: 1rem; color: var(--accent-color); }
+.resume-form-status.is-error { color: #fca5a5; }
+.resume-toast { position: fixed; right: 1.25rem; bottom: 1.25rem; z-index: 3100; max-width: min(90vw, 360px); padding: 0.85rem 1rem; border: 1px solid rgba(134, 239, 172, 0.5); border-radius: 8px; background: #123b35; color: #dcfce7; box-shadow: var(--shadow); opacity: 0; transform: translateY(1rem); pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
+.resume-toast.is-visible { opacity: 1; transform: translateY(0); }
+.resume-toast.is-error { border-color: rgba(252, 165, 165, 0.6); background: #4a2028; color: #fee2e2; }
+.resume-modal .is-loading { pointer-events: none; opacity: 0.7; }
+.resume-modal .is-loading i { animation: resume-spin 0.8s linear infinite; }
+@keyframes resume-spin { to { transform: rotate(360deg); } }
+
 .resume-paper {
     background: var(--resume-paper-bg);
     color: var(--resume-paper-text);
@@ -3012,6 +3073,9 @@ p, li, input, textarea, button {
     .about-stats {
         grid-template-columns: 1fr;
     }
+
+    .resume-form-grid { grid-template-columns: 1fr; gap: 0; }
+    .resume-modal-actions { flex-direction: column; }
 }
 
 /* ====================================

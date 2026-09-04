@@ -1,5 +1,5 @@
 // Mobile Navigation Toggle
-document.addEventListener('DOMContentLoaded', function() {
+function initializePortfolioPage() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const brandLink = document.querySelector('.nav-brand a');
@@ -181,7 +181,90 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
+
+    const resumeButton = document.getElementById('resumeDownloadButton');
+    const resumeModal = document.getElementById('resumeDownloadModal');
+    const resumeForm = document.getElementById('resumeDownloadForm');
+    const resumeClose = document.getElementById('resumeModalClose');
+    const resumeSkip = document.getElementById('resumeSkipDownload');
+    const resumeStatus = document.getElementById('resumeFormStatus');
+    const resumeToast = document.getElementById('resumeToast');
+    let resumeReturnFocus = null;
+
+    if (resumeButton && resumeModal && resumeForm && resumeClose && resumeSkip && !resumeButton.dataset.resumeBound) {
+        resumeButton.dataset.resumeBound = 'true';
+        const fields = Array.from(resumeForm.querySelectorAll('input:not([type="hidden"]), textarea'));
+        const setStatus = (message, isError) => {
+            resumeStatus.textContent = message;
+            resumeStatus.classList.toggle('is-error', Boolean(isError));
+            if (resumeToast) {
+                resumeToast.textContent = message;
+                resumeToast.classList.toggle('is-error', Boolean(isError));
+                resumeToast.classList.add('is-visible');
+                window.setTimeout(() => resumeToast.classList.remove('is-visible'), 3500);
+            }
+        };
+        const closeResumeModal = () => {
+            resumeModal.classList.remove('is-open');
+            resumeModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            if (resumeReturnFocus) resumeReturnFocus.focus();
+        };
+        const openResumeModal = () => {
+            resumeReturnFocus = document.activeElement;
+            resumeModal.classList.add('is-open');
+            resumeModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            window.setTimeout(() => fields[0].focus(), 50);
+        };
+        const downloadResponse = async (button) => {
+            button.classList.add('is-loading');
+            const icon = button.querySelector('i');
+            if (icon) icon.className = 'fas fa-spinner';
+            setStatus('Preparing your resume...', false);
+            try {
+                const response = await fetch(resumeForm.action, { method: 'POST', body: new FormData(resumeForm), headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+                if (!response.ok) {
+                    const data = await response.json().catch(() => ({}));
+                    throw new Error(data.error || 'The download could not be started.');
+                }
+                const blob = await response.blob();
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'PALASIGUE, ROLAND IVAN M._RESUME.pdf';
+                link.click();
+                URL.revokeObjectURL(link.href);
+                setStatus('Resume download started.', false);
+                window.setTimeout(closeResumeModal, 700);
+            } catch (error) {
+                setStatus(error.message, true);
+            } finally {
+                button.classList.remove('is-loading');
+                if (icon) icon.className = 'fas fa-download';
+            }
+        };
+        resumeButton.addEventListener('click', event => { event.preventDefault(); openResumeModal(); });
+        resumeClose.addEventListener('click', closeResumeModal);
+        resumeSkip.addEventListener('click', () => { fields.forEach(field => { if (field.type !== 'checkbox') field.value = ''; }); downloadResponse(resumeSkip); });
+        resumeForm.addEventListener('submit', event => { event.preventDefault(); downloadResponse(resumeForm.querySelector('button[type="submit"]')); });
+        resumeModal.addEventListener('click', event => { if (event.target === resumeModal) closeResumeModal(); });
+        resumeModal.addEventListener('keydown', event => {
+            if (event.key === 'Escape') closeResumeModal();
+            if (event.key !== 'Tab') return;
+            const focusable = [resumeClose, ...fields, resumeForm.querySelector('button[type="submit"]'), resumeSkip].filter(element => !element.disabled);
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+        });
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePortfolioPage, { once: true });
+} else {
+    initializePortfolioPage();
+}
 
 function initAssistant() {
     const toggle = document.getElementById('assistantToggle');

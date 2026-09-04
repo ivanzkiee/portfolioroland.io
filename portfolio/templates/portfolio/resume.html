@@ -23,13 +23,13 @@
                     <h2>Download Resume</h2>
                     <p>Get a PDF copy of my resume</p>
 
-                          <a href="{% static 'portfolio/images/Resume/resume.pdf' %}"
+                          <button type="button"
+                              id="resumeDownloadButton"
                        class="btn btn-primary"
-                              download="PALASIGUE, ROLAND IVAN M._RESUME.pdf"
-                              >
+                              aria-haspopup="dialog">
                         <i class="fas fa-download"></i>
                         Download PDF
-                    </a>
+                    </button>
                 </div>
             </div>
 
@@ -124,4 +124,26 @@
         </div>
     </div>
 </section>
+
+<div id="resumeDownloadModal" class="resume-modal" role="dialog" aria-modal="true" aria-labelledby="resumeModalTitle" aria-describedby="resumeModalSubtitle" aria-hidden="true">
+    <div class="resume-modal-panel">
+        <button type="button" class="resume-modal-close" id="resumeModalClose" aria-label="Close download form"><i class="fas fa-times" aria-hidden="true"></i></button>
+        <div class="resume-modal-heading"><i class="fas fa-file-download" aria-hidden="true"></i><div><h2 id="resumeModalTitle">Download My Resume</h2><p id="resumeModalSubtitle">Thank you for your interest!</p></div></div>
+        <p class="resume-modal-intro">Recruiters and hiring managers may optionally introduce themselves before downloading my resume.</p>
+        <form id="resumeDownloadForm" action="{% url 'download_resume' %}" method="post">
+            {% csrf_token %}
+            <div class="resume-form-grid">
+                <label>Full Name <span>(Optional)</span><input name="full_name" maxlength="120" autocomplete="name"></label>
+                <label>Company / Organization <span>(Optional)</span><input name="company" maxlength="160" autocomplete="organization"></label>
+                <label>Work Email <span>(Optional)</span><input name="work_email" type="email" maxlength="254" autocomplete="email"></label>
+                <label>Position / Job Title <span>(Optional)</span><input name="position" maxlength="160" autocomplete="organization-title"></label>
+            </div>
+            <label>Message <span>(Optional)</span><textarea name="message" maxlength="2000" rows="3"></textarea></label>
+            <label class="resume-consent"><input type="checkbox" name="consent" value="1"><span>I understand that my information will only be used for professional communication regarding employment opportunities.</span></label>
+            <div class="resume-modal-actions"><button type="submit" class="btn btn-primary"><i class="fas fa-download" aria-hidden="true"></i><span>Download Resume</span></button><button type="button" class="btn btn-secondary" id="resumeSkipDownload">Skip &amp; Download</button></div>
+            <p class="resume-form-status" id="resumeFormStatus" role="status" aria-live="polite"></p>
+        </form>
+    </div>
+</div>
+<div id="resumeToast" class="resume-toast" role="status" aria-live="polite"></div>
 {% endblock %}
