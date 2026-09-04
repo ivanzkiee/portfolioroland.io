@@ -940,7 +940,7 @@ button,
 .skill-item:hover .skill-details,
 .skill-item:focus-visible .skill-details,
 .skill-item.is-expanded .skill-details {
-    max-height: 100px;
+    max-height: 240px;
     padding-top: 0.65rem;
     opacity: 1;
 }
@@ -3077,6 +3077,17 @@ button,
 
     .skills-category h2 i {
         flex: 0 0 auto;
+    }
+
+    .skill-item h3 {
+        min-height: 0;
+        font-size: 1rem;
+        line-height: 1.35;
+    }
+
+    .skill-details {
+        font-size: 0.86rem;
+        line-height: 1.5;
     }
 
     .skills-intro h2 {
