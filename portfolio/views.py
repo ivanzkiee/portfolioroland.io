@@ -155,13 +155,22 @@ def download_resume(request):
         logger.info('Resume download database record created: id=%s anonymous=%s', download.pk, is_anonymous)
     except DatabaseError:
         logger.exception('Resume download analytics could not be recorded')
-        download = None
+        download = ResumeDownload(
+            **fields,
+            download_datetime=timezone.now(),
+            browser=browser,
+            device_type=device_type,
+            operating_system=operating_system,
+            ip_address=ip_address,
+            referrer=request.META.get('HTTP_REFERER', '')[:500],
+            is_anonymous=is_anonymous,
+        )
+        logger.info('Preparing resume email from unsaved analytics fallback')
 
-    if download is not None:
-        try:
-            _send_resume_download_email(download)
-        except Exception:
-            logger.exception('Email sending failed: resume download notification')
+    try:
+        _send_resume_download_email(download)
+    except Exception:
+        logger.exception('Email sending failed: resume download notification')
 
     response = FileResponse(resume_file, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="PALASIGUE, ROLAND IVAN M._RESUME.pdf"'
