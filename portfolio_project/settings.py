@@ -170,11 +170,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email configuration. Set SMTP environment variables in production.
+EMAIL_HOST = os.environ.get('EMAIL_HOST', '').strip()
 EMAIL_BACKEND = os.environ.get(
     'EMAIL_BACKEND',
-    'django.core.mail.backends.smtp.EmailBackend',
+    'django.core.mail.backends.smtp.EmailBackend' if EMAIL_HOST else 'django.core.mail.backends.console.EmailBackend',
 )
-EMAIL_HOST = os.environ.get('EMAIL_HOST', '')
 EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
 EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
