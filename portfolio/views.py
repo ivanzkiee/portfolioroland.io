@@ -4,6 +4,7 @@ from django.core.mail import EmailMessage
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
+from django.db import DatabaseError
 from django.http import FileResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -125,21 +126,26 @@ def download_resume(request):
         logger.exception('Resume file could not be opened')
         return JsonResponse({'error': 'The resume is temporarily unavailable.'}, status=503)
 
-    download = ResumeDownload.objects.create(
-        **fields,
-        download_datetime=timezone.now(),
-        browser=browser,
-        device_type=device_type,
-        operating_system=operating_system,
-        ip_address=ip_address,
-        referrer=request.META.get('HTTP_REFERER', '')[:500],
-        is_anonymous=is_anonymous,
-    )
-
     try:
-        _send_resume_download_email(download)
-    except Exception:
-        logger.exception('Resume download notification failed')
+        download = ResumeDownload.objects.create(
+            **fields,
+            download_datetime=timezone.now(),
+            browser=browser,
+            device_type=device_type,
+            operating_system=operating_system,
+            ip_address=ip_address,
+            referrer=request.META.get('HTTP_REFERER', '')[:500],
+            is_anonymous=is_anonymous,
+        )
+    except DatabaseError:
+        logger.exception('Resume download analytics could not be recorded')
+        download = None
+
+    if download is not None:
+        try:
+            _send_resume_download_email(download)
+        except Exception:
+            logger.exception('Resume download notification failed')
 
     response = FileResponse(resume_file, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="PALASIGUE, ROLAND IVAN M._RESUME.pdf"'
