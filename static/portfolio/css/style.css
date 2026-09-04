@@ -110,6 +110,19 @@ body {
     overflow-x: hidden;
 }
 
+body.nav-open {
+    overflow: hidden;
+}
+
+body.nav-open::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: rgba(2, 6, 23, 0.52);
+    backdrop-filter: blur(4px);
+}
+
 body.page-exit main,
 body.page-exit .footer {
     opacity: 0;
@@ -191,6 +204,10 @@ html.motion-ready .motion-item.is-visible:hover {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+.nav-brand {
+    min-width: 0;
 }
 
 .brand-text {
@@ -328,7 +345,20 @@ html.motion-ready .motion-item.is-visible:hover {
     width: 25px;
     height: 3px;
     background: var(--text-primary);
-    transition: 0.3s;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Main Content */
@@ -375,6 +405,13 @@ h3 {
 
 p, li, input, textarea, button {
     font-size: clamp(0.94rem, 0.7vw + 0.8rem, 1.02rem);
+}
+
+button,
+.btn,
+.project-link {
+    min-height: 44px;
+    min-width: 0;
 }
 
 /* Page header icons */
@@ -426,6 +463,9 @@ p, li, input, textarea, button {
     transition: transform 0.28s var(--motion-ease), box-shadow 0.28s var(--motion-ease), background 0.28s ease;
     cursor: pointer;
     font-size: 1rem;
+    justify-content: center;
+    text-align: center;
+    overflow-wrap: anywhere;
 }
 
 .btn i {
@@ -2816,7 +2856,7 @@ p, li, input, textarea, button {
     }
 
     .nav-menu {
-        display: none;
+        display: flex;
         position: absolute;
         top: calc(100% + 0.5rem);
         left: 0;
@@ -2832,6 +2872,11 @@ p, li, input, textarea, button {
         max-height: min(70vh, 520px);
         overflow-y: auto;
         z-index: 1100;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-0.75rem);
+        transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease;
     }
 
     .nav-menu li {
@@ -2848,16 +2893,29 @@ p, li, input, textarea, button {
         display: block;
         width: 100%;
         text-align: left;
-        padding: 0.25rem 0.1rem;
+        min-height: 44px;
+        padding: 0.65rem 0.75rem;
+        display: flex;
+        align-items: center;
         white-space: normal;
+        overflow-wrap: anywhere;
+        border-radius: 8px;
     }
 
     .nav-menu a.active::after {
         display: none;
     }
 
+    .nav-menu a.active {
+        background: rgba(37, 99, 235, 0.14);
+        box-shadow: inset 3px 0 var(--primary-color);
+    }
+
     .nav-menu.active {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
     }
 
     .theme-toggle {
@@ -2956,7 +3014,10 @@ p, li, input, textarea, button {
     }
 
     .hero-buttons .btn,
-    .view-gallery-btn {
+    .view-gallery-btn,
+    .project-links .project-link,
+    .project-details-actions .btn,
+    .resume-modal-actions .btn {
         width: 100%;
         justify-content: center;
     }
@@ -3036,6 +3097,7 @@ p, li, input, textarea, button {
     .modal-caption {
         max-width: 100%;
         border-radius: 10px;
+        overflow-wrap: anywhere;
     }
 
     .assistant-panel {
@@ -3076,6 +3138,17 @@ p, li, input, textarea, button {
 
     .resume-form-grid { grid-template-columns: 1fr; gap: 0; }
     .resume-modal-actions { flex-direction: column; }
+}
+
+@media (hover: none) {
+    .feature-card:hover,
+    .project-link:hover,
+    .btn-primary:hover,
+    .btn-secondary:hover,
+    html.motion-ready .motion-item.is-visible:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }
 
 /* ====================================

@@ -1,5 +1,8 @@
 // Mobile Navigation Toggle
 function initializePortfolioPage() {
+    if (window.__portfolioPageInitialized) return;
+    window.__portfolioPageInitialized = true;
+
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const brandLink = document.querySelector('.nav-brand a');
@@ -28,24 +31,48 @@ function initializePortfolioPage() {
     }
 
     if (hamburger && navMenu) {
+        const mobileNavigation = window.matchMedia('(max-width: 860px)');
+        const closeNavigation = function (returnFocus) {
+            navMenu.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            navMenu.setAttribute('aria-hidden', String(mobileNavigation.matches));
+            document.body.classList.remove('nav-open');
+            document.body.style.overflow = '';
+            if (returnFocus) hamburger.focus();
+        };
+
+        navMenu.setAttribute('aria-hidden', String(mobileNavigation.matches));
+        mobileNavigation.addEventListener('change', function (event) {
+            if (!event.matches) closeNavigation(false);
+            navMenu.setAttribute('aria-hidden', String(event.matches));
+        });
+
         hamburger.addEventListener('click', function() {
-            const isOpen = navMenu.classList.toggle('active');
+            const isOpen = !navMenu.classList.contains('active');
+            navMenu.classList.toggle('active', isOpen);
             hamburger.setAttribute('aria-expanded', String(isOpen));
+            navMenu.setAttribute('aria-hidden', String(!isOpen));
+            document.body.classList.toggle('nav-open', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', function(event) {
             if (!hamburger.contains(event.target) && !navMenu.contains(event.target)) {
-                navMenu.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
+                closeNavigation(false);
             }
         });
 
         navMenu.querySelectorAll('a').forEach(function (link) {
             link.addEventListener('click', function () {
-                navMenu.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
+                closeNavigation(false);
             });
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
+                closeNavigation(true);
+            }
         });
     }
 
