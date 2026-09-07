@@ -22,6 +22,7 @@ In your Vercel project settings, add these environment variables:
 - `EMAIL_HOST_PASSWORD`: Your SMTP password or email provider app password
 - `DEFAULT_FROM_EMAIL`: The verified sender address
 - `CONTACT_EMAIL`: `rolandivanmapalasigue0373@gmail.com`
+- `DATABASE_URL`: Connection string for a persistent PostgreSQL database
 
 ### 2. Deploy via Vercel CLI
 
@@ -64,6 +65,12 @@ SQLite databases don't work well on Vercel (read-only filesystem). For productio
   - Railway
   - PlanetScale
 
+Set `DATABASE_URL` to the connection string supplied by the selected provider. The
+Vercel build runs `python manage.py migrate --noinput` before collecting static
+files, which creates the `portfolio_resumedownload` table from the committed
+migrations. Without `DATABASE_URL`, the site remains viewable but resume download
+analytics cannot persist between serverless invocations.
+
 ### Environment Variables
 
 Set these in Vercel Dashboard → Settings → Environment Variables:
@@ -79,6 +86,7 @@ EMAIL_HOST_USER=your-sender@gmail.com
 EMAIL_HOST_PASSWORD=your-email-app-password
 DEFAULT_FROM_EMAIL=your-sender@gmail.com
 CONTACT_EMAIL=rolandivanmapalasigue0373@gmail.com
+DATABASE_URL=postgresql://user:password@host:5432/database
 ```
 
 ### Troubleshooting

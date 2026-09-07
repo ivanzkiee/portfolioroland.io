@@ -94,7 +94,21 @@ WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if os.environ.get('VERCEL'):
+DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
+
+if DATABASE_URL:
+    import dj_database_url
+
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+elif os.environ.get('VERCEL'):
+    # Keep pages available without a configured production database. Analytics
+    # cannot persist in a serverless in-memory database.
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

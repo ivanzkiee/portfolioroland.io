@@ -22,7 +22,7 @@
 
 4. **Database Issues**
    - SQLite doesn't work on Vercel (read-only filesystem)
-   - Use a cloud database or disable database features if not needed
+   - Set `DATABASE_URL` to a cloud PostgreSQL database and run migrations
 
 ### Debugging Steps
 
@@ -90,16 +90,14 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 ```
 
-**If you see database errors:**
-```python
-# In settings.py, you can disable database if not needed:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',  # In-memory database
-    }
-}
-```
+**If you see `no such table: portfolio_resumedownload`:**
+
+1. Configure `DATABASE_URL` in Vercel for all relevant environments.
+2. Redeploy so the build runs `python manage.py migrate --noinput`.
+3. Confirm the deployment logs show the `portfolio` migration completing.
+
+An in-memory SQLite database is retained only as a no-database fallback; it cannot
+store analytics across serverless invocations.
 
 ### Getting Help
 

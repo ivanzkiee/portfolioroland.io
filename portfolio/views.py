@@ -154,7 +154,10 @@ def download_resume(request):
         )
         logger.info('Resume download database record created: id=%s anonymous=%s', download.pk, is_anonymous)
     except DatabaseError:
-        logger.exception('Resume download analytics could not be recorded')
+        logger.warning(
+            'Resume download analytics could not be recorded; configure DATABASE_URL '
+            'and run migrations for persistent analytics.'
+        )
         download = ResumeDownload(
             **fields,
             download_datetime=timezone.now(),
