@@ -2807,6 +2807,126 @@ button,
     outline-offset: 2px;
 }
 
+html,
+body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+.navbar .container,
+.certificates-grid,
+.achievement-grid,
+.honors-grid,
+.certificate-item,
+.achievement-card,
+.honor-item {
+    min-width: 0;
+}
+
+.certificates-grid,
+.achievement-grid,
+.honors-grid {
+    width: 100%;
+}
+
+.certificate-image-container,
+.achievement-image-container {
+    height: clamp(180px, 24vw, 260px);
+}
+
+.certificate-info h3,
+.certificate-info p,
+.achievement-content h3,
+.achievement-content p,
+.achievement-institution,
+.certificates-note,
+.footer p {
+    overflow-wrap: anywhere;
+}
+
+.certificates-note {
+    margin-top: 1.5rem;
+    color: #d3e7ff;
+    text-align: center;
+}
+
+.btn,
+.project-link,
+.view-gallery-btn,
+.social-link,
+.theme-toggle,
+.hamburger,
+.assistant-close,
+.assistant-form button,
+.achievement-modal-close,
+.gallery-close-btn {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active,
+.project-link:active,
+.view-gallery-btn:active,
+.social-link:active,
+.theme-toggle:active,
+.hamburger:active,
+.assistant-close:active,
+.assistant-form button:active,
+.achievement-modal-close:active,
+.gallery-close-btn:active {
+    transform: translateY(1px);
+}
+
+.certificate-image-container:focus-within {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 3px;
+}
+
+.certificate-modal,
+.experience-image-modal,
+.experience-gallery-modal,
+.achievement-modal-panel {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+}
+
+.modal-close {
+    top: max(1rem, env(safe-area-inset-top));
+    right: max(1rem, env(safe-area-inset-right));
+}
+
+.assistant-widget,
+.clippy-container {
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 640px) {
+    .certificate-image-container,
+    .achievement-image-container {
+        height: clamp(180px, 58vw, 230px);
+    }
+
+    .certificate-info,
+    .achievement-content,
+    .honor-item {
+        padding: 1.15rem;
+    }
+
+    .certificates-section {
+        padding: 56px 0;
+    }
+
+    .certificates-section > .container > div[style] {
+        margin-top: 2.5rem !important;
+    }
+
+    .certificates-section > .container > div[style] > h2 {
+        font-size: clamp(1.45rem, 6vw, 2rem) !important;
+        line-height: 1.25;
+        margin-bottom: 1.25rem !important;
+    }
+}
+
 .achievement-modal-title {
     color: var(--primary-color);
     font-size: 1.75rem;
