@@ -2,7 +2,7 @@
   "version": 2,
   "buildCommand": "python manage.py migrate --noinput",
   "functions": {
-    "api/index.py": {
+    "portfolio_project/wsgi.py": {
       "excludeFiles": "static/**"
     }
   },
