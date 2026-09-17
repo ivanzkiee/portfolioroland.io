@@ -3,7 +3,7 @@
   "buildCommand": "python manage.py migrate --noinput && python manage.py collectstatic --noinput --clear",
   "functions": {
     "api/index.py": {
-      "excludeFiles": "staticfiles/**"
+      "excludeFiles": "static*/**"
     }
   },
   "routes": [
