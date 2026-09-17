@@ -5,11 +5,10 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.core.cache import cache
 from django.db import DatabaseError
-from django.http import FileResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
-from pathlib import Path
 import re
 from .models import ResumeDownload
 import logging
@@ -129,16 +128,8 @@ def download_resume(request):
     if not is_anonymous and request.POST.get('consent') != '1':
         return JsonResponse({'error': 'Please confirm the professional communication consent.'}, status=400)
     browser, device_type, operating_system = _request_metadata(request)
-    resume_path = Path(settings.STATICFILES_DIRS[0]) / 'portfolio/images/Resume/resume.pdf'
-    try:
-        resume_file = resume_path.open('rb')
-    except OSError:
-        logger.exception('Resume file could not be opened')
-        return JsonResponse({'error': 'The resume is temporarily unavailable.'}, status=503)
-
     rate_key = f'resume-download:{ip_address or "unknown"}'
     if not cache.add(rate_key, True, timeout=30):
-        resume_file.close()
         return JsonResponse({'error': 'Please wait a moment before trying again.'}, status=429)
 
     try:
@@ -175,9 +166,7 @@ def download_resume(request):
     except Exception:
         logger.exception('Email sending failed: resume download notification')
 
-    response = FileResponse(resume_file, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="PALASIGUE, ROLAND IVAN M._RESUME.pdf"'
-    return response
+    return redirect(f'{settings.STATIC_URL}portfolio/images/Resume/resume.pdf')
 
 
 def contact(request):
