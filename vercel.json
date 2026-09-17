@@ -5,14 +5,5 @@
     "portfolio_project/wsgi.py": {
       "excludeFiles": "static/**"
     }
-  },
-  "routes": [
-    {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "api/index.py"
-    }
-  ]
+  }
 }
