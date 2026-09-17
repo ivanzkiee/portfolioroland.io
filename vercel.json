@@ -1,6 +1,11 @@
 {
   "version": 2,
   "buildCommand": "python manage.py migrate --noinput",
+  "functions": {
+    "api/index.py": {
+      "excludeFiles": "static/portfolio/images/video/**"
+    }
+  },
   "routes": [
     {
       "handle": "filesystem"
