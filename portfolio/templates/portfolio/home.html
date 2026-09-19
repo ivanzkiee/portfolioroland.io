@@ -5,48 +5,78 @@
 {% block title %}Home - Portfolio{% endblock %}
 
 {% block content %}
-<section class="hero">
+<section class="hero home-hero" id="homeTop">
+    <div class="home-hero-glow home-hero-glow-one" aria-hidden="true"></div>
+    <div class="home-hero-glow home-hero-glow-two" aria-hidden="true"></div>
+    <div class="home-hero-grid" aria-hidden="true"></div>
     <div class="container">
-        <div class="hero-content">
-            <h1 class="hero-title">Roland Ivan M. Palasigue</h1>
-            <p class="hero-subtitle">Computer Science Graduate| Web Developer | Seeking Entry-Level JOB Opportunities</p>
-            <div class="hero-buttons">
-                <a href="{% url 'about' %}" class="btn btn-primary"><i class="fas fa-user"></i> Learn More About Me</a>
-                <a href="{% url 'contact' %}" class="btn btn-secondary"><i class="fas fa-envelope"></i> Get In Touch</a>
+        <div class="home-hero-layout">
+            <div class="hero-content">
+                <span class="home-eyebrow"><span class="home-status-dot" aria-hidden="true"></span> Open to entry-level opportunities</span>
+                <p class="home-greeting">👋 Hello, I'm</p>
+                <h1 class="hero-title">Roland Ivan M. Palasigue</h1>
+                <p class="hero-subtitle home-typing-line"><span id="homeTypingText">BS Computer Science Graduate</span><span class="home-typing-cursor" aria-hidden="true">|</span></p>
+                <p class="home-tagline">Building practical solutions through clean code, continuous learning, and modern web technologies.</p>
+                <div class="hero-buttons">
+                    <a href="{% url 'resume' %}" class="btn btn-primary ripple-button"><i class="fas fa-file-alt" aria-hidden="true"></i> Download Resume</a>
+                    <a href="{% url 'projects' %}" class="btn btn-secondary ripple-button"><i class="fas fa-briefcase" aria-hidden="true"></i> View Projects</a>
+                    <a href="{% url 'contact' %}" class="btn btn-quiet ripple-button"><i class="fas fa-phone" aria-hidden="true"></i> Contact Me</a>
+                    <button type="button" class="btn btn-quiet ripple-button" data-assistant-question="Tell me about Roland."><i class="fas fa-robot" aria-hidden="true"></i> Ask Roland AI</button>
+                </div>
+                <a href="{% url 'about' %}" class="home-scroll-indicator"><span class="home-mouse" aria-hidden="true"></span><span>Scroll to Explore</span><i class="fas fa-arrow-down" aria-hidden="true"></i></a>
             </div>
+            <aside class="home-recruiter-panel motion-item" aria-label="Recruiter availability">
+                <span class="home-panel-kicker">Recruiter snapshot</span>
+                <h2>Available for Work</h2>
+                <p>Open to opportunities where I can learn quickly, support users, and build reliable software.</p>
+                <div class="home-open-tags"><span>Full-Time</span><span>Entry-Level</span><span>IT Support</span><span>Software Development</span></div>
+                <a href="{% url 'contact' %}" class="btn btn-primary ripple-button"><i class="fas fa-paper-plane" aria-hidden="true"></i> Contact Me</a>
+            </aside>
+        </div>
+        <div class="home-stats" aria-label="Professional highlights">
+            <div class="home-stat motion-item"><strong data-home-counter="39" data-suffix="+">0</strong><span>Certificates</span></div>
+            <div class="home-stat motion-item"><strong data-home-counter="4">0</strong><span>Years of Leadership</span></div>
+            <div class="home-stat motion-item"><strong data-home-counter="300" data-suffix="+">0</strong><span>OJT Hours</span></div>
+            <div class="home-stat motion-item"><strong data-home-counter="6" data-suffix="+">0</strong><span>Programming Languages</span></div>
+            <div class="home-stat motion-item"><strong data-home-counter="1">0</strong><span>Capstone Project</span></div>
         </div>
     </div>
 </section>
 
-<section class="features">
+<section class="home-tech-strip" aria-label="Technology stack">
+    <div class="container"><div class="home-section-label">Tools I use to turn ideas into working solutions</div></div>
+    <div class="home-marquee"><div class="home-marquee-track">
+        <span><i class="fab fa-python" aria-hidden="true"></i> Python</span><span><i class="fab fa-python" aria-hidden="true"></i> Django</span><span><i class="fab fa-java" aria-hidden="true"></i> Java</span><span><i class="fab fa-microsoft" aria-hidden="true"></i> C#</span><span><i class="fas fa-database" aria-hidden="true"></i> SQL</span><span><i class="fab fa-js-square" aria-hidden="true"></i> JavaScript</span><span><i class="fab fa-html5" aria-hidden="true"></i> HTML5</span><span><i class="fab fa-css3-alt" aria-hidden="true"></i> CSS3</span><span><i class="fab fa-bootstrap" aria-hidden="true"></i> Bootstrap</span><span><i class="fab fa-git-alt" aria-hidden="true"></i> Git</span><span><i class="fab fa-github" aria-hidden="true"></i> GitHub</span><span><i class="fas fa-code" aria-hidden="true"></i> VS Code</span><span><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i> Cursor AI</span>
+        <span aria-hidden="true"><i class="fab fa-python"></i> Python</span><span aria-hidden="true"><i class="fab fa-python"></i> Django</span><span aria-hidden="true"><i class="fab fa-java"></i> Java</span><span aria-hidden="true"><i class="fab fa-microsoft"></i> C#</span><span aria-hidden="true"><i class="fas fa-database"></i> SQL</span><span aria-hidden="true"><i class="fab fa-js-square"></i> JavaScript</span><span aria-hidden="true"><i class="fab fa-html5"></i> HTML5</span><span aria-hidden="true"><i class="fab fa-css3-alt"></i> CSS3</span><span aria-hidden="true"><i class="fab fa-bootstrap"></i> Bootstrap</span><span aria-hidden="true"><i class="fab fa-git-alt"></i> Git</span><span aria-hidden="true"><i class="fab fa-github"></i> GitHub</span><span aria-hidden="true"><i class="fas fa-code"></i> VS Code</span><span aria-hidden="true"><i class="fas fa-wand-magic-sparkles"></i> Cursor AI</span>
+    </div></div>
+</section>
+
+<section class="features home-overview" aria-labelledby="homeOverviewTitle">
     <div class="container">
+        <div class="home-section-heading"><span class="home-section-kicker">Quick overview</span><h2 id="homeOverviewTitle">The parts of my work that matter most.</h2></div>
         <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-briefcase"></i>
-                </div>
-                <h3>Experience</h3>
-                <p>Check out my professional experience and career journey</p>
-                <a href="{% url 'experience' %}" class="feature-link">View Experience <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-rocket"></i>
-                </div>
-                <h3>Projects</h3>
-                <p>Explore my portfolio of projects and applications</p>
-                <a href="{% url 'projects' %}" class="feature-link">View Projects <i class="fas fa-arrow-right"></i></a>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <i class="fas fa-tools"></i>
-                </div>
-                <h3>Skills</h3>
-                <p>Discover the technologies and tools I work with</p>
-                <a href="{% url 'skills' %}" class="feature-link">View Skills <i class="fas fa-arrow-right"></i></a>
-            </div>
+            <a href="{% url 'about' %}" class="feature-card motion-item"><div class="feature-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></div><h3>Education</h3><p>Computer Science foundation shaped by practical development work.</p><span class="feature-link">Explore background <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+            <a href="{% url 'experience' %}" class="feature-card motion-item"><div class="feature-icon"><i class="fas fa-briefcase" aria-hidden="true"></i></div><h3>Experience</h3><p>National Printing Office OJT and hands-on technical support.</p><span class="feature-link">View experience <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+            <a href="{% url 'projects' %}" class="feature-card motion-item"><div class="feature-icon"><i class="fas fa-rocket" aria-hidden="true"></i></div><h3>Projects</h3><p>TenantFlow and other applications built around real needs.</p><span class="feature-link">See projects <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+            <a href="{% url 'certificates' %}" class="feature-card motion-item"><div class="feature-icon"><i class="fas fa-certificate" aria-hidden="true"></i></div><h3>Certificates</h3><p>39+ trainings across cybersecurity, data, AI, and leadership.</p><span class="feature-link">View certificates <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
+            <a href="{% url 'experience' %}" class="feature-card motion-item"><div class="feature-icon"><i class="fas fa-trophy" aria-hidden="true"></i></div><h3>Leadership</h3><p>Four years coordinating people, documentation, and events.</p><span class="feature-link">View leadership <i class="fas fa-arrow-right" aria-hidden="true"></i></span></a>
         </div>
     </div>
+</section>
+
+<section class="home-featured-project" aria-labelledby="homeProjectTitle">
+    <div class="container"><div class="home-project-layout">
+        <div class="home-project-image motion-item"><img src="{% static 'portfolio/images/homepage.png' %}" alt="TenantFlow rental management system dashboard" loading="lazy"></div>
+        <div class="home-project-copy"><span class="home-section-kicker">Featured project</span><h2 id="homeProjectTitle">TenantFlow</h2><p>A full-stack rental management system for organizing properties, tenants, leases, payments, maintenance, and turnover workflows in one practical platform.</p><div class="home-project-tags"><span>Python</span><span>Django</span><span>JavaScript</span><span>SQL</span></div><div class="home-project-actions"><a href="{% url 'projects' %}" class="btn btn-primary ripple-button"><i class="fas fa-info-circle" aria-hidden="true"></i> View Details</a><a href="https://github.com/calvin2git/SYSTEM-3.0" class="btn btn-secondary ripple-button" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a></div></div>
+    </div></div>
+</section>
+
+<section class="home-highlights" aria-labelledby="homeHighlightsTitle">
+    <div class="container"><div class="home-section-heading"><span class="home-section-kicker">Latest achievements</span><h2 id="homeHighlightsTitle">Proof of momentum.</h2></div><div class="home-highlight-grid">
+        <a href="{% url 'experience' %}" class="home-highlight-card motion-item"><i class="fas fa-trophy" aria-hidden="true"></i><div><strong>Leadership Award</strong><span>Central Student Government</span></div><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        <a href="{% url 'experience' %}" class="home-highlight-card motion-item"><i class="fas fa-building" aria-hidden="true"></i><div><strong>National Printing Office OJT</strong><span>Office and IT support experience</span></div><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        <a href="{% url 'certificates' %}" class="home-highlight-card motion-item"><i class="fas fa-certificate" aria-hidden="true"></i><div><strong>39+ Certificates</strong><span>Continuous learning in technology</span></div><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+    </div></div>
 </section>
 {% endblock %}
 

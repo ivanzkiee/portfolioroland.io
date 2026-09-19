@@ -77,7 +77,7 @@ function initializePortfolioPage() {
     }
 
     const motionItems = document.querySelectorAll(
-        '.timeline-item, .about-timeline-item, .about-detail-card, .about-status-card, .about-objective-card, .about-ai-card, .project-card, .certificate-item, .skill-item, .soft-skill-item, .contact-item, .about-stat, .feature-card, .achievement-card, .honor-item'
+        '.timeline-item, .about-timeline-item, .about-detail-card, .about-status-card, .about-objective-card, .about-ai-card, .home-stat, .home-recruiter-panel, .home-project-image, .home-highlight-card, .project-card, .certificate-item, .skill-item, .soft-skill-item, .contact-item, .about-stat, .feature-card, .achievement-card, .honor-item'
     );
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -183,6 +183,75 @@ function initializePortfolioPage() {
     }
 
     const homeHero = document.querySelector('.hero');
+
+    if (homeHero) {
+        document.body.classList.add('home-page');
+        const homeTypingText = homeHero.querySelector('#homeTypingText');
+        const homeTitles = ['BS Computer Science Graduate', 'Full-Stack Developer', 'Software Engineering Enthusiast', 'IT Support', 'AI-Assisted Developer'];
+        if (homeTypingText && !prefersReducedMotion) {
+            let titleIndex = 0;
+            let characterIndex = homeTitles[0].length;
+            let deleting = true;
+            const typeHomeTitle = function () {
+                const title = homeTitles[titleIndex];
+                characterIndex += deleting ? -1 : 1;
+                homeTypingText.textContent = title.slice(0, characterIndex);
+                if (characterIndex === 0) {
+                    deleting = false;
+                    titleIndex = (titleIndex + 1) % homeTitles.length;
+                } else if (characterIndex === title.length) {
+                    deleting = true;
+                }
+                window.setTimeout(typeHomeTitle, deleting ? 48 : 82);
+            };
+            window.setTimeout(typeHomeTitle, 1500);
+        }
+
+        const homeCounters = homeHero.querySelectorAll('[data-home-counter]');
+        const animateHomeCounters = function () {
+            homeCounters.forEach(function (counter) {
+                const target = Number(counter.dataset.homeCounter);
+                const suffix = counter.dataset.suffix || '';
+                const start = performance.now();
+                const update = function (now) {
+                    const progress = Math.min((now - start) / 850, 1);
+                    counter.textContent = `${Math.round(target * (1 - Math.pow(1 - progress, 3)))}${suffix}`;
+                    if (progress < 1) window.requestAnimationFrame(update);
+                };
+                window.requestAnimationFrame(update);
+            });
+        };
+        const homeStats = homeHero.querySelector('.home-stats');
+        if (homeStats && 'IntersectionObserver' in window && !prefersReducedMotion) {
+            const homeCounterObserver = new IntersectionObserver(function (entries, observer) {
+                if (entries.some(entry => entry.isIntersecting)) {
+                    animateHomeCounters();
+                    observer.disconnect();
+                }
+            }, { threshold: 0.3 });
+            homeCounterObserver.observe(homeStats);
+        } else {
+            homeCounters.forEach(counter => counter.textContent = `${counter.dataset.homeCounter}${counter.dataset.suffix || ''}`);
+        }
+
+        homeHero.querySelectorAll('[data-assistant-question]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                document.dispatchEvent(new CustomEvent('ask-roland-question', { detail: { question: button.dataset.assistantQuestion } }));
+            });
+        });
+    }
+
+    document.querySelectorAll('.ripple-button').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            const ripple = document.createElement('span');
+            ripple.className = 'button-ripple';
+            const bounds = button.getBoundingClientRect();
+            ripple.style.left = `${event.clientX - bounds.left}px`;
+            ripple.style.top = `${event.clientY - bounds.top}px`;
+            button.appendChild(ripple);
+            window.setTimeout(() => ripple.remove(), 500);
+        });
+    });
 
     if (homeHero && !prefersReducedMotion) {
         document.body.classList.add('home-interactive');
