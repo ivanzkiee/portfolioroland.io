@@ -13,7 +13,7 @@
 
 <section class="about-section">
     <div class="container">
-        <div class="about-content">
+        <div class="about-hero about-content">
             <div class="about-image">
                 <img src="{% static 'portfolio/images/roland.jpg' %}" 
                      alt="Roland Ivan M. Palasigue" 
@@ -24,44 +24,94 @@
                 </div>
             </div>
             <div class="about-text">
+                <span class="about-kicker">Bachelor of Science in Computer Science Graduate</span>
                 <h2>Hello, I'm Roland Ivan M. Palasigue</h2>
-                <p>
-                    I am a fresh graduate with a Bachelor of Science in Computer Science from STI College Muñoz-EDSA, Quezon City, with a strong passion for web development, software engineering, and technology innovation. I am eager to begin my professional career in the IT industry, where I can apply my knowledge, strengthen my technical and problem-solving skills, and contribute to impactful projects in a dynamic work environment.
-                </p>
-                <p>
-                    My academic journey began with a background in Mobile Application and Web Development (2020–2022), where I built a solid foundation in programming and web technologies. This foundation led to the development of my capstone project, TenantFlow, a comprehensive web-based rental management system. This project showcased my full-stack development skills using HTML, CSS, JavaScript, and Django, and allowed me to gain hands-on experience in frontend design, backend development, system testing, and documentation.
-                </p>
-                <p>
-                    In addition, I completed my On-the-Job Training at the National Printing Office from March 2026 to May 2026, where I gained practical experience in an office and IT support environment. My responsibilities included scanning and organizing documents, managing digital file records, assisting with basic troubleshooting of computer systems, and supporting administrative and technical tasks. This experience enhanced my attention to detail, adaptability, and ability to work efficiently in a professional setting.
-                </p>
-                <p>
-                    I have technical proficiency in multiple programming languages and technologies, including Java, C#, SQL, Android development, and web development tools such as HTML, CSS, JavaScript, and Django. I am also skilled in using productivity tools like Microsoft Office 365 and Google Workspace, with additional experience in basic network troubleshooting and hardware/software maintenance.
-                </p>
-                <p>
-                    In addition to my academic background, I have completed an estimated 39+ certificates, trainings, and seminars, including school-issued hardcopy certificates from Senior High School through tertiary education. These include training in cybersecurity, data science, artificial intelligence for business, leadership, and digital citizenship from organizations such as DICT, HP Foundation, Oracle Academy, and Cisco Networking Academy.
-                </p>
-                <p>
-                    I also bring strong leadership and organizational experience through my involvement in the Central Student Government (CSG), where I served as Computer Science Representative, Secretary, and Vice President for External Affairs and Technical Committee Head. In these roles, I managed documentation, coordinated technical requirements for events, and helped organize programs with over 300 participants, demonstrating my ability to lead, collaborate, and execute projects effectively.
-                </p>
-                <p>
-                    I am a proactive and adaptable individual with strong communication, teamwork, and time management skills. I am highly motivated to contribute to a forward-thinking organization while continuously learning and growing as an IT professional.
-                </p>
-                <div class="about-stats">
-                    <div class="stat-item">
-                        <h3>39+</h3>
-                        <p>Estimated Certificates, Trainings & Seminars</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>4+</h3>
-                        <p>Years in CSG Leadership</p>
-                    </div>
-                    <div class="stat-item">
-                        <h3>Active</h3>
-                        <p>Seeking Entry-Level Job Opportunities</p>
-                    </div>
+                <p class="about-roles"><span id="aboutTypingText">Aspiring Software Engineer</span><span class="typing-cursor" aria-hidden="true">|</span></p>
+                <p class="about-lead">I am passionate about building web applications, solving real-world problems, and continuously learning new technologies. I enjoy transforming ideas into practical, user-friendly solutions while expanding my technical and professional skills.</p>
+                <div class="about-read-more is-collapsed" id="aboutMoreContent" aria-hidden="true">
+                    <p>My foundation spans web and mobile application development, with hands-on practice in HTML, CSS, JavaScript, Python, Django, Java, C#, and SQL. I am ready to contribute to a practical team where thoughtful problem-solving and reliable delivery matter.</p>
+                    <p>Outside development, I bring experience in documentation, basic troubleshooting, and event technology operations. My four years in Central Student Government strengthened my communication, coordination, and leadership skills.</p>
                 </div>
+                <button type="button" class="about-read-button" aria-expanded="false" aria-controls="aboutMoreContent"><span>Read More</span> <i class="fas fa-chevron-down" aria-hidden="true"></i></button>
             </div>
         </div>
+
+        <div class="about-stats" aria-label="Career highlights">
+            <div class="stat-item about-stat"><span class="stat-icon" aria-hidden="true"><i class="fas fa-graduation-cap"></i></span><strong data-counter="1">0</strong><p>BS Computer Science Graduate</p></div>
+            <div class="stat-item about-stat"><span class="stat-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></span><strong data-counter="1">0</strong><p>OJT Completed</p></div>
+            <div class="stat-item about-stat"><span class="stat-icon" aria-hidden="true"><i class="fas fa-rocket"></i></span><strong data-counter="1">0</strong><p>Full-Stack Developer</p></div>
+            <div class="stat-item about-stat"><span class="stat-icon" aria-hidden="true"><i class="fas fa-trophy"></i></span><strong data-counter="4" data-suffix="+">0</strong><p>Years of Student Leadership</p></div>
+            <div class="stat-item about-stat"><span class="stat-icon" aria-hidden="true"><i class="fas fa-certificate"></i></span><strong data-counter="39" data-suffix="+">0</strong><p>Certificates &amp; Trainings</p></div>
+            <div class="stat-item about-stat"><span class="stat-icon" aria-hidden="true"><i class="fas fa-code"></i></span><strong data-counter="6" data-suffix="+">0</strong><p>Programming Languages</p></div>
+        </div>
+
+        <div class="about-details" aria-label="Professional overview">
+            <article class="about-detail-card motion-item">
+                <button type="button" class="about-detail-toggle" aria-expanded="false" aria-controls="aboutEducation"><span class="about-detail-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span><span><strong>Education</strong><small>BS Computer Science at STI College Munoz-EDSA</small></span><i class="fas fa-plus" aria-hidden="true"></i></button>
+                <div class="about-detail-panel" id="aboutEducation" hidden><p>Graduated with a Bachelor of Science in Computer Science after building a strong foundation in software development, databases, and web technologies.</p><a class="about-detail-link" href="{% url 'resume' %}">View Details <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+            </article>
+            <article class="about-detail-card motion-item">
+                <button type="button" class="about-detail-toggle" aria-expanded="false" aria-controls="aboutExperience"><span class="about-detail-icon"><i class="fas fa-briefcase" aria-hidden="true"></i></span><span><strong>Experience</strong><small>National Printing Office OJT, March-May 2026</small></span><i class="fas fa-plus" aria-hidden="true"></i></button>
+                <div class="about-detail-panel" id="aboutExperience" hidden><p>Supported document organization, digital records, basic computer troubleshooting, and administrative workflows in a professional office environment.</p><a class="about-detail-link" href="{% url 'experience' %}">View Experience <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+            </article>
+            <article class="about-detail-card motion-item">
+                <button type="button" class="about-detail-toggle" aria-expanded="false" aria-controls="aboutProjects"><span class="about-detail-icon"><i class="fas fa-rocket" aria-hidden="true"></i></span><span><strong>Projects</strong><small>TenantFlow full-stack rental system</small></span><i class="fas fa-plus" aria-hidden="true"></i></button>
+                <div class="about-detail-panel" id="aboutProjects" hidden><p>TenantFlow brings tenant, lease, payment, maintenance, and turnover workflows into one Django-powered web application.</p><a class="about-detail-link" href="{% url 'projects' %}">View Projects <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+            </article>
+            <article class="about-detail-card motion-item">
+                <button type="button" class="about-detail-toggle" aria-expanded="false" aria-controls="aboutLeadership"><span class="about-detail-icon"><i class="fas fa-users" aria-hidden="true"></i></span><span><strong>Leadership</strong><small>Four years in Central Student Government</small></span><i class="fas fa-plus" aria-hidden="true"></i></button>
+                <div class="about-detail-panel" id="aboutLeadership" hidden><p>Served as Computer Science Representative, Secretary, and Vice President for External Affairs and Technical Committee Head, supporting programs with 300+ participants.</p><a class="about-detail-link" href="{% url 'experience' %}">View Leadership <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+            </article>
+            <article class="about-detail-card motion-item">
+                <button type="button" class="about-detail-toggle" aria-expanded="false" aria-controls="aboutCertifications"><span class="about-detail-icon"><i class="fas fa-certificate" aria-hidden="true"></i></span><span><strong>Certifications</strong><small>39+ certificates, trainings, and seminars</small></span><i class="fas fa-plus" aria-hidden="true"></i></button>
+                <div class="about-detail-panel" id="aboutCertifications" hidden><p>Completed learning in cybersecurity, data science, AI for business, leadership, and digital citizenship through DICT, HP Foundation, Oracle Academy, and Cisco Networking Academy.</p><a class="about-detail-link" href="{% url 'certificates' %}">View Certificates <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+            </article>
+            <article class="about-detail-card career-goal-card motion-item">
+                <div class="about-detail-toggle static-detail"><span class="about-detail-icon"><i class="fas fa-bullseye" aria-hidden="true"></i></span><span><strong>Career Goal</strong><small>Ready for an entry-level IT opportunity</small></span></div>
+                <div class="about-detail-panel is-open"><p>To grow as a software engineer or IT professional while building dependable solutions, supporting users, and learning from a collaborative team.</p></div>
+            </article>
+        </div>
+
+        <div class="about-support-grid">
+            <article class="about-status-card motion-item">
+                <div class="about-section-heading"><span class="about-section-kicker">Current status</span><h2><span class="status-dot" aria-hidden="true"></span> Currently</h2></div>
+                <ul class="about-status-list">
+                    <li>Open to Entry-Level Opportunities</li>
+                    <li>Actively Improving My Portfolio</li>
+                    <li>Learning Modern Web Technologies</li>
+                    <li>Exploring AI-Assisted Development</li>
+                </ul>
+            </article>
+            <article class="about-objective-card motion-item">
+                <span class="about-section-kicker">Career objective</span>
+                <h2>Building useful software with room to grow.</h2>
+                <p>Seeking an entry-level opportunity where I can contribute my technical skills, continue learning, and grow as a software developer while creating meaningful solutions for users and organizations.</p>
+            </article>
+        </div>
+
+        <section class="about-timeline" aria-labelledby="aboutTimelineTitle">
+            <div class="about-section-heading"><span class="about-section-kicker">Career timeline</span><h2 id="aboutTimelineTitle">A foundation built through practice.</h2></div>
+            <div class="about-timeline-track">
+                <article class="about-timeline-item motion-item"><span class="about-timeline-year">2020</span><div><h3>IT - Mobile Application &amp; Web Development</h3><p>Built an early foundation in programming and web technologies.</p></div></article>
+                <article class="about-timeline-item motion-item"><span class="about-timeline-year">2022</span><div><h3>Started Bachelor of Science in Computer Science</h3><p>Expanded my software development and problem-solving skills.</p></div></article>
+                <article class="about-timeline-item motion-item"><span class="about-timeline-year">2025</span><div><h3>Developed TenantFlow Capstone Project</h3><p>Created a full-stack rental management system using Django.</p></div></article>
+                <article class="about-timeline-item motion-item"><span class="about-timeline-year">2026</span><div><h3>Completed On-the-Job Training</h3><p>National Printing Office, with experience in records and basic IT support.</p></div></article>
+                <article class="about-timeline-item motion-item"><span class="about-timeline-year">2026</span><div><h3>Graduated</h3><p>Completed the Bachelor of Science in Computer Science.</p></div></article>
+                <article class="about-timeline-item motion-item"><span class="about-timeline-year">Present</span><div><h3>Open for Work</h3><p>Ready to contribute to a collaborative IT or software team.</p></div></article>
+            </div>
+        </section>
+
+        <div class="about-lower-grid">
+            <section class="about-chip-section" aria-labelledby="interestsTitle"><div class="about-section-heading"><span class="about-section-kicker">Technical interests</span><h2 id="interestsTitle">What I like building.</h2></div><div class="about-chip-grid"><span><i class="fas fa-globe" aria-hidden="true"></i> Web Development</span><span><i class="fas fa-server" aria-hidden="true"></i> Backend Development</span><span><i class="fas fa-database" aria-hidden="true"></i> Database Design</span><span><i class="fas fa-code" aria-hidden="true"></i> Software Engineering</span><span><i class="fas fa-cogs" aria-hidden="true"></i> Automation</span><span><i class="fas fa-pen-nib" aria-hidden="true"></i> UI/UX</span><span><i class="fas fa-robot" aria-hidden="true"></i> AI-Assisted Development</span></div></section>
+            <section class="about-chip-section" aria-labelledby="valuesTitle"><div class="about-section-heading"><span class="about-section-kicker">Core values</span><h2 id="valuesTitle">How I work.</h2></div><div class="about-value-grid"><span>Problem Solving</span><span>Continuous Learning</span><span>Adaptability</span><span>Leadership</span><span>Attention to Detail</span><span>Teamwork</span></div></section>
+        </div>
+
+        <div class="about-life-grid">
+            <section class="about-life-card" aria-labelledby="outsideCodingTitle"><span class="about-section-kicker">Outside of coding</span><h2 id="outsideCodingTitle">Curiosity has more than one outlet.</h2><p>Outside of coding, I enjoy singing, exploring technology, troubleshooting computers, and appreciating classic audio equipment. These hobbies help strengthen my creativity, patience, and curiosity.</p><div class="about-life-icons" aria-label="Outside interests"><i class="fas fa-microphone" title="Singing" aria-label="Singing"></i><i class="fas fa-headphones" title="Classic audio equipment" aria-label="Classic audio equipment"></i><i class="fas fa-tools" title="Troubleshooting computers" aria-label="Troubleshooting computers"></i><i class="fas fa-lightbulb" title="Exploring technology" aria-label="Exploring technology"></i></div></section>
+            <section class="about-life-card" aria-labelledby="languagesTitle"><span class="about-section-kicker">Languages</span><h2 id="languagesTitle">Ready to collaborate.</h2><div class="about-language-list"><span>🇵🇭 Filipino</span><span>🇺🇸 English</span></div></section>
+        </div>
+
+        <section class="about-ai-card motion-item" aria-labelledby="aboutAiTitle"><div><span class="about-section-kicker">Ask Roland AI</span><h2 id="aboutAiTitle">Want the quick version?</h2><p>Ask the existing portfolio assistant about my background, strengths, experience, or leadership.</p></div><div class="about-ai-questions"><button type="button" class="about-ai-button" data-assistant-question="Tell me about Roland."><i class="fas fa-comment-dots" aria-hidden="true"></i> Ask Roland AI About Me</button><div class="about-ai-suggestions" aria-label="Suggested questions"><button type="button" data-assistant-question="Tell me about Roland.">Tell me about Roland.</button><button type="button" data-assistant-question="What are Roland's strongest technical skills?">What are Roland's strongest technical skills?</button><button type="button" data-assistant-question="Tell me about Roland's OJT experience.">Tell me about Roland's OJT experience.</button><button type="button" data-assistant-question="What leadership experience does Roland have?">What leadership experience does Roland have?</button><button type="button" data-assistant-question="Why should we hire Roland?">Why should we hire Roland?</button></div></div></section>
     </div>
 </section>
 {% endblock %}

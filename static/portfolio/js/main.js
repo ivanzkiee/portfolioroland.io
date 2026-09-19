@@ -77,8 +77,9 @@ function initializePortfolioPage() {
     }
 
     const motionItems = document.querySelectorAll(
-        '.timeline-item, .project-card, .certificate-item, .skill-item, .soft-skill-item, .contact-item, .about-stat, .feature-card, .achievement-card, .honor-item'
+        '.timeline-item, .about-timeline-item, .about-detail-card, .about-status-card, .about-objective-card, .about-ai-card, .project-card, .certificate-item, .skill-item, .soft-skill-item, .contact-item, .about-stat, .feature-card, .achievement-card, .honor-item'
     );
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     document.documentElement.classList.add('motion-ready');
 
@@ -101,8 +102,87 @@ function initializePortfolioPage() {
         motionItems.forEach(item => item.classList.add('is-visible'));
     }
 
+    const aboutSection = document.querySelector('.about-section');
+    if (aboutSection) {
+        aboutSection.querySelectorAll('[data-assistant-question]').forEach(function (button) {
+            button.addEventListener('click', function () {
+                document.dispatchEvent(new CustomEvent('ask-roland-question', {
+                    detail: { question: button.dataset.assistantQuestion }
+                }));
+            });
+        });
+        const typingText = aboutSection.querySelector('#aboutTypingText');
+        const titles = ['Aspiring Software Engineer', 'Full-Stack Developer', 'IT Support Enthusiast'];
+        if (typingText && !prefersReducedMotion) {
+            let titleIndex = 0;
+            let characterIndex = titles[0].length;
+            let deleting = true;
+            const typeTitle = function () {
+                const title = titles[titleIndex];
+                characterIndex += deleting ? -1 : 1;
+                typingText.textContent = title.slice(0, characterIndex);
+                if (characterIndex === 0) {
+                    deleting = false;
+                    titleIndex = (titleIndex + 1) % titles.length;
+                } else if (characterIndex === title.length) {
+                    deleting = true;
+                }
+                window.setTimeout(typeTitle, deleting ? 55 : 90);
+            };
+            window.setTimeout(typeTitle, 1500);
+        }
+        const readButton = aboutSection.querySelector('.about-read-button');
+        const readMore = aboutSection.querySelector('#aboutMoreContent');
+        if (readButton && readMore) {
+            readButton.addEventListener('click', function () {
+                const expanded = readButton.getAttribute('aria-expanded') === 'true';
+                readButton.setAttribute('aria-expanded', String(!expanded));
+                readButton.querySelector('span').textContent = expanded ? 'Read More' : 'Show Less';
+                readMore.classList.toggle('is-collapsed', expanded);
+                readMore.setAttribute('aria-hidden', String(expanded));
+            });
+        }
+
+        aboutSection.querySelectorAll('.about-detail-toggle:not(.static-detail)').forEach(function (toggle) {
+            toggle.addEventListener('click', function () {
+                const panel = document.getElementById(toggle.getAttribute('aria-controls'));
+                const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                if (!panel) return;
+                toggle.setAttribute('aria-expanded', String(!expanded));
+                panel.hidden = expanded;
+            });
+        });
+
+        const counters = aboutSection.querySelectorAll('[data-counter]');
+        const animateCounters = function () {
+            counters.forEach(function (counter) {
+                const target = Number(counter.dataset.counter);
+                const suffix = counter.dataset.suffix || '';
+                const duration = 850;
+                const start = performance.now();
+                const update = function (now) {
+                    const progress = Math.min((now - start) / duration, 1);
+                    counter.textContent = `${Math.round(target * (1 - Math.pow(1 - progress, 3)))}${suffix}`;
+                    if (progress < 1) window.requestAnimationFrame(update);
+                };
+                window.requestAnimationFrame(update);
+            });
+        };
+        if ('IntersectionObserver' in window && !prefersReducedMotion) {
+            const counterObserver = new IntersectionObserver(function (entries, observer) {
+                if (entries.some(entry => entry.isIntersecting)) {
+                    animateCounters();
+                    observer.disconnect();
+                }
+            }, { threshold: 0.35 });
+            const stats = aboutSection.querySelector('.about-stats');
+            if (stats) counterObserver.observe(stats);
+        } else {
+            counters.forEach(counter => counter.textContent = `${counter.dataset.counter}${counter.dataset.suffix || ''}`);
+        }
+    }
+
     const homeHero = document.querySelector('.hero');
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (homeHero && !prefersReducedMotion) {
         document.body.classList.add('home-interactive');
@@ -497,6 +577,13 @@ function initAssistant() {
             addMessage(findAnswer(trimmedQuestion), 'assistant');
         }, delay);
     }
+
+    document.addEventListener('ask-roland-question', event => {
+        if (event.detail && event.detail.question) {
+            setOpen(true);
+            ask(event.detail.question);
+        }
+    });
 
     function renderSuggestions() {
         suggestions.innerHTML = '';
